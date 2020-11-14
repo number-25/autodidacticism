@@ -1,9 +1,7 @@
-<img src="https://i.pinimg.com/originals/b4/a9/54/b4a954b986a50a1a660c38f411ef90c6.jpg" height="400" width="900" align="center">
-
-https://i.pinimg.com/originals/b4/a9/54/b4a954b986a50a1a660c38f411ef90c6.jpg
+<img src="https://res.akamaized.net/domain/image/fetch/c_fill,h_630,w_1200/https://static.domain.com.au/cre/production/2016/12/nationallibraryczechrepublic.jpg" height="350" width="900" align="center">
 
 
-https://res.akamaized.net/domain/image/fetch/c_fill,h_630,w_1200/https://static.domain.com.au/cre/production/2016/12/nationallibraryczechrepublic.jpg
+
 
 # Computational Biology for Autodidacts
 A collection of resources that I have used (and hereby endorse) for those looking to teach themselves Computational Biology, as well as the branching disciplines which greatly influence comp. bio., such as Probability, Information Theory, Mathematics and so on. 
