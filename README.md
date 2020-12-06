@@ -44,3 +44,6 @@ One of the most empowering developments to come out of bioinformatics/computatio
 
 
 ## Courses 
+
+### Computationl and Systems Biology 
+I can't be the only one who's jaw hits the floor when they see how rich MIT Open Course Ware has become, and how far back their content reaches in time. There are perhaps no better examples of the spirit of education than this initiative. Free lectures by some of the worlds top thinkers? You've gotta be fucking kidding me. MIT Open Courserware was made for auto-didacts, there is little more you could ask for when seeking to educate yourself. Detailed course structures and trajectories, additional recommended readings, good quality videos, and no pay walls - yes! 
