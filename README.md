@@ -45,7 +45,7 @@ One of the most empowering developments to come out of bioinformatics/computatio
 
 ## Courses 
 
-### Foundations of Computational and Systems Biology 
+#### Foundations of Computational and Systems Biology 
 I can't be the only one who's jaw hits the floor when they see how rich MIT Open Course Ware has become, and how far back their content reaches in time. There are perhaps no better examples of the spirit of education than this initiative. Free lectures by some of the worlds top thinkers? You've gotta be kidding me. MIT Open Courserware was made for auto-didacts, there is little more you could ask for when seeking to educate yourself. Detailed course structures and trajectories, additional recommended readings, good quality videos, and no pay walls - yes!  
 
 This course is run by a couple of great educators (Christopher Burge, David Gifford &amp; Ernest Fraenkel), who are also highly capable Scientists in their own right. For one, Chris Burge is one of the pioneers of *ab initio* gene prediction, a highly successful paradigm which allowed us to understand and annotate much of the early high throughput sequencing data. He is also centrally involved in the popular "Mixture of Isoforms" [(MISO)](https://sci-hub.st/10.1038/nmeth.1528) package. I recommend watching each lecture closely and definitely reading the accompanying writings. This is quite the intensive program if you decide to apply yourself, and it covers a sufficiently broad sweep of the field to give you the confidence to move forwards.  
