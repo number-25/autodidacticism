@@ -39,9 +39,13 @@ One of the most empowering developments to come out of bioinformatics/computatio
 * Most recommended for beginners/entry level
 * [https://www.biostarhandbook.com/](https://www.biostarhandbook.com)
 
+#### Computational Biology: A HyperTextbook
 
+In searching for a beginner level computational biology text that was up to date with more recent developments in the field, I found it surprisingly difficult to track anything down that was released less than 5 years ago. Either the text's were focused on a specific section of comp. bio., such as sequence matching algorithms, or they were highly recommended relics released at the advent of high throughput sequencing - classics indeed, but insufficient for a wholesome entry into the current field. Scrolling through twitter I saw a recommendation for Scott Kelly's and Denis Didulo's "Computational Biology: A Hypertextbook" - it seemed to tick all the boxes. Despite the lack of reviews and anecdotes, I took the chance and purchased the e-book. Given it's main selling point is that it is a Hypertext-book, I figured using the print form would be too clunky. So far I am very happy with the purchase - it is generalised enough for a beginner, yet still specific in ways that Biostars isn't. For example it has chapters on essentials such as how exactly the Smith-Waterman algorithm functions and so on. An excellent reference text which deserves more attention! My biggest hunch here is not with the textbook exactly, but rather with the ebook medium which it uses - a service called VitalSource, a underpowered platform which allows you to purchase books on how to use linux, only to then realise that their standalone offline apps do not come with Linux compatibility!! How you would open the book on Linux if you lacked internet connection is a mystery to me. Either way - the book is great. 
 
-
+* Recommended for beginners/entry level 
+* [https://www.amazon.com.au/Computational-Biology-Hypertextbook-Scott-Kelley/dp/1683670027](https://www.amazon.com.au/Computational-Biology-Hypertextbook-Scott-Kelley/dp/1683670027)
+* [Kelley](http://www.bio.sdsu.edu/faculty/kelley/scottkelley.html) lab
 
 ## Courses 
 
