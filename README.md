@@ -1,4 +1,4 @@
-<img src="https://abfabrugcleaning.co.uk/wp-content/uploads/2015/06/Rug-Cleaning-Header-Default.jpg" height="" width="900" align="center">
+<img src="https://abfabrugcleaning.co.uk/wp-content/uploads/2015/06/Rug-Cleaning-Header-Default.jpg" height="" width="1200" align="center">
 
 
 
