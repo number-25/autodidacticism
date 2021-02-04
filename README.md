@@ -11,7 +11,7 @@ I will also include a separate list of resources that I have come across and bee
 
 The main home of this webpage is over at my website ["Kobe and Pascal"](https://kobeandpascal.com/computational-biology-for-autodidacts/)
 
-## Books and eBooks
+## The Command Line 
 
 ### Unix-Linux
 #### Unix Workbench
@@ -31,7 +31,7 @@ This is a companion resource to Unix Workbench, it begins at the same skill leve
 * [Learn Enough Command Line to Be Dangerous](https://www.learnenough.com/command-line-tutorial/basics) by [Michael Hartl](https://www.michaelhartl.com/).
 * Free online.
 
-### Specific Computational Biology Texts
+## Specific Computational Biology Texts
 #### Biostars Handbook
 
 One of the most empowering developments to come out of bioinformatics/computational biology education is [Biostars](https://www.biostars.org/). I would put my money on it that the word "Biostars" is familiar to every single student in this field. The legendary forum for finding answers to what seems to be, every practical question you could think of. [Istvan Albert](https://github.com/ialbert) and his colleagues have gone ahead and condensed their understanding into the Biostar Handbook, which, at a very reasonable price (especially when it comes to textbooks) brings you up to speed, and in my opinion, gets you very close to being competent and independent. What I love most about this book is its brutal honesty, its transparency and its emphasis of diligence and patience. They have slowly started breaking the book up into more specific and parcelized mini-books that focus on a particular topic. Another big benefit of this is that Istvan generously provides full access to his University lectures, which are also terrific.  
@@ -62,3 +62,13 @@ If you've had to do play around with .bam and .bed files than you've very likely
 
 * Beginner/ entry level 
 * Head over to [https://github.com/quinlan-lab/applied-computational-genomics](https://github.com/quinlan-lab/applied-computational-genomics)
+
+## Mathematics, Probability, and Statistics
+Coming from Biology, a field closely wedded to the qualitative aspects of Scientific inference, where our formal training for the most part omits many of the approaches utilised by the 'harder sciences', the transition to the quantitative world has perhaps been the most challenging part of this. In some respects, you must undergo a great change in how you approach problems, how you approach data and measures, and your relationship to truth and validity. Much of this can be uncomfortable, as you must confront the fragility of your prior approaches to questions. Personally, this is an ongoing project which demands a lot of effort and grit. I have immensely appreciated this change in my thought processes, and am very grateful that it has taken place. The world is a bigger place now than it ever was. A world where precision, consistency, and repetition are emphasised. You will likely develop an obsession with priors, and with starting assumptions. Sometimes before we can even approach a problem, we must sketch out some vague axioms we believe to be important. Unfortunately, these topics are taught in notoriously bland ways across campuses alike - they are premature, are forced, and very often, the student barely has any confidence in their own logic and reasoning. Such courses may at times skip over the very basic reason for using tools such as probability theory in the first place; to make *better* decisions in the presence of uncertainty.
+
+### Statistics
+#### Intuitive Biostatistics: A Nonmathematical Guide to Statistical Thinking
+I believe this is the most comfortable introduction to conceptualising problems, and answers, in a more quantitative manner. As the title outlines, this book is almost purely built on intuitive explanations of key, widely used procedures in statistics. It explains what x is, when you would do x, why you would do it, why you wouldn't, and more appropriately, the assumptions and biases associated with x. If you're afraid of equations (overcome this fear as soon as possible, there is nothing to fear), you'll be given that first bit of confidence that should then give you the enthusiasm and energy to continue developing. The language here is very clear, very direct, very concise and to the point. The text is very honest, and works hard to provide bountiful examples of both good and bad uses of statistics in the literature. You will enjoy working through it, trust! The author Harvey Motulsky is the founder of [GraphPad](https://www.graphpad.com/company/) Statistical Analysis software, so you may have already come across his creations without knowing! There is also a smaller streamlined text from Harvey called "Essential Biostatistics", which is also worth reading if you just need a straight forward and reduced explanation. One last note, this book leans heavily towards biomedical research, and so most of the examples pull directly from this field. Strongly recommended. 
+
+* PERFECT for absolute beginners. Great reference to have on hand for those more familiar. 
+* I must admit, the book is not [cheap](https://www.bookdepository.com/Intuitive-Biostatistics-Harvey-Motulsky/9780190643560?ref=grid-view&amp;qid=1612414949560&amp;sr=1-1), and the smaller "Essential" book is just not worth buying - it is an anorexic ~150 pages of widely spaced formatting. I used library copies for both until I had enough savings to purchase the larger of the two books. If you prefer eBooks than I'd go looking.
