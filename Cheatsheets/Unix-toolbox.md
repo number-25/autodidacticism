@@ -25,7 +25,6 @@ done
 
 
 2) Rename all files in a directory - nice as it incorporates use of a loop, a glob, and a wee bit more complex use of a variables
-
 ``
 for x in *.xml; do 
   t=$(echo $x | sed 's/\.xml$/.txt/'); 
@@ -35,26 +34,17 @@ done
 
 3) Generate a random FASTA sequence - what this really means is up for debate.
 If it mirrors any genomic sequences or not - anyways. 
-
 ``   
 paste -d '\n' <(for i in {01..30}; do echo ">seq$i"; done) <( cat /dev/urandom
 | tr -dc 'ATCG' | fold -w 300 | head -n 30 ) > output.fasta 
 ``  
 
-4) Extract FASTA headers.    
+4) Extract FASTA headers    
 ``
 grep "^>" input.fasta | sed -e "s/>//" > headers.txt
-grep -oP "(?<=^>).*$" input.fasta > headers.txt  # Fancy regex called "positive
-lookbehind"
+grep -oP "(?<=^>).*$" input.fasta > headers.txt  # This method uses the fancy
+RegEX terminology called "look ahead".  
 ``
-
-5) Unwrap a FASTA file using a perl one-liner. 
-`perl -pe '$. > 1 and /^>/ ? print "\n" : chomp' in.fasta > out.fasta` 
-Awk alternative.    
-`awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);}  END
-{printf("\n");}' < file.fa`     
-
-
 
 ## Variables, filenames and symbolic links 
 
@@ -114,16 +104,30 @@ formatted *something_fastq* then we would specify `%%_*` instead.
   done 
 ``   
 
+Let's loop over a list of files and remove both the basename prefix and the
+suffix file extension.
+``for f in Samples/*.txt ; do FILENAME=`basename ${f%%.*}`; echo ${FILENAME}; done
+``     
+This example combines multiple simple unix commands and procedures - the for
+loop, glob matching, variable assignment, and finally the basename and suffix
+removal. 
+
+## Variable Assignment 
+
+### Complex Usage 
 
 
 
 
 
 
+## Resources 
+
+https://learnmetabarcoding.github.io/LearnMetabarcoding/gettingstarted/cli_bioinformatics/cheatsheet.html
+https://www.metagenomics.wiki/tools/ubuntu-linux/shell-loop
+https://lh3lh3.users.sourceforge.net/biounix.shtml
 
 
-## Resource used
-https://learnmetabarcoding.github.io/LearnMetabarcoding/gettingstarted/cli_bioinformatics/cheatsheet.html`
 
 
 
