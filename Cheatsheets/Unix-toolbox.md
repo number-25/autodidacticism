@@ -41,11 +41,20 @@ paste -d '\n' <(for i in {01..30}; do echo ">seq$i"; done) <( cat /dev/urandom
 | tr -dc 'ATCG' | fold -w 300 | head -n 30 ) > output.fasta 
 ``  
 
-4) Extract FASTA headers    
+4) Extract FASTA headers.    
 ``
 grep "^>" input.fasta | sed -e "s/>//" > headers.txt
-grep -oP "(?<=^>).*$" input.fasta > headers.txt
+grep -oP "(?<=^>).*$" input.fasta > headers.txt  # Fancy regex called "positive
+lookbehind"
 ``
+
+5) Unwrap a FASTA file using a perl one-liner. 
+`perl -pe '$. > 1 and /^>/ ? print "\n" : chomp' in.fasta > out.fasta` 
+Awk alternative.    
+`awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);}  END
+{printf("\n");}' < file.fa`     
+
+
 
 ## Variables, filenames and symbolic links 
 
@@ -113,7 +122,8 @@ formatted *something_fastq* then we would specify `%%_*` instead.
 
 
 
-
+## Resource used
+https://learnmetabarcoding.github.io/LearnMetabarcoding/gettingstarted/cli_bioinformatics/cheatsheet.html`
 
 
 
