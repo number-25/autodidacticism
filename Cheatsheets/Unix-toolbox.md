@@ -33,9 +33,19 @@ for x in *.xml; do
 done
 ```
 
+3) Generate a random FASTA sequence - what this really means is up for debate.
+If it mirrors any genomic sequences or not - anyways. 
 
+``   
+paste -d '\n' <(for i in {01..30}; do echo ">seq$i"; done) <( cat /dev/urandom
+| tr -dc 'ATCG' | fold -w 300 | head -n 30 ) > output.fasta 
+``  
 
-
+4) Extract FASTA headers    
+``
+grep "^>" input.fasta | sed -e "s/>//" > headers.txt
+grep -oP "(?<=^>).*$" input.fasta > headers.txt
+``
 
 ## Variables, filenames and symbolic links 
 
@@ -69,6 +79,38 @@ Create a symlink for a file - `ln -s /path/to/file.txt file.txt`
 A link to a folder - `ln -s /path/to/folder foldername`  
 Remove a synlink - `unlink /path/to/symlink`    
 Find broken links - `find /path/home -xtype l` and all `-delete` option to remove them.    
+
+
+### Prefix-Suffix Removal
+
+Pretty nicely demonstrated here
+``
+prefix="hell"
+suffix="ld"
+string="hello-world"
+foo=${string#"$prefix"}
+foo=${foo%"$suffix"}
+echo "${foo}"
+o-wor
+``
+
+Examples: 
+Remove the suffix when outputting a file into a new format. Pay close attention
+to the `%%.**` string, which essentially tells the program to %% remove
+everything after and including the *.* character. If the input files were
+formatted *something_fastq* then we would specify `%%_*` instead.   
+
+`` for f in *.fastq ; do 
+    minimap2 -options ${f} > ${f%%.*}.sam 
+  done 
+``   
+
+
+
+
+
+
+
 
 
 
