@@ -119,7 +119,42 @@ removal.
 
 
 
+## Looping 
+### For Loops
 
+Perform operations on files from file list. The trick here is to encapsulate a
+*cat* command and insert it right after the *in* section of the for loop.  
+`for f in `cat filelist.txt`; do minimap2 -in ${f} -out ${f%%.*}.sam ; done`  
+
+Exclude samples that are already processed. Process input files *.fastq only if
+result-files Result/*.txt does not exist. Be sure to close the *if* conditional with a *fi*.     
+``
+for f in Data/*.fastq; do 
+  SAMPLE=`basename ${f%%.*}`;    # refactor sample names to remove basename 
+  if [ ! -f Results/${SAMPLE}.txt ]; then # using the "if" conditional here  
+    echo "processing sample ${SAMPLE}"; 
+    # do something 
+  fi; 
+done
+``      
+
+
+## Arrays
+
+Most of us who have taken an introductory course in any programming language likely know what a basic array is, and how it differs from other types of data structures, such as tuples and so on. Bash too
+
+Let's declare an array: `array = (a b c)` pay attention to the curled brackets in bash - many other programs used closed brackets for arrays.     
+
+Some examples:
+Put specific files into an array:
+`files = ("/file/path/genes.csv" "/file/path/diffexpgenes.csv" "/file/path/groundgenes.csv")` 
+
+Arrays get really great when we want to loop through values contained within them. We have to tell bash to evoke the values within the array using the *array[@]* symbology.   
+``
+for f in "${files[@]}" ; do   
+    deseq $A $B ${f}     
+done   
+``
 
 ## Resources 
 
