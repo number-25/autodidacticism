@@ -48,6 +48,10 @@ RegEX terminology called "look ahead".
 
 ## Variables, filenames and symbolic links 
 
+
+
+
+
 ### Basename 
 Straight from the gnu manual. Basename comes in very handy when looping through files from different directories, with various suffix extensions. 
 
@@ -112,12 +116,24 @@ This example combines multiple simple unix commands and procedures - the for
 loop, glob matching, variable assignment, and finally the basename and suffix
 removal. 
 
-## Variable Assignment 
+### Variable Assignment 
 
 ### Complex Usage 
 
+Often times variable assignment is used for shortening file paths and making
+scripts more manageable, and visually appealing. To me revelation also,
+variable assignment can be more intricate than just this, and can embed entire
+commands which are called during a script. Below we'll see an example of a
+variable, which when called, finds fastq files within a given directory and
+composes them into a list.   
 
-
+``
+BASE="DIRECT-RNA"
+FASTQS=$( find ./Raw/${BASE} -type f -name "*fastq.gz" -exec ls {} + )
+``   
+This variable can then also be called by another complex variable
+assignment, and so on until your imagination cannot keep up with the string of
+logic.   
 
 ## Looping 
 ### For Loops
@@ -156,12 +172,32 @@ for f in "${files[@]}" ; do
 done   
 ``
 
+## Wrangling 
+
+### Reverse lines of a file 
+I stumbled upon the usage of reverse on a looping tutorial, and it was the
+first time seeing what appears to be a pretty niche usage of the tool. The
+user was using rev to cut *n* ends off of a file name in a few simple steps,
+the helpers being *cut -c n* and the faithful `sed`.
+
+
+The .fastq files in the directory will be called, passed to sed which will
+remove the end sequences, afterwhich the filename will be reversed, cut by 25
+characters, and revered back to its original position, and pruned one last time
+with sed. Quite clever! 
+``
+NCUT=25
+ls *.fastqs | sed 's!.*/!!' | rev | cut -c ${NCUT}- | rev  | sed 's!.*/!!' 
+``
+
+
+
 ## Resources 
 
 https://learnmetabarcoding.github.io/LearnMetabarcoding/gettingstarted/cli_bioinformatics/cheatsheet.html
 https://www.metagenomics.wiki/tools/ubuntu-linux/shell-loop
 https://lh3lh3.users.sourceforge.net/biounix.shtml
-
+https://bioinformaticsbreakdown.com/bash-loop-rna-seq/
 
 
 
