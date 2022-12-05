@@ -30,6 +30,8 @@ under a specific distribution. A probability density function gives theis
 value for a **continuously** disributed variable.    
 
 
+
+
 ### Binomial
 
 Using any of the probability distributions, we must preload  the *Distributions.jl* package.    
