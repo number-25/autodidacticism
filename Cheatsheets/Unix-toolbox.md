@@ -46,6 +46,20 @@ grep -oP "(?<=^>).*$" input.fasta > headers.txt  # This method uses the fancy
 RegEX terminology called "look ahead".  
 ``
 
+5) Find files in a directory 
+`find ${dir} -name "*.fastq"`     
+
+6) Find the file as above but not send them to be gzipped (or any other suitable command). 
+`find ${dir} -name "*.fastq" -exec gzip {} \;`      
+
+7) Search through all files and grep a string
+`for f in *.txt ; do echo --${f}-- ; grep "APO32" ${f} ; done`      
+
+8) Sed one liners https://edoras.sdsu.edu/doc/sed-oneliners.html   
+
+
+
+
 ## Variables, filenames and symbolic links 
 
 
@@ -154,6 +168,18 @@ for f in Data/*.fastq; do
 done
 ``      
 
+Do something 10 times - can be useful for generating random numbers, testing scripts and so on. 
+``
+for n in {1..10}; do \
+   echo ${n}; \
+done
+``
+
+Use a **while** loop to iterate through a set of files.     
+``
+ls *.txt | while read f; do echo ${f}; done;
+``
+
 
 ## Arrays
 
@@ -171,6 +197,17 @@ for f in "${files[@]}" ; do
     deseq $A $B ${f}     
 done   
 ``
+
+Another basic example demonstrating the logic of arrays. 
+``
+arr=("CP25" "FTX" "TSIX")
+ 
+for index in "${!arr[@]}";
+do
+    echo "$index -> ${arr[$index]}"
+done
+``
+This will print.... "1 -> CP25, 2 -> FTX......"     
 
 ## Wrangling 
 
@@ -190,6 +227,9 @@ NCUT=25
 ls *.fastqs | sed 's!.*/!!' | rev | cut -c ${NCUT}- | rev  | sed 's!.*/!!' 
 ``
 
+### Handy piping with xargs
+
+`cat sraname.txt | xargs -I{} fastqc -i {} -o report-format.csv`       
 
 
 ## Resources 
