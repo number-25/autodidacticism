@@ -57,14 +57,15 @@ RegEX terminology called "look ahead".
 
 8) Sed one liners https://edoras.sdsu.edu/doc/sed-oneliners.html   
 
+9) Copy files securly using *scp* or *rsync*
+``
+scp samplefiles.txt username@serverdetails:/directory  
+rsync samplefiles.txt username@serverdetails:/directory   
+``      
 
 
 
 ## Variables, filenames and symbolic links 
-
-
-
-
 
 ### Basename 
 Straight from the gnu manual. Basename comes in very handy when looping through files from different directories, with various suffix extensions. 
@@ -117,22 +118,23 @@ to the `%%.**` string, which essentially tells the program to %% remove
 everything after and including the *.* character. If the input files were
 formatted *something_fastq* then we would specify `%%_*` instead.   
 
-`` for f in *.fastq ; do 
+`` 
+for f in *.fastq ; do 
     minimap2 -options ${f} > ${f%%.*}.sam 
-  done 
+done 
 ``   
 
 Let's loop over a list of files and remove both the basename prefix and the
 suffix file extension.
-``for f in Samples/*.txt ; do FILENAME=`basename ${f%%.*}`; echo ${FILENAME}; done
-``     
+`for f in Samples/*.txt ; do FILENAME=`basename ${f%%.*}`; echo ${FILENAME}; done`
+
 This example combines multiple simple unix commands and procedures - the for
 loop, glob matching, variable assignment, and finally the basename and suffix
 removal. 
 
 ### Variable Assignment 
 
-### Complex Usage 
+#### Complex Usage 
 
 Often times variable assignment is used for shortening file paths and making
 scripts more manageable, and visually appealing. To me revelation also,
@@ -149,7 +151,12 @@ This variable can then also be called by another complex variable
 assignment, and so on until your imagination cannot keep up with the string of
 logic.   
 
-## Looping 
+Let's extend this further to demonstrate how the first complex variable can be called within another one.   
+
+Here we will trim the *.fastq suffix from the files and create a list of sample names. 
+`SAMPVEC=$( ls $FASTQS | sed 's/.fastq.gz//g' | sort | uniq )` 
+
+## Looping
 ### For Loops
 
 Perform operations on files from file list. The trick here is to encapsulate a
@@ -230,6 +237,10 @@ ls *.fastqs | sed 's!.*/!!' | rev | cut -c ${NCUT}- | rev  | sed 's!.*/!!'
 ### Handy piping with xargs
 
 `cat sraname.txt | xargs -I{} fastqc -i {} -o report-format.csv`       
+
+
+
+if [ ! -f  $INBAM ]; # if bam does not ! exist 
 
 
 ## Resources 
