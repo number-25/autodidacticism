@@ -41,3 +41,61 @@ Let's generation a binomial distribution with 20 trials, and slightly biased fai
 using Distributions
 Binomial(20, 0.45)
 `` 
+
+
+
+
+## Writing to Files 
+
+Write a vector of values to a file using the DelimitedFiles package. 
+``
+using DelimitedFiles
+array = rand(10:100, 50)
+writedlm("sample.txt", array) 
+``
+
+Write the contents of a file to another file - input/output
+``
+io = open("test.txt", "w") do io
+  for x in y
+    println(io, x)
+  end
+end
+`` 
+
+
+
+## STDIN
+
+Read all lines from an input stream 
+``
+stream = STDIN
+for line in eachline(stream)
+    print("Found $line")
+    # process the line
+end
+``
+
+Test whether you have reached the end of an input stream - use `eof(stream` in combination with a while loop
+``
+  while !eof(stream)
+       x = read(stream, Char)
+       println("Found: $x") 
+# process the character
+end
+``    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
