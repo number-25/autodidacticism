@@ -159,9 +159,8 @@ Here we will trim the *.fastq suffix from the files and create a list of sample 
 ## Looping
 ### For Loops
 
-Perform operations on files from file list. The trick here is to encapsulate a
-*cat* command and insert it right after the *in* section of the for loop.  
-`for f in `cat filelist.txt`; do minimap2 -in ${f} -out ${f%%.*}.sam ; done`  
+Perform operations on files from file list. The trick here is to encapsulate a *cat* command and insert it right after the *in* section of the for loop.  
+`for f in cat filelist.txt; do minimap2 -in ${f} -out ${f%%.*}.sam ; done`  
 
 Exclude samples that are already processed. Process input files *.fastq only if
 result-files Result/*.txt does not exist. Be sure to close the *if* conditional with a *fi*.     
