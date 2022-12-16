@@ -153,8 +153,21 @@ logic.
 
 Let's extend this further to demonstrate how the first complex variable can be called within another one.   
 
-Here we will trim the *.fastq suffix from the files and create a list of sample names. 
+Here we will trim the .fastq suffix from the files and create a list of sample names. 
 `SAMPVEC=$( ls $FASTQS | sed 's/.fastq.gz//g' | sort | uniq )` 
+
+Another example along very similar lines as those above --- we will call sample
+names using a combination of ls and grep chains/pipes. This is very handy when
+running multiple files through the pipelines.     
+
+``  
+    R1=$( ls $FASTQS| grep ${SAMP} | grep "R1" )
+    R2=$(  ls $FASTQS  | grep ${SAMP} | grep "R2" )
+    echo "READ1####"
+    ls -lh $R1
+    echo "READ2####"
+    ls -lh $R2
+``   
 
 ## Looping
 ### For Loops
@@ -240,6 +253,40 @@ ls *.fastqs | sed 's!.*/!!' | rev | cut -c ${NCUT}- | rev  | sed 's!.*/!!'
 
 
 if [ ! -f  $INBAM ]; # if bam does not ! exist 
+
+
+
+## Scheduling
+
+### Crontab 
+
+The remarkable and lovely cron jobs - when I first came across cron, for
+strange reasons, I was confused and nervous, and I had a hard to understanding
+why and how cron could fit into my workflows and daily operations. That was
+until I began using more customised scripts and running my own server
+instances, which required renewing certificates every few months, scanning
+folders and running updates. Now, I see cron as ultra-powerful. Unfortunately,
+my HPC cluster does not permit it's use by regular users, so much of this is
+restricted to personal computing.  
+
+First things first, we have to edit the crontab file.
+`crontab -e` 
+
+Add an entry to crontab which runs a spcific script ever 3 minutes -- the best
+way to understand the cron positional syntax is to just find a handy online
+guide, as [such](https://www.guru99.com/crontab-in-linux-with-examples.html).    
+`*/3 * * * * /move.sh`     
+
+Another entry to execute a script in speicific months. 
+`* * * feb,jun,sep *  /script.sh`    
+
+And let's say another entry yearly. 
+`@yearly /scripts/script.sh`     
+
+
+
+
+
 
 
 ## Resources 
