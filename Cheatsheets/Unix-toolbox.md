@@ -284,6 +284,29 @@ And let's say another entry yearly.
 `@yearly /scripts/script.sh`     
 
 
+## File Transfers 
+
+### RSync 
+
+My personal favorite transfer client - secure, quick, has options to ensure transfers are completed with fidelity across poor transfer channels, provides progress bars, and so on. 
+
+Transfer files between source and target, and include a progress bar. 
+`rsync -av -P /data/uniref90.fasta user@server.edu.au:/input`   
+
+
+Transfer some files between destinations and remove the source files after transfer.   
+`rsync --remove-source-files -options /path/to/source/* /dest/path`     
+
+Output a list of files in the source directory which do not exist in the target/destination directory.
+`rsync -avun --delete $TARGET $SOURCE  |grep "^deleting "`     
+
+A very rudimental sort of sync client can be instantiated with rsync and a scheduling script such as cron. 
+`rsync -avh --update -e --ignore-existing user@server:/path/source /path/target`     
+
+Transfer all files from a source directory but exclude those with specific file names. 
+`rsync -amvz --progress rsync://hgdownload.cse.ucsc.edu/goldenPath/mm10/multiz60way/maf/chr*.maf.gz --exclude='*Un*' --exclude='*random*' ./`    
+
+
 
 
 
