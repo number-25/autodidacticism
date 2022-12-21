@@ -32,6 +32,16 @@ flipped a fair coin 15 times!
 We can replicate this set itself, and run the experiment another 15 times, to see the general flux of successes in repeated bernoulli trials.   
 `random(Binomial(15, 0.5), 1000)`      
 
+
+### Sampling 
+
+The Stats.Base package allows us to *sample* specified values from specific probability frequencies, say, sample A and G which occur at 1/3 and 2/3 probability.  
+The function **ProbabilityWeights** is a game changer --- below we will take 100 values from the provided set from given weights.   
+``
+x = ["A" "G" "C" "T"] 
+samples(x, ProbabilityWeights[(1/8, 3/8, 3/8, 1/8)], 100)
+`` 
+
 ### Probability mass and density functions 
 
 A probability mass function gives the value of a **discerte** random variable
