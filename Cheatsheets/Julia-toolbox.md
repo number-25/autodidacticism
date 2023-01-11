@@ -105,11 +105,12 @@ end
 ``    
 
 ## Formatting 
-### Subscripts
+### Sub and super scripts
 
 The subscript numbers are available in the Unicode character encoding ( \_1 TAB
 , \_2 TAB , etc.).
 
+On the other hand, superscript is denoted with ( \^1 TAB, \_^3 TAB ). 
 
 
 
