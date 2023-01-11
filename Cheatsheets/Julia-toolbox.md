@@ -104,7 +104,11 @@ Test whether you have reached the end of an input stream - use `eof(stream` in c
 end
 ``    
 
+## Formatting 
+### Subscripts
 
+The subscript numbers are available in the Unicode character encoding ( \_1 TAB
+, \_2 TAB , etc.).
 
 
 
