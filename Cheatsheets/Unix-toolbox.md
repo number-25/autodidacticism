@@ -30,7 +30,7 @@ for x in *.xml; do
   t=$(echo $x | sed 's/\.xml$/.txt/'); 
   mv $x $t && echo "moved $x -> $t"
 done
-```
+``
 
 3) Generate a random FASTA sequence - what this really means is up for debate.
 If it mirrors any genomic sequences or not - anyways. 
