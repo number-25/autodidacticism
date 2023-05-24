@@ -48,7 +48,10 @@ A probability mass function gives the value of a **discerte** random variable
 under a specific distribution. A probability density function gives theis
 value for a **continuously** disributed variable.    
 
-
+PDF
+``
+pdf(<Distribution(param), value)
+``    
 
 
 ### Binomial
@@ -60,6 +63,16 @@ Let's generation a binomial distribution with 20 trials, and slightly biased fai
 using Distributions
 Binomial(20, 0.45)
 `` 
+
+### Point Estimation and Estimation
+
+### Maximum Likelihood Estimation 
+The Distribution.jl package provides a convenient function for computing the
+MLE for a given probability distribution, and the sample distribution.   
+    
+`fit_mle(Poisson, real)`    
+
+
 
 
 
@@ -111,6 +124,20 @@ The subscript numbers are available in the Unicode character encoding ( \_1 TAB
 , \_2 TAB , etc.).
 
 On the other hand, superscript is denoted with ( \^1 TAB, \_^3 TAB ). 
+
+
+## Basic Parsing, Descriptive Stats, Tallys and so on 
+
+### Summaries
+Create a basic dict containing a tally of all the elements in a vector - this
+is handy for counting the frequency of count data. E.g. how many times 0
+occurs, 1, 2 and so on. This is similar to R's function **table()**.     
+
+``
+real = rand(Poisson(0.5), 100)
+countmap(real)
+``     
+
 
 
 
