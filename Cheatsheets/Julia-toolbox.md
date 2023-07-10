@@ -2,13 +2,7 @@
 
 ## Cool quotes and statements
 
-"Wrapping a piece of code up in a function is called encapsulation. One of the benefits of encapsulation is that it attaches a
-name to the code, which serves as a kind of documentation. Another advantage is that if you re-use the code, it is more
-concise to call a function twice than to copy and paste the body!"     
-
-
-
-
+"Wrapping a piece of code up in a function is called encapsulation. One of the benefits of encapsulation is that it attaches a name to the code, which serves as a kind of documentation. Another advantage is that if you re-use the code, it is more concise to call a function twice than to copy and paste the body!"     
 
 ## Statistics and Distributions 
 
