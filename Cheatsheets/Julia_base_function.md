@@ -13,6 +13,14 @@ Compared to a conventional forward lookup, whereby we search for the value
 associated with a specific key, here we search for the presence of values in
 the dict irrespective of the key, and often we don't know the key itself. This is a combination of two functions. 
 
+##### sorting the values of a dict: sort(collect(dict), rev=?, by=x->x[2]) 
+Sorting a dict itself is not something undertaken in Julia, my guess is that
+the hash based access of a dict prohibits such an operation, or the fact that
+the sort function modifies the data structure/type, and Dict by nature are not
+orderable (but look into the DataStructures.jl StructuredDict type). Here we
+transform the Dict into an array, and sort by x, with x being the contents of
+the second column of the array, which are the values of the dict. Toggling the
+rev= option will indicate whether we should sort in reverse or not.  
 
 ## Tuples 
 
@@ -63,9 +71,24 @@ If we have five elements in a tuple, and we want to perform some functions on th
 3 c    
 
 
+## Strings
 
-
-
+##### count the occurance of a character in a string: count(i->(i=='f'), "foobar, bar, foo")
+Typically count is used to count intergers, but it can be adapted to count characters in a string relatively easily. Here the option tells counts that we should operate on i, and i equals (==) the character 'f'. Here's an example of this function, used to count the letter frequency of a string.  
+```
+   function mostfrequent(string)
+    emptydict = Dict()
+    for letter in lowercase(str)
+        if letter ∉ keys(emptydict)
+            q = count(i->(i==letter), lowercase(str))
+            emptydict[[letter]] = [q]
+        else 
+            return 
+        end 
+    end 
+    sort(collect(emptydict), by=x->x[2], rev=true)
+end
+```     
 
 
 
