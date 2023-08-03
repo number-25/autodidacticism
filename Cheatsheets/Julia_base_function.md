@@ -91,6 +91,13 @@ end
 ```     
 
 
+## Arrays
+
+##### delete elements of an array by their index: deleteat!(array, [index])   
+This is a really handy base function which can take an array on indexes itself, meaning we can remove multiple elements from our main array.     
+
+
+
 
 
 
