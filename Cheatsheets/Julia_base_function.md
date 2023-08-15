@@ -94,7 +94,66 @@ end
 ## Arrays
 
 ##### delete elements of an array by their index: deleteat!(array, [index])   
-This is a really handy base function which can take an array on indexes itself, meaning we can remove multiple elements from our main array.     
+This is a really handy base function which can take an array on indexes itself,
+meaning we can remove multiple elements from our main array.     
+
+##### combine a collection of arrays (or other iterable objects) of equal size into one larger array, by arranging them along one or more new dimensions: stack(structure; dims) 
+I have used this to break and array of arrays down into a matrix which can be
+iterated through - for instance I had multiple values inside an array within
+each row of a dict, which I was attempting to 'flatten' out into a single
+column vector/array to iterate through, and this was one way of achieving
+this -- perhaps not the best way to go about it however... it must be noted that this will only work if each subarray is of the same size, in this case = 2
+``` 
+samp = [["today", "yesterday"], ["tomorrow", "morning"]]
+
+for f in stack(samp) ; println(f); end
+``` 
+
+> today
+> yesterday
+> tomorrow
+> morning    
+
+Another option is to use the vec() function as such: vec(a::AbstractArray) -> AbstractVector
+
+Reshape the array a as a one-dimensional column vector. Return a if it is
+already an AbstractVector. The resulting array shares the same underlying data
+as a, so it will only be mutable if a is mutable, in which case modifying one
+will also modify the other.   
+```
+a = [1 2 3; 4 5 6] 
+vec(a)
+```
+
+> from [1 2 3, 4 5 6]
+> to 
+> 1
+> 2
+> 3
+> 4
+> 5
+> 6    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
