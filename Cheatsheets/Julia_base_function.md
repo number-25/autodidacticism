@@ -135,9 +135,19 @@ vec(a)
 > 6    
 
 
+## File IO, Directories, Navigation 
 
+##### walk through a directory, listing its contents: walkdir("path/path")  
+Similar to **tree** on unix systems - perhaps more recursive. 
 
+##### print out the contents of a directory as an array: readdir("path/path")    
+Really handy for iterating through the contents of a directory, of the many many handy uses.    
 
+##### print current working directory: pwd() 
+
+##### verify whether something is a file or a directory: isfile("file"), isdir("/path")     
+
+##### print the absolute path of a file: abspath("file")    
 
 
 
