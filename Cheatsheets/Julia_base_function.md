@@ -90,6 +90,11 @@ Typically count is used to count intergers, but it can be adapted to count chara
 end
 ```     
 
+##### return a string representation of an object - take the object and output the way it's formatted: repr(s), dump(s)
+When you are reading and writing files, you might run into problems with whitespace. These errors can be hard to debug
+because spaces, tabs and newlines are normally invisible.     
+
+
 
 ## Arrays
 
@@ -137,6 +142,8 @@ vec(a)
 
 ## File IO, Directories, Navigation 
 
+##### obtain the contents of an IObuffer as an array, afterwhich the IObuffer is reset to its initial state: take!(io)   
+
 ##### walk through a directory, listing its contents: walkdir("path/path")  
 Similar to **tree** on unix systems - perhaps more recursive. 
 
@@ -149,6 +156,8 @@ Really handy for iterating through the contents of a directory, of the many many
 
 ##### print the absolute path of a file: abspath("file")    
 
+##### execute a shell command within julia: run`ls`, read(run(`ls`), String)
+The second command will readout the output the command as a String   
 
 
 
