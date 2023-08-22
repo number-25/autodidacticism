@@ -159,6 +159,10 @@ Really handy for iterating through the contents of a directory, of the many many
 ##### execute a shell command within julia: run`ls`, read(run(`ls`), String)
 The second command will readout the output the command as a String   
 
+##### import/use a module-function but under a different alias: import BenchMarks: read as BMar     
+
+##### import/use only certain components of a module: using .BenchMarks: timelag, NP    
+
 
 
 
