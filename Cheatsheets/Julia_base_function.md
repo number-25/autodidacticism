@@ -164,7 +164,12 @@ The second command will *read* out the output the command as a String
 ##### import/use only certain components of a module: using .BenchMarks: timelag, NP    
 
 
+## General   
 
+##### check whether a particular element or entity is of a specific type: x **isa** Int64    
+
+##### print the field names of an object/structure: fieldnames(object)     
+> (:x, :y)       
 
 
 
