@@ -29,27 +29,27 @@ Groovy".
 * "By default, closures take a single parameter called it. To define a
   different name use the `variable -> syntax."`   
 
-#### Parameters   
+#### Parameters 
 * Parameters can be assigned throughout the script using the params.[something]
 dot syntax, whereby something is the parameter name. This is in contrast to
 declaring the parameter with --parameter, which requires the user to provide
 input when launching the script. 
-``   
+```   
   params.threads = 4
   script:
     """
     minimap2 -t ${params.threads} 
     """
-``    
+```    
 * If there are many parameters, we can create a separate "params" file which
 are JSON or YAML format. The parameters file is then passed to the script using
 the `-params-file` option.     
-``
+```
 {
   "sleep": 5,
   "input": "data/yeast/reads/etoh60_1*.fq.gz"
 }
-``  
+```  
 
 ### Channels 
 As the name would imply, the channel is a conduit or body for data to flow
@@ -73,37 +73,37 @@ however.
 * The value factory is used to create a value channel. Below are three
 different types of value channels - a single value, a list, and a 'map'
 (dictionary in Julia).    
-``
+```
   ch1 = Channel.value('mm10')   
   ch2 = Channel.value('chr1', 'chr2')   
   ch3 = Channel.value( ['chr1' : 248956422, 'chr2' : 242193529, 'chr3' : 198295559] )
-``     
+```    
 
 ##### Queue Channels 
-* There are various methods for creating queue channels.
-``
+* There are various methods for creating queue channels.  
+```
   Channel.of
   Channel.fromList
   Channel.fromPath
   Channel.fromFilePairs
   Channel.fromSRA
-``    
+```    
 * The **Channel.of** method can create a list of values. The … operator will create
 a range of values, similar to 1:22 in Julia and other languages. 
-``   
-  chromosome_ch = Channel.of( 'chr1', 'chr3', 'chr5', 'chr7' )   
-  chromosome_ch.view()   
+```   
+  chromosome_ch = Channel.of('chr1', 'chr3', 'chr5', 'chr7')
+  chromosome_ch.view()
 
   chromosome_ch = Channel.of(1..22, 'X', 'Y')
-``    
+```    
 * To create a **fromList** channel, which may store the strings of certain
 software, or values that need to be sequentially/iteratively input, we use the
-following.    
-``
+following.     
+```  
   software_list = ['kallisto', 'sailfish', 'salmon']     
   aligner_ch = Channel.fromList(software_list)   
   aligner_ch.view() # let's view the channel contents!   
-``    
+```    
 * So what's the difference between the first type methods of channel factory?
 They are both inputting lists no? Well, the first channel.of treats the list as
 a single element, one whole set, whereas the channel.fromList treats each
@@ -111,10 +111,10 @@ element within the set as it's own, meaning it can be subset n^n times.
 * The **Channel.fromPath** method can be fairly easily guessed by its name - it
 will create a channel from the contents of a provided path - this can often be
 a single file.   
-``
+```
   read_ch = Channel.fromPath('/data/reads/sample*.fastq')
   read_ch.view()
-``    
+```    
 * You can also use glob syntax to specify pattern-matching behaviour for files.
 A glob pattern is specified as a string and is matched against directory or
 file names.   
@@ -132,20 +132,20 @@ syntax is generally used for matching complete paths.
 we can use glob operators along with the specific channel method -
 `/reads/pairs/*_{1,2}.fastq`.     
 * This will create a specific queue channel from each pair.    
-``    
+```    
   read_pairs_ch = fromFilePairs('reads/pairs/*_{1,2}.fastq')    
   read_pairs_ch.view()   
-``
+```
 * If we have sample sets which come in sizes of let's say, 4, we need to
 specify this explicitly by adding more values to the glob pattern. To complicate
 things further, if we have several files with similar prefixes e.g. ref_1_coli,
 ref_1_sub, than we can also specify this, and how many sets of such files there
 are. E.g. 10 sets of quad-paired reads, each set starts with the same prefix,
 but has a different suffix.   
-``    
+```    
   reads_quad_ch = fromFilePairs('reads/quads/ref_{1,2,3,4}*, size:10)    
   reads_quad_ch.view()   
-``
+```
 * For more complex patterns it is best practice to create a sample sheet which
 specifies the files and then create a channel from that.    
 
@@ -154,17 +154,17 @@ specifies the files and then create a channel from that.
   replication experiments a lot smoother than they would otherwise be.
 * This factory creates a queue channel from the fastq files corresponding to the SRA ID. 
 * You will need an NCBI API key for this.     
-``
+```
   sra_ch = Channel.fromSRA('SR3434A')
   sra_ch.view()
-``    
+```    
 * If we create a list object, we can pass through multiple SRA ids (probably
 even have the ability to pass a file containing the IDs!)    
-`` 
+``` 
   ids = ['SRR334', "ENA34334', 'SRR4343']    
   sra_ch = Channel.fromSRA(ids)    
   sra_ch.view()    
-``    
+```    
 
 ### Processes 
 The bread and butter of Nextflow is the 'process' primitive. These processes are
@@ -177,11 +177,11 @@ the analysis undertaken.
 * Processes are about execution - channels are about data flow!    
 * Processes are independent, modular units which are not dependent on other
 processes (of course, if they require input from a channel that is waiting for
-output from another process, there there is an order and time asymmetry to it).
+output from another process, there is an order and time asymmetry to it).
 But they are parallel, independent processes, which when tied to channels can
 do great things.   
 * Once we've created a process we have to list it in our workflow block.   
-`` 
+``` 
   //process_index.nf
   nextflow.enable.dsl=2
 
@@ -195,10 +195,10 @@ do great things.
     //process is called like a function in the workflow block
     INDEX()   
   }      
-``     
+```     
 * The basic skeleton of a process is outlined below. The bare minimum that this
 block requires is a script command
-``
+```
   process < NAME > {
     [ directives ]        
     input:                
@@ -210,14 +210,14 @@ block requires is a script command
   [script|shell|exec]:  
   < user script to be executed >
 }
-``
+```
 
 * The script in processes can span multiple lines, contain numerous commands
 e.g. samtools sort, then index, then view etc.    
 * "By default the process command is interpreted as a Bash script. However any
 other scripting language can be used just simply starting the script with the
 corresponding Shebang declaration. For example:" 
-``
+```
   process PYSTUFF {
     script:
     """
@@ -226,9 +226,9 @@ corresponding Shebang declaration. For example:"
 
     frame1 = DataFrames(vector{*.fastq},_
   """
-``     
+```     
 * It is terrific to do this for small jobs, but for larger pieces of code, it is recommended to save the script within it's own file and invoke it directly as such;
-``
+```
   process JULIO {
     script:
     """
@@ -238,12 +238,12 @@ corresponding Shebang declaration. For example:"
 workflow {
   PYSTUFF()
 }
-``    
+```    
 * Weaving together channels with processes can come in very handy when we are
 seeking to run the same process but with different parameters for the program,
 which we would provide as a list in the channel declaration. This will iterate
 the scan but with different parameters every time.    
-``
+```
   ch1 = Channel.fromPath('data/proteins/*.fa')
   modes_list = ['sensitive', 'fast', 'divergent']
 
@@ -252,7 +252,7 @@ the scan but with different parameters every time.
     input:
     path protein_seq from ch1
     each mode from modes_list
-``
+```
 
 #### Scripts 
 The script module is the final element of a process. There can only ever be one
@@ -276,7 +276,7 @@ instance, if we created a process called minimap2, and knowing that minimap2
 can map gDNA, cDNA, dRNA and so on, we can create a conditional if/else
 structure which will run minimap2 in different modes depending on what the
 user provides. For instance;   
-``
+```
   mode = 'genomic nanopore'
 
   process minimap2 {
@@ -295,14 +295,14 @@ user provides. For instance;
     else  
         error "Incorrect sequence type provided" 
     }    
-``    
+```    
 
 These process scripts can be 'externalised', or in other words, saved as
 discreet scripts and reused in other workflows. This is very handy for generic
 processes such as read mapping, QC and so forth. No doubt, the commands and
 variables between the script and the current workflow must be standardised in
 order to allow true plug-play integration.    
-``    
+```    
   process templateExample {
     input:
     val STR
@@ -314,7 +314,7 @@ order to allow true plug-play integration.
   workflow {
       Channel.of('this', 'that') | templateExample
   }
-``        
+```        
 
 **IMPORTANT**    
 * The shell block is a string expression that defines the script
@@ -324,16 +324,16 @@ instead of the usual dollar $ character, to denote Nextflow variables.
 * By using the *shell* block rather than the typical *script* module, we can
 use both $bash and !nextflow variables within the script without getting them
 confused `echo $USER says !{str}`    
-* 
+
 
 #### Input blocks 
 These are the portions of the workflow block which we declare the input channels
 that we're using. A process has to have at most, and at least, one input block.
 The input block follows the basic formality:  
-``   
+```   
   input:  
     <input qualifer> <input name>    
-``    
+```    
 * The **qualifier** defines the *type* of data that is to be received -- is it
 going to be a file path, a value, stdin, an environment, or commonly, a tuple
 containing a combination of qualifier for different aspects of the job? A key
@@ -343,7 +343,7 @@ otherwise, they are redundant.
 It is probably best to learn by observing the way the different blocks are used
 in a job   
 ##### Value input block
-``
+```
   process valueExample {
     input: 
     val x 
@@ -354,13 +354,13 @@ in a job
     def num = Channel.of(1, 2, 3)  
     valueExample(num) 
   }
-``   
+```   
 
 ##### Path input block 
 Path is one of the most common input blocks, allowing users to create an input
 channel from files contained in a specific directory, or sub-directories and
 para-directories.   
-``    
+```    
   process pathExample {
     input: 
     path protein_alignments 
@@ -370,7 +370,7 @@ para-directories.
   workflow {
   def proteins = Channel.fromPath('/path/to/proteins/*.{fa, fna}')
   pathExample(proteins)     
-``   
+```   
 * Quite straight forward no? In some instances, if our input file has a
 specific name, we can explicitly specify this `input: path our_file,
 name:'this_file.fa'` or even simpler `input: path 'this_file.fa'`            
@@ -380,7 +380,7 @@ name:'this_file.fa'` or even simpler `input: path 'this_file.fa'`
   **.buffer**operator/function, which says that the files will come in sets of
   4, meaning each file will have the same name but with a prefix of 1...4 added
   to it.    
-``   
+```   
   process multipleFilesExample { 
   input: 
     path funny_data_
@@ -391,7 +391,7 @@ name:'this_file.fa'` or even simpler `input: path 'this_file.fa'`
     def fasta = Channe.fromPath( "/some/funny/data/*.fa ).buffer(size: 4)
     multipleFilesExample
     }
-``  
+```  
 
 ##### Env input block   
 This essentially consists of creating an $ENVIRONMENT variable which can be
@@ -400,7 +400,7 @@ of the program versions that we are using in the workflow, and then at the
 closure of the workflow, we can print these versions into a .txt file - this is
 simply a novice example there are many more potential, and creative ways to use
 this.   
-``    
+```    
   process envExample {
   input:
    env PROGRAMS 
@@ -412,7 +412,7 @@ this.
   workflow {
     Channel.of('julia.1.8', 'minimap2.2.1', 'samtools.9.1', 'nextflow.20.19')  
     }
-``      
+```      
 > julia.1.8 
 > minima2.2.1 etc etc ec 
 
@@ -420,7 +420,7 @@ this.
 A bit trickier to wrap ones head around given the fact that nextflow emphasizes
 being explicit and employing thoughtful declaration and various symbols.
 Nonetheless, learning by example we do.    
-``    
+```    
   process printAll {
     input:
     stdin str
@@ -435,7 +435,7 @@ Nonetheless, learning by example we do.
       | map { it + '\n' }
       | printAll
   }
-``     
+```     
 
 ##### Tuple input block
 One of the most commonly encountered types of input block - as it's a tuple, it
@@ -443,7 +443,7 @@ by virtue of its type, will be able to 'store' multiple different values, and
 so in nextflow this is also the case. We declare multiple values here. The
 tuple values can contain other input blocks such as env, path, val and stdin --
 this is what makes it powerful, but also order sensitive.    
-``    
+```    
   process tupleExample {
       input:
       tuple val(x), path('latin.txt')
@@ -457,7 +457,7 @@ this is what makes it powerful, but also order sensitive.
   workflow {
     Channel.of( [1, 'alpha'], [2, 'beta'], [3, 'delta'] ) | tupleExample
   }
-``   
+```   
 
 ##### Input iteration 
 Let's say we are prototyping a simulation and we are looking to run the same
@@ -467,7 +467,7 @@ nextflow is declaring this in the input block, saying that we have files in
 path x, and then for **each** element in the list we provide, we will perform
 functions on them.   
 
-``
+```
   process ExpMax {
     input: 
     path files
@@ -481,14 +481,14 @@ functions on them.
     sequences = Channel.fromPath('/data/*.fa')
     values = ['2', '4', '16']   
     ExpMax(sequences, values)     
-``   
-
+```   
+ 
 ##### Multiple input channels
 We can declare multiple input channels that we wish to source data from -
 getting creative we may provide an array of values or different parameters, or
 rename file and directories in a specific order... the list of what we can do
-is enourmous, and is mostly constrained by the demands of our task at hand.    
-``  
+is enormous, and is mostly constrained by the demands of our task at hand.    
+```  
   process multipleInputs {
     input: 
     param a
@@ -504,7 +504,7 @@ is enourmous, and is mostly constrained by the demands of our task at hand.
     b = Channel.of('Stringtie-fast', 'Stringtie-deep', 'Stringtie-divergent') 
     multipleInputs(a, b)    
   }     
-``     
+```     
 * "In general, multiple input channels should be used to process combinations
 of different inputs, using the each qualifier or value channels. Having
 multiple queue channels as inputs is equivalent to using the merge operator,
@@ -512,13 +512,13 @@ which is not recommended as it may lead to inputs being combined in a
 non-deterministic way."   
 
 ### Output blocks 
-The output blocks specify where the output data will be funneled to - a path, a
+The output blocks specify where the output data will be funneled to -- a path, a
 specific file, into a specific value, and so output blocks create channels
 which capture the data - often times we can link input/output channels by
 declaring them using the exact same name in both input and output. If we create
 an output channel and name it X, then if we want to use x as input for the next
 process, this is what we declare and specify in the next processes input block. 
-``   
+```   
   process outputExample {
     input: 
     path g 
@@ -535,7 +535,7 @@ process, this is what we declare and specify in the next processes input block.
     echo_ch = channel.fromPath('/files/in/path/*.fastq')
     outputExample(echo_ch) 
     }
-``     
+```     
 We could then use the contents of the output channel (pathnames.txt) as input
 for the following process. Alternatively, we could end the output there without
 creating another channel, but simply creating an end file `output: path
@@ -547,7 +547,7 @@ process flows. Say we have several .fq files with different prefixes inside a
 directory, and we wanted to run QC on them all and ensure that each QC output
 contained the respective matching prefix.   
 
-``
+```
   process something {
     input: 
     path read 
@@ -565,7 +565,7 @@ contained the respective matching prefix.
     read_ch = channel.fromPath("data/reads/some1*.fq.gz")  
     something(read_ch) 
     }     
-``      
+```       
 
 * There are some caveats on glob pattern behaviour    
   - Input files are not included in the list of possible matches.     
@@ -584,7 +584,7 @@ specify the input and then declare the script block.
 * Using the tuple declaration we are able to specify multiple output forms,
   such as values, paths, environments and so on. This is how we might undertake
   iteration and keep track of all our files correctly.     
-``   
+```   
   process FASTP {
     input:
     tuple val(sample_id), path(reads)
@@ -592,7 +592,7 @@ specify the input and then declare the script block.
     output:
     tuple val(sample_id), path("*FP*.fq.gz")
   
-    script:
+    script: 
     """
     fastp \
     -i ${reads[0]} \
@@ -606,17 +606,17 @@ specify the input and then declare the script block.
   workflow {
     FASTP(reads_ch)
   } 
-``       
+```       
 
 ##### Conditional Execution (If, when, for and so on)
 As is common in most programming languages, nextflow allows conditional
 execution and structuring of the code - running a process only when certain
 conditions are met, or for every element in an array, and so on and so on. The
 conditions, when declared outside of the script/shell block, are interpreted by
-nextflows own logic, but, when they are use into the script block, unless
+nextflows own logic, but, when they are used in the script block, unless
 specified, they will default to shell/bash logic, so it is important to get
-these right. Here's a light example.    
-``   
+these right. Here's a light example.     
+```   
   process conditional {
   input:
   val chr
@@ -634,10 +634,7 @@ these right. Here's a light example.
   workflow {
   conditional(chr_ch)
   }    
-``    
-
-
-
+```    
 
 
 ### Operators 
