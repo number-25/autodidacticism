@@ -615,7 +615,7 @@ conditions are met, or for every element in an array, and so on and so on. The
 conditions, when declared outside of the script/shell block, are interpreted by
 nextflows own logic, but, when they are used in the script block, unless
 specified, they will default to shell/bash logic, so it is important to get
-these right. Here's a light example.     
+these right. Here's a light example.      
 ```   
   process conditional {
   input:
@@ -648,6 +648,15 @@ create and recreate your own scripts for performing these tasks.
 
 An example of an operator is the **.view()** , which will allow us to take a
 look at what's inside a channel e.g. `this_ch.view()`.     
+
+
+
+
+
+
+
+
+
 
 #### Some notes that I'm temporarily dumping here   
 Channel.fromPath
