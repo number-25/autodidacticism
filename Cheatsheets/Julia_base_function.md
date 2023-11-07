@@ -142,34 +142,37 @@ vec(a)
 
 ## File IO, Directories, Navigation 
 
-##### obtain the contents of an IObuffer as an array, afterwhich the IObuffer is reset to its initial state: take!(io)   
+##### obtain the contents of an IObuffer as an array, afterwhich the IObuffer is reset to its initial state: `take!(io)`   
 
-##### walk through a directory, listing its contents: walkdir("path/path")  
+##### walk through a directory, listing its contents: `walkdir("path/path")`  
 Similar to **tree** on unix systems - perhaps more recursive. 
 
-##### print out the contents of a directory as an array: readdir("path/path")    
+##### print out the contents of a directory as an array: `readdir("path/path")`    
 Really handy for iterating through the contents of a directory, of the many many handy uses.    
 
-##### print current working directory: pwd() 
+##### print current working directory: `pwd()` 
 
-##### verify whether something is a file or a directory: isfile("file"), isdir("/path")     
+##### verify whether something is a file or a directory: `isfile("file"), isdir("/path")`     
 
-##### print the absolute path of a file: abspath("file")    
+##### print the absolute path of a file: `abspath("file")`    
 
-##### execute a shell command within julia: run`ls`, read(run(`ls`), String)
+##### execute a shell command within julia: `run`ls`, read(run(`ls`), String)`
 The second command will *read* out the output the command as a String   
 
-##### import/use a module-function but under a different alias: import BenchMarks: read as BMar     
+##### import/use a module-function but under a different alias: `import BenchMarks: read as BMar`     
 
-##### import/use only certain components of a module: using .BenchMarks: timelag, NP    
+##### import/use only certain components of a module: `using .BenchMarks: timelag, NP`    
 
 
 ## General   
 
-##### check whether a particular element or entity is of a specific type: x **isa** Int64    
+##### check whether a particular element or entity is of a specific type: `x **isa** Int64`    
 
-##### print the field names of an object/structure: fieldnames(object)     
+##### print the field names of an object/structure: `fieldnames(object)`     
 > (:x, :y)       
+
+##### list the methods which a function can operate on, e.g. on custom structus, Int64, Any.: `methods(sum)`    
+
 
 
 
