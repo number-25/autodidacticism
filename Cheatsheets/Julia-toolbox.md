@@ -132,7 +132,7 @@ real = rand(Poisson(0.5), 100)
 countmap(real)
 ``     
 
-
+**enumerate** 
 
 
 
