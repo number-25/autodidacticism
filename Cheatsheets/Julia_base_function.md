@@ -171,6 +171,9 @@ The second command will *read* out the output the command as a String
 ##### print the field names of an object/structure: fieldnames(object)     
 > (:x, :y)       
 
+##### list which methods a function can operate with e.g. on Any types, on Int64, on custom structs: `methods(sum)`    
+
+
 
 
 
