@@ -171,7 +171,16 @@ The second command will *read* out the output the command as a String
 ##### print the field names of an object/structure: `fieldnames(object)`     
 > (:x, :y)       
 
-##### list the methods which a function can operate on, e.g. on custom structus, Int64, Any.: `methods(sum)`    
+##### list the methods which a function can operate on, e.g. on custom structures, Int64, Any.: `methods(sum)`    
+
+##### a macro to show which types a function is operating on: `@which sort!(hand)`    
+When overflowing/overriding methods and functions, such as extending sort!() to
+work on custom structs and types, it can become confusing as to which function
+one is working with e.g. the overloaded base one, or an unconfigured default.
+Especially helpful when importing external packages.    
+
+##### find the parent type of a subtype - it's 'supertype': `supertype(card)`     
+
 
 
 
