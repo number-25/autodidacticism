@@ -31,10 +31,10 @@ We can replicate this set itself, and run the experiment another 15 times, to se
 
 The Stats.Base package allows us to *sample* specified values from specific probability frequencies, say, sample A and G which occur at 1/3 and 2/3 probability.  
 The function **ProbabilityWeights** is a game changer --- below we will take 100 values from the provided set from given weights.   
-``
+```julia
 x = ["A" "G" "C" "T"] 
 samples(x, ProbabilityWeights[(1/8, 3/8, 3/8, 1/8)], 100)
-`` 
+``` 
 
 ### Probability mass and density functions 
 
@@ -43,9 +43,9 @@ under a specific distribution. A probability density function gives theis
 value for a **continuously** disributed variable.    
 
 PDF
-``
+```julia
 pdf(<Distribution(param), value)
-``    
+```   
 
 
 ### Binomial
@@ -53,10 +53,10 @@ pdf(<Distribution(param), value)
 Using any of the probability distributions, we must preload  the *Distributions.jl* package.    
 
 Let's generation a binomial distribution with 20 trials, and slightly biased failure rate. The general structure of this function is **Binomial(trial number, success rate)**.    
-``
+```julia
 using Distributions
 Binomial(20, 0.45)
-`` 
+``` 
 
 ### Point Estimation and Estimation
 
@@ -74,42 +74,42 @@ MLE for a given probability distribution, and the sample distribution.
 ## Writing to Files 
 
 Write a vector of values to a file using the DelimitedFiles package. 
-``
+```julia
 using DelimitedFiles
 array = rand(10:100, 50)
 writedlm("sample.txt", array) 
-``
+```
 
 Write the contents of a file to another file - input/output
-``
+```julia
 io = open("test.txt", "w") do io
   for x in y
     println(io, x)
   end
 end
-`` 
+``` 
 
 
 
 ## STDIN
 
 Read all lines from an input stream 
-``
+```julia
 stream = STDIN
 for line in eachline(stream)
     print("Found $line")
     # process the line
 end
-``
+```
 
 Test whether you have reached the end of an input stream - use `eof(stream` in combination with a while loop
-``
+```julia
   while !eof(stream)
        x = read(stream, Char)
        println("Found: $x") 
 # process the character
 end
-``    
+```    
 
 ## Formatting 
 ### Sub and super scripts
@@ -127,15 +127,25 @@ Create a basic dict containing a tally of all the elements in a vector - this
 is handy for counting the frequency of count data. E.g. how many times 0
 occurs, 1, 2 and so on. This is similar to R's function **table()**.     
 
-``
+```julia
 real = rand(Poisson(0.5), 100)
 countmap(real)
-``     
+```     
 
 **enumerate** 
 
 
+## Functions 
 
+### One liners To execute a function over a subset of values in a set, rather
+than righting a for loop and iterating, we can use the 'one liner' notation as
+such. x will be our variable, and we will execute the function filter, so
+filter values of x, such that the dayname of x is Monday in the dataset
+calendar. For this to evaluate to true, there must be daynames in calendar
+which are called Monday
+```julia
+filter(x -> Dates.daynames(x) == "Monday", calendar)
+```
 
 
 
