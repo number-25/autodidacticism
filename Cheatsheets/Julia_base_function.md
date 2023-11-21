@@ -3,17 +3,17 @@ Many are often applicable to several types and data structures.
 
 ## Dicts
 
-##### get a key-value pair: get(collection, key, default)   
+##### get a key-value pair: `get(collection, key, default)`   
 From a dict, **get** the value associated with a defined key, and if the key is
 not present, output another value (default) - this is another way of doing a
 conventional index based look up: `dict[key]` 
 
-##### reverse lookup: findall(isequal(value), dict)  
+##### reverse lookup: `findall(isequal(value), dict)`  
 Compared to a conventional forward lookup, whereby we search for the value
 associated with a specific key, here we search for the presence of values in
 the dict irrespective of the key, and often we don't know the key itself. This is a combination of two functions. 
 
-##### sorting the values of a dict: sort(collect(dict), rev=?, by=x->x[2]) 
+##### sorting the values of a dict: `sort(collect(dict), rev=?, by=x->x[2])` 
 Sorting a dict itself is not something undertaken in Julia, my guess is that
 the hash based access of a dict prohibits such an operation, or the fact that
 the sort function modifies the data structure/type, and Dict by nature are not
@@ -24,7 +24,7 @@ rev= option will indicate whether we should sort in reverse or not.
 
 ## Tuples 
 
-##### split a tuple based on a character: split(tuple, 'character') 
+##### split a tuple based on a character: `split(tuple, 'character')` 
 We can split a tuple (or string) and use any character as the splitting delimiter. See for instance;
 ```
   addr = "julius.caesar@rome"
@@ -34,18 +34,18 @@ We can assign the various components of the string/tuple to their own tuples,
 and as you expect, we want the number of tuples to correspond to the number of
 elements after splitting.    
 
-##### get the product and the remainder of a division: divrem(a, b)
+##### get the product and the remainder of a division: `divrem(a, b)`
 This will take two numbers and perform a division operation with them, then
 return the product (quotient), and the remainder of the operation as two
 tuples, which themselves can be assigned to new variables; `q, r = divrem(90,
 23)`.    
 
-##### get the minimum and maximum of a sequence: minmax('1', '2') 
+##### get the minimum and maximum of a sequence: `minmax('1', '2')` 
 Imagine computing `minimum(a)` and `maximum(a)`, a being a tuple, and outputing this in a single line.   
 
 ##### extrema() - similar to that above 
 
-##### zipppppppp open two tuples and rezip them together like a hoodie: zip(a, b)
+##### zipppppppp open two tuples and rezip them together like a hoodie: `zip(a, b)`
 If we have two tuples containing an equal number of elements, and we would like
 to combine them so that each element at each matching index is now side by
 side, we can use the zip() function; `zip((1, 2, 3), (3, 2, 1))` would produce
@@ -73,8 +73,8 @@ If we have five elements in a tuple, and we want to perform some functions on th
 
 ## Strings
 
-##### count the occurance of a character in a string: count(i->(i=='f'), "foobar, bar, foo")
-Typically count is used to count intergers, but it can be adapted to count characters in a string relatively easily. Here the option tells counts that we should operate on i, and i equals (==) the character 'f'. Here's an example of this function, used to count the letter frequency of a string.  
+##### count the occurrence of a character in a string: `count(i->(i=='f'), "foobar, bar, foo")`
+Typically count is used to count integers, but it can be adapted to count characters in a string relatively easily. Here the option tells counts that we should operate on i, and i equals (==) the character 'f'. Here's an example of this function, used to count the letter frequency of a string.  
 ```
    function mostfrequent(string)
     emptydict = Dict()
@@ -90,7 +90,7 @@ Typically count is used to count intergers, but it can be adapted to count chara
 end
 ```     
 
-##### return a string representation of an object - take the object and output the way it's formatted: repr(s), dump(s)
+##### return a string representation of an object - take the object and output the way it's formatted: `repr(s), dump(s)`   
 When you are reading and writing files, you might run into problems with whitespace. These errors can be hard to debug
 because spaces, tabs and newlines are normally invisible.     
 
@@ -98,9 +98,12 @@ because spaces, tabs and newlines are normally invisible.
 
 ## Arrays
 
-##### delete elements of an array by their index: deleteat!(array, [index])   
+##### delete elements of an array by their index: `deleteat!(array, [index])`   
 This is a really handy base function which can take an array on indexes itself,
 meaning we can remove multiple elements from our main array.     
+
+##### remove and output an element at a given index: `splice!(array, index)`
+
 
 ##### combine a collection of arrays (or other iterable objects) of equal size into one larger array, by arranging them along one or more new dimensions: stack(structure; dims) 
 I have used this to break and array of arrays down into a matrix which can be
@@ -138,6 +141,8 @@ vec(a)
 > 4
 > 5
 > 6    
+
+
 
 
 ## File IO, Directories, Navigation 
