@@ -254,6 +254,31 @@ the scan but with different parameters every time.
     each mode from modes_list
 ```
 
+* When a process produces multiple output files, often too many to explicitly
+  declare, we can provide a glob asterisk (placeholder/variable), and this way
+  we can easily specify the output in our script in a single form; as such   
+```
+  process FASTQC {
+  input:
+  path read
+
+  output:
+  path "fqc_res/*"
+
+  script:
+  """
+  mkdir fqc_res
+  fastqc $read -o fqc_res
+  """
+}
+```    
+* As a reminder, using two stars ** in the glob will match subdirectories e.g. `/reads/**/SR_*.fastq`
+
+
+
+
+
+
 #### Scripts 
 The script module is the final element of a process. There can only ever be one
 script block.   
@@ -650,21 +675,8 @@ An example of an operator is the **.view()** , which will allow us to take a
 look at what's inside a channel e.g. `this_ch.view()`.     
 
 
+### Directives
 
 
-
-
-
-
-
-
-#### Some notes that I'm temporarily dumping here   
-Channel.fromPath
-    adaptive_fq = Channel.fromPath()
-    non_adaptive_fq = Channel.fromPath()
-    genome = Channel.fromPath( '/data/refgenomes/*.{fa,fasta,fna}', checkIfExists: true ) 
-
-params.adaptive_reads = "path to adaptive" 
-params.nonadaptive_reads = "path to nonadaptive"
 
 
