@@ -166,6 +166,18 @@ even have the ability to pass a file containing the IDs!)
   sra_ch.view()    
 ```    
 
+* We can use data stored in a text file as input to the process, using the
+`fromPath` and `splitText.` operators. We can imagine a list of SRA ids, or
+parameters, sample names, metadata etc. 
+```
+   Channel
+      .fromPath('path/to/data')
+      .splitText()
+      .view
+```   
+* As expected with nextflow, we can modify the way this text input is handled -- for instance, we can specify how many many chunks of lines are passed using `(by :10)` following the `.splitText` function. To convert the text file to uppercase we can provide `{ it.toUpperCase() }` after the link chunk option. 
+
+
 ### Processes 
 The bread and butter of Nextflow is the 'process' primitive. These processes are
 discrete blocks which encapsulate specific commands, and can thus be thought of
