@@ -70,6 +70,12 @@ If we have five elements in a tuple, and we want to perform some functions on th
 2 b   
 3 c    
 
+##### named tuples can serve as 'dict' like data structures whereby we define the tuple elements are based x = y mappings which can be accessed using the dot syntax as per indexing:
+```julia
+named_tuple = (this = 1, that = 2)
+named_tuple.this
+```
+
 
 ## Strings
 
@@ -185,6 +191,50 @@ one is working with e.g. the overloaded base one, or an unconfigured default.
 Especially helpful when importing external packages.    
 
 ##### find the parent type of a subtype - it's 'supertype': `supertype(card)`     
+
+##### keyword arguments are defined in functions when we want to be a bit more explicit in our function calls -- we must remember to use the *;* semicolon after the last ordinary argument:   
+```
+function plotter(x, y; trend_color="black", intersect_color="red")
+    something
+end
+
+plotter(1:10, 2:10, trend_color="blue", intersect_color="brown")     
+```
+
+
+## Blocks
+Blocks allow for the grouping and compartmentalization of sets of statements, there are several kinds of blocks; begin, let, do.
+
+##### begin blocks are a nice grouping bracket 
+```
+begin
+    something
+    somethingmore
+    more
+end 
+``` 
+
+##### let blocks allow for new bindings to be created between values and variables, to mediate between global and local variables/scopes
+```
+z y x = 2 3 1
+
+let x = 5
+    @show x y z 
+end
+```
+In the function above, x is redefined locally by **letting** it be a different
+value, whilst the remaining variables will be printed as per their global
+values     
+
+##### do blocks are often handy when working with IO flow, reading and writing files. One of their main advantages is that they handle the closing of the stream automatically and thus the IO doesn't haven't to be closed explicitly
+```
+data = "whole lotta red"
+
+open("newfile.txt", "w") do writer
+    write(writer, data)
+end 
+```   
+
 
 
 
