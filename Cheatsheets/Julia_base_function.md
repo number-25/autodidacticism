@@ -201,12 +201,13 @@ end
 plotter(1:10, 2:10, trend_color="blue", intersect_color="brown")     
 ```
 
-##### declare an abstract Type which can have progency types/subtypes: `abstract type Gene end` 
+##### declare an abstract Type which can have progency types/subtypes: `abstract type Gene end`  
 Writing functions and methods for the abstract type should propagate to their subtypes.   
 
-##### the ternary **?** operator is a short hand for an in-else statement: `5 % 2 = 1 ? println("yes") : println("no")`   
+##### the ternary **?** operator is a short hand for an in-else statement: `5 % 2 = 1 ? println("yes") : println("no")`      
 
-
+##### declare a primitive Type: `primitive type Float64 <: AbstractFloat 64 end`    
+The number between the subtype and end indicates how many bits are required.   
 
 ## Blocks
 Blocks allow for the grouping and compartmentalization of sets of statements, there are several kinds of blocks; begin, let, do.
