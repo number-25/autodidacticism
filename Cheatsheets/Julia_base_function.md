@@ -209,6 +209,10 @@ Writing functions and methods for the abstract type should propagate to their su
 ##### declare a primitive Type: `primitive type Float64 <: AbstractFloat 64 end`    
 The number between the subtype and end indicates how many bits are required.   
 
+##### method definitions can also have type parameters qualifying their signature: `isintpoint(p::Point{T}) where {T} = (T == Int64)`    
+
+
+
 ## Blocks
 Blocks allow for the grouping and compartmentalization of sets of statements, there are several kinds of blocks; begin, let, do.
 
