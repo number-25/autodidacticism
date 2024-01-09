@@ -233,7 +233,10 @@ data = "whole lotta red"
 open("newfile.txt", "w") do writer
     write(writer, data)
 end 
-```   
+```
+
+##### the ternary **?** operator is a short hand for an in-else statement: `5 % 2 = 1 ? println("yes") : println("no")`   
+
 
 
 
