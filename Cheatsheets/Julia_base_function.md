@@ -201,6 +201,11 @@ end
 plotter(1:10, 2:10, trend_color="blue", intersect_color="brown")     
 ```
 
+##### Parse a string as a number. If the type is an integer type, then a base
+can be specified (the default is 10). If the type is a floating point type, the
+string is parsed as a decimal floating point number. If the string does not
+contain a valid number, an error is raised. `parse(Int64, "1234")` and
+`parse(T::Type, string, base=Int)`          
 
 ## Blocks
 Blocks allow for the grouping and compartmentalization of sets of statements, there are several kinds of blocks; begin, let, do.
