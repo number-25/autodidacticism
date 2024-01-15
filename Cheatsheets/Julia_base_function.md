@@ -200,7 +200,6 @@ end
 
 plotter(1:10, 2:10, trend_color="blue", intersect_color="brown")     
 ```
-
 ##### declare an abstract Type which can have progency types/subtypes: `abstract type Gene end`  
 Writing functions and methods for the abstract type should propagate to their subtypes.   
 
@@ -211,7 +210,7 @@ The number between the subtype and end indicates how many bits are required.
 
 ##### method definitions can also have type parameters qualifying their signature: `isintpoint(p::Point{T}) where {T} = (T == Int64)`    
 
-
+##### create a Type which is a union of different subtypes, allowing it to take on different type values: ` IntandString = Union(Int64, String)`     
 
 ## Blocks
 Blocks allow for the grouping and compartmentalization of sets of statements, there are several kinds of blocks; begin, let, do.
