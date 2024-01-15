@@ -212,6 +212,8 @@ The number between the subtype and end indicates how many bits are required.
 
 ##### create a Type which is a union of different subtypes, allowing it to take on different type values: ` IntandString = Union(Int64, String)`     
 
+##### missing values are themselves a specific kind of type - they are not just absent and NA, but do in fact have some sort of contradictory value - the "missing" type: `a = [1, missing]` to create an array which the value 1 and a missing value also. When we want to skip and ignoring these missing values, say, when loading into a DataFrame or performing some function, we can use the **skipmissing()** function: `mean(skipmissing(a))`
+
 ## Blocks
 Blocks allow for the grouping and compartmentalization of sets of statements, there are several kinds of blocks; begin, let, do.
 
