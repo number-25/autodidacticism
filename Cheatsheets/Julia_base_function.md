@@ -221,6 +221,14 @@ The number between the subtype and end indicates how many bits are required.
 
 ##### missing values are themselves a specific kind of type - they are not just absent and NA, but do in fact have some sort of contradictory value - the "missing" type: `a = [1, missing]` to create an array which the value 1 and a missing value also. When we want to skip and ignoring these missing values, say, when loading into a DataFrame or performing some function, we can use the **skipmissing()** function: `mean(skipmissing(a))`
 
+##### measure/time the execution of code using the @time macro: `@time function(arg)`
+See the package **BenchmarkTools** for additional performance measurement functionality. 
+> A function in Julia is compiled the first time it is executed. So to compare two algorithms, they have to be
+implemented as functions to get compiled and the first time they are called has to be excluded from the performance measure, otherwise the compilation time is measured as well.
+> The package BenchmarkTools (https://github.com/JuliaCI/BenchmarkTools.jl) provides the macro
+@btime that does benchmarking the right way. So just use it! 
+
+
 ## Blocks
 Blocks allow for the grouping and compartmentalization of sets of statements, there are several kinds of blocks; begin, let, do.
 
