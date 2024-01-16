@@ -100,6 +100,13 @@ end
 When you are reading and writing files, you might run into problems with whitespace. These errors can be hard to debug
 because spaces, tabs and newlines are normally invisible.     
 
+##### construct regex patterns to play with using the **Regex()** and **r** functions: `match(r"[^abn]", banana)`
+```
+function usesonly(word, available)
+    r = Regex("[^$(available)]")
+    !occursin(r, word)
+end
+``` 
 
 
 ## Arrays
