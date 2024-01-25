@@ -201,11 +201,25 @@ end
 plotter(1:10, 2:10, trend_color="blue", intersect_color="brown")     
 ```
 
+<<<<<<< HEAD
 ##### Parse a string as a number. If the type is an integer type, then a base
 can be specified (the default is 10). If the type is a floating point type, the
 string is parsed as a decimal floating point number. If the string does not
 contain a valid number, an error is raised. `parse(Int64, "1234")` and
 `parse(T::Type, string, base=Int)`          
+=======
+##### declare an abstract Type which can have progency types/subtypes: `abstract type Gene end`  
+Writing functions and methods for the abstract type should propagate to their subtypes.   
+
+##### the ternary **?** operator is a short hand for an in-else statement: `5 % 2 = 1 ? println("yes") : println("no")`      
+
+##### declare a primitive Type: `primitive type Float64 <: AbstractFloat 64 end`    
+The number between the subtype and end indicates how many bits are required.   
+
+##### method definitions can also have type parameters qualifying their signature: `isintpoint(p::Point{T}) where {T} = (T == Int64)`    
+
+
+>>>>>>> 665c5782ddd6cc3d12231408e771900b75fb3b3e
 
 ## Blocks
 Blocks allow for the grouping and compartmentalization of sets of statements, there are several kinds of blocks; begin, let, do.
@@ -238,7 +252,9 @@ data = "whole lotta red"
 open("newfile.txt", "w") do writer
     write(writer, data)
 end 
-```   
+```
+
+
 
 
 
