@@ -1,0 +1,170 @@
+---
+title: "Week-4-R-Programming"
+author: "Dean Basic"
+date: "2022-09-05"
+output: html_document
+---
+
+# Week 4 R Programming Coursera Working Notes 
+
+## The str() function 
+
+The str() function displays the *internal structure* of an R object. It is often used as an alternative to summary - it will compactly display lists which may be large.  
+
+```
+str(mean)
+str(x)
+str(lm)
+```   
+
+## Simulation 
+
+Generating random numbers!
+
+There are a few functions for simulating random numbers from a set of distributions. In *Julia* this is often undertaken using the **Distributions.jl** package along with **Stats**.  
+
+rbinom(), rnorm(), dnorm() etc etc.   
+
+In these functions the different prefixes will signify what type of function it is. e.g. d for density, r for random number generation, p for cumulative distribution, q for quantile function.   
+
+Let's generate some.... from a normal distribution.  
+
+```
+x <- rnorm(10)
+x
+```  
+
+More... 
+
+```
+x <- rnorm(10, 20, 2)
+x
+```
+
+Let's "seed" the generator for random numbers. Remember that in computer science, the random numbers are not TRULY random, but they are pseudorandom and thus functionally sufficient for experimental work. Without this pseudorandom-ness, it would not be possible exactly reproduce your workflow.   
+
+```
+set.seed(5)
+rnorm(5)
+```
+
+Let's do some poisson data... 
+
+```
+rpois(10, 1) # arrival rate of 1
+```
+
+More...
+```
+rpois(10, 2)
+```
+
+```
+rpois(10,20)
+```
+
+And let's do a cumulative distribution of the poisson - asking the question, what is the probability of observing y given a known arrival rate x  
+
+```
+ppois(12,10)
+``` 
+
+## Simulating a linear model  
+
+```
+set.seed(20)
+x <- rnorm(100)
+e <- rnorm(100, 0, 2)
+y <- 0.5 + 2 * x + e 
+summary(y)
+plot(x, y)
+```
+
+Well what if x is a binary random variable, and it isn't continuous? A categorical variable.   
+
+Let's use the binomial distribution for this!  
+
+```
+set.seed(10)
+x <- rbinom(100, 1, 0.5)
+e <- rnorm(100, 0, 2)
+y <- 0.5 + 2 * x + e
+summary(y)
+plot(x,y)
+```
+
+Suppose we want to simulate from a Poisson model?   
+
+```
+set.seed(1)
+x <- rnorm(100)
+log.mu <- 0.5 + 0.3 * x
+y <- rpois(100, exp(log.mu))
+summary(y)
+plot(x,y)
+```   
+
+
+## Random Sampling 
+
+The sample function draws randomly from a set of objects allowing you to sample from arbitrary distributions.   
+
+We'll go through a few different ways to generate some random samples - as if we're pulling balls out of an urn.    
+
+```
+set.seed(1)
+sample(1:10, 4)
+sample(1:10, 4)
+sample(letters, 5) # get 5 letters out 
+sample(1:10)
+sample(1:10)
+sample(1:10, replace = TRUE) #sample with replacement 
+```   
+
+## The R profiler 
+
+When running large analyses, or creating custom programs, using the Rprofiler can be very helpful in speeding up the analysis and working out where the inefficiencies are and where there is room to improve on speed.   
+
+Using system.time() - this function take an arbitrary R expression as input, and return the amount of time it takes to evaluate the expression.     
+
+It will provide a) user time - CPU time and b) elapsed real time - wall clock time   
+
+Exploiting multiple cores can be done with the **parallel** package.  
+Loading the R profiler can be done with the simple **Rprof()** function. DO NOT use Rprof and system.time together... or else bad things will happen.   
+
+
+**At base, Rprof keeps track of the function order and samples are regular intervals, then tabulates how long the function took at each stage.** However, the raw output of **Rprof()** is not entirely manageable, and thus we should tabulate and summarise it using the **summaryRprof()** function for readability.  
+
+When the analysis is taking quite a long time, it's a good idea to play with the profiler to see where performance gains can be made.   
+
+A few of the outputs from summaryRprof we can toy around with  
+* by.self  - the most helpful format 
+* by.total 
+* sample.interval  
+* sampling.time 
+
+
+# Week 4 Quiz 
+
+1. A vector with the numbers 1, 1, 2, 4, 1
+
+2. rnorm
+
+3. It can be used to specify which random number generating algorithm R should use, ensuring consistency and reproducibility.
+
+4. qpois
+
+5. Generate data from a Normal linear model
+
+6. rbinom
+
+7. the function call stack
+
+8. 100%
+
+9. It is the "wall-clock" time it takes to evaluate an expression (WRONG)
+
+10. elapsed time may be smaller than user time
+
+
+

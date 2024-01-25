@@ -1,0 +1,89 @@
+# Week 2 - Swirl Practice 
+
+
+### Logical Operators
+
+The difference between & and &&, is that & will evaluate across a vector, operating on every one of its elements, whereas && will only function on the first member of the vector. This likely has an analogue in *Julia* with broadcasting .&& and &&.    
+
+There are base R functions which allow us to ask the question - is THIS proposition true. `isTRUE(5 > 4)` which will evaluate to TRUE. 
+
+### Functions 
+
+> By writing functions, you can gain serious insight into how R works. As John Chambers, the creator of R once said: To understand computations in R, two slogans are helpful: 1. Everything that exists is an object. 2. Everything that happens is a function call.   
+
+To see the contents of a function, simply type it's name without providing any arguments. `function_1`    
+
+Write a super simple function to calculate the mean of a vector. R base function sum() will tally the sum of each of the elements in the vector, and the function length() will list the number of elements in the vector, so dividing the sum by the length will output the mean.   
+
+``` 
+my_mean <- function(my_vector) {
+  mean <- sum(my_vector) / length(my_vector) 
+    mean # Write your code here!
+  # Remember: the last expression evaluated will be returned! 
+}
+```
+
+Setting default values in a function means that the user does not provide these as an argument, they are predetermined, and are assigned within the arguments section of the function, typically as `f <- function(x, y = 3)`     
+
+**Remember that when providing arguments to functions, there is a specified order in which they must be provided, UNLESS, the argument name is explicitly provided alongside the values** `function(num = 5, to = 3)`   
+
+To see which arguments the function has, we can use the **args()** function from  base R.   
+
+As many programming languages allow us to provide functions as arguments for other functions, we can create these nested rudimentary programs which references one an another and build upon each other.     
+
+One example here
+```
+eval <- function(func, vect){ #Provide a known function as the first arg
+  x <- func(vect) #Apply the function with the data 
+    x
+}
+```
+
+What is really magical is the ability to write a provide a micro-function as one of the arguments in the function. `evaluate(function(x){x+1}, 6)`    
+
+The **args** and **list** function is very fascinating and constructive - if we are creating a function and allowing multiple arguments to be provided, we can simply provide the "..." elipses - known as slurping and splatting in [*Julia*] (https://docs.julialang.org/en/v1/manual/faq/#What-does-the-...-operator-do?), and then create a **list()** from these univeral 'open' arguments/variables, from which we can operate on them, perhaps slicing them and subsetting certain elements to perform certain functions, and so on. 
+
+See a nice example below. 
+"Have you ever played Mad Libs before? The function below will construct a
+sentence from parts of speech that you provide as arguments. We'll write most
+of the function, but you'll need to unpack the appropriate arguments from the
+ellipses."
+
+```
+mad_libs <- function(...){
+  args <- list(...) #Create a list from the arguments provided
+  place <- args[1] #Take the first element of the args list 
+  adjective <- args[2]
+  noun <- args[3]
+  # Do your argument unpacking here!
+  
+  # Don't modify any code below this comment.
+  # Notice the variables you'll need to create in order for the code below to
+  # be functional!
+  paste("News from", place, "today where", adjective, "students took to the streets in protest of the new", noun, "being installed on campus.")
+}
+```     
+
+This will output :
+> "News from Brisbane today where taking students took to the streets in protest of the new sanitorium being installed on campus."   
+
+
+The last aspect of this tutorial will be on defining custom binary operators - in short, these are custom functions which all one to perform specific operations on a set of given - say we're very often taking two numbers, divinding them, then squaring the product of this division - it would be straight forward to create this custom binary operator and simply provide these two numbers in ourselves.. 
+
+"User-defined binary operators have the following syntax:    
+     %[whatever]%    
+ where [whatever] represents any valid variable name.    
+
+Let's say I wanted to define a binary operator that multiplied two numbers and
+then added one to the product. An implementation of that operator is below:    
+
+``` 
+"%mult_add_one%" <- function(left, right){ # Notice the quotation marks!
+   left * right + 1    
+}
+```    
+
+I could then use this binary operator like `4 %mult_add_one% 5` which would
+evaluate to 21." 
+
+

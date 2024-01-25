@@ -1,0 +1,257 @@
+---
+title: "R-Programming-Week1"
+author: "Dean Basic"
+date: '2022-08-11'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Week 1 R Programming - notes and working document 
+
+## Basic Features and Whistles 
+
+### Assignment 
+
+The assignment operator in R is the <- symbol. We can, for instance, assign 10 to the variable x with this operator.  
+
+```{}
+x <- 10
+``` 
+
+Do something more fancy and assign x an array or vector of numbers.  
+
+`x <- 10:50`   
+
+In *Julia*, we would use the '=' sign as the assignment designator/operator.  
+
+There is also a special number Inf which represents infinity. This allows us to represent entities like 1 / 0. This way, Inf can be used in ordinary calculations; e.g. 1 / Inf is 0.   
+
+**The value NaN represents an undefined value (“not a number”); e.g. 0 / 0; NaN can also be thought of as a missing value (more on that later).**   
+In order to get some basic information, or 'metadata' regarding an object in R, we can use the **attributes()** function, which will give us a breakdown of the type of variable, the dimensions, the length, and other assigned attributes.     
+
+In Julia, this can be done using various commands, such as **typeof()**, **summary()**, **describe()**, **length()**, and likely many more..   
+
+### Vectors and Lists 
+
+One of the most commonly used R functions is **c()** - standing for **c**ollect or **c**ollate: taking a list of numbers, strings or otherwise tokens, and formatting a vector from them. We can think of *Julia* doing `x = [1, 2, 3, 4, 5]`.    
+
+`x <- c("ATG", "GAC", "GGG", "CAT")`    
+
+To initialize an empty vector, we can simply do.. `x <- vector("numeric, length = 10)`.      
+
+In *Julia*, for an array of 0's we would do `x = [zeros(10)]`. An undefined vector `x = Vector{Int64}(undef, 10)`. This is more terse than Rs syntax, but once mastered it's logic becomes understandable and eventually quite powerful, with subtle changes permitting much variations. Another way is to use the **fill()** function, as such `fill(0, (3))` - which may be the most straight forward way to go bout it, as it creates a 3 element vector filled with 0s. Creating a matrix in this fashion can be done by simply providing a row value before the column value `fill(0, (10, 10))` to create a 10x10 matrix filled with 0s.    
+
+
+A list is a vector containing elements of different types/classes within it. 
+
+
+### Matrices
+
+Matrices, in the most straight forward way, are two-dimensional arrays/vectors which have a row and column dimension - an archetypal dataframe. [x, y].   
+
+`x <- matrix(nrow = 2, ncol = 2)` will generate a 2x2 matrix filled with NA values.    
+
+
+### Converting between types/classes 
+To force an interger to be represented as a string, we use the **as.()** function, which takes an existing vector as input, and operates on it. `as.logical(x)` which will convert the vector which as originally an interger, and convert it to a logical/boolean representation. In R terminology, this is known as *'forced coercian'*.    
+
+
+### Factors 
+
+Factors are used to represent categorical data and can be unordered or ordered. When assigning these variables, it is important to represent the value in as clear format as possible - if there are only two options for a value, say, male and female, than it is much easier to store the data as such, rather than refer to a code such as 1, 2 to represent the genders, respectively.    
+
+We can create these categoricable values - factors - using the **factor()** function.    
+`x <- factor(c("yes", "yes", "no", "yes"))`   
+
+Often factors will be automatically created for you when you read a dataset in using a function like **read.table()**. Those functions often default to creating factors when they encounter data that look
+like characters or strings.  
+
+**The order of the levels of a factor can be set using the levels argument to factor(). This can be important in linear modelling because the first level is used as the baseline level.**    
+
+```
+x <- factor(c("yes", "yes", "no", "yes", "no"),
+levels = c("yes", "no"))
+```    
+
+### NA, NaN Values
+
+NA is a missing value, NaN is a missing value and Not a Number (NaN). This class of values represents missing entries, and is also represented in *Julia* as "missing" value - which I believe, can be assigned the "NA" value when generating a DataFrame - to find whether values are missing, we can perform **ismissing()**. See [link](https://dataframes.juliadata.org/stable/man/missing/).   
+
+To test to see if a dataframe/vector/array/matrix has missing values, we can executed the **is.na()** function. `is.na(x)`.     
+
+To test to see if the above also contains NaN values, not-a-number values, we can do `is.nan(x)`.     
+
+**Remember:**: An NaN is always an NA, but an NA is not always an NaN.  
+
+### Data Frames
+
+Perhaps the most relevant for us Data Analysts... of very important note: ***"Unlike matrices, data frames can store different classes of objects in each column. Matrices must have every element be the same class (e.g. all integers or all numeric)."***   
+
+Making data frames in R is quite straight forward, we simply call the **data.frames()** function, then provide a list of values to the column names.   
+
+`x <- data.frame(A = 1:4, B = c(11, 12, 13, 14))` 
+
+In *Julia*, we can construct a Data Frame in a few ways... at base we need to load the DataFrames.jl package. From there we can construct a simple data frame by `x = DataFrame(A = 1:4, B = [12, 13, 14, 15])`.   
+
+To get the number of rows, use the **nrow** and **ncol** functions - just the same in *Julia*. In *Julia*, we can also get the names of the columns using **names()** function.    
+
+### Reading Tabular Data 
+
+The default way to do this is using the **read.table()** function.  
+
+`data <- read.tabel("data.txt")`  
+
+The commonly encounted "read.csv" is the same base as read.table, however, the default delimeter/column separator is the comma.    
+
+In *Julia*, we can load the CSV.jl package, which provides a whole host of functions to work with CSV files - a basic one being **CSV.read()**.  
+Also... as was shown in other tutorials, there are various handy functions such as reading a CSV from a URL or the clipboard, automatically parsing data frames in this fashion etc. - Both *Julia* and *R* have these packages.   
+
+#### Reading in Large Datasets
+
+**The most important part here is known how much memory one has on the computer, for R will load the entire dataset into memory - in many cases, such as Genomics and Transcriptomics, this can become unmanageable**   
+
+To better understand how to make R excel here, optimizing its speed - read the read.table helpfile, and remember a few key points:   
+
+> "Use the colClasses argument. Specifying this option instead of using the default can make ’read.table’ run MUCH faster, often twice as fast. In order to use this option, you have to know the class of each column in your data frame. If all of the columns are “numeric”, for example,
+then you can just set colClasses = "numeric". A quick an dirty way to figure out the classes of each column is the following:"      
+
+**Section 6.4 indicates how to calculate how much memory one requires load a dataset**    
+
+A more advanced option is to use the **readr** package which has been created by Hadley Wickham (should we be surprised? lmao) - 
+
+> "The readr package is recently developed by Hadley Wickham to deal with reading in large flat files quickly. The package provides replacements for functions like read.table() and read.csv(). The
+analogous functions in readr are read_table() and read_csv(). These functions are often much faster than their base R analogues and provide a few other nice features such as progress meters. For the most part, you can read use read_table() and read_csv() pretty much anywhere you might use read.table() and read.csv(). In addition, if there are non-fatal problems that occur while reading in the data, you will get a warning and the returned data frame will have some information
+about which rows/observations triggered the warning. This can be very helpful for “debugging” problems with your data before you get neck deep in data analysis."   
+
+The basic functionality of **readr** is demonstrated below.  
+``` 
+library(readr)
+data <- read_csv("data.csv")
+```    
+* Once again, we can specify the types of data in each column using the **col_types** option.    
+
+readr will also read in compressed data be default - a very useful aspect!   
+
+
+In *Julia* there are ofcourse, multiple options, the strongest recommendation appears to be the **JuliaDB.jl** package - and I must say, this is one of the most impressive blog posts I have ever come across -- some folks are dealing with such a large bolus of data that I find it hard to believe - 100 billions of rows, nanosecond computations, simply extraordinary. One we get into these titanic corridors, we must be esoteric packages such as **Arrow.jl** and **Spark.jl** which is a combination of SQL and other magic.  
+
+
+### Interfacing (APIs etc.) to the Outside World 
+
+Here we can recall the word "stream" to stimulate what we're trying to elucidate here - *streaming* data from the web, opening *connections* to files and such.    
+
+* *file* opens a connection to a file
+* *gzfile* opens a connection to a gzip compressed file
+* *bzfile* opens a connection to a bzip compressed file 
+* *url* opens a connection to a webpage 
+
+For instance, to establish a file connection to a text file, we can using the **file** function to load the file, and then load that file into a .csv using **read_csv()** - though this is somewhat redundant, we can use the the *stream* to load only say, a few lines of a file, and lets not forget, the important streaming of gzip and bzip compressed file.   
+
+My favorite streaming option may be the **url** stream.   
+
+``` 
+con <- url("link.edu", "r") # the r option indicates that we want to read the file. 
+```    
+
+*Julia* too has very similar functions such as download(url, location).
+
+### Subsetting Data: Vectors, Lists and Matrices 
+
+Sub-set-ting may best be understood as those operations which take sub-sets of the data - the data being the whole set. For instance, taking the first 4 columns of a dataframe is taking a subset of that data - say, by providing the index `x[1:4]` to *slice* the data - in this case a simply vector.     
+
+
+Sub-setting a list - a data type which is almost a dictionary? In that it is relational - it contains an entry in the list, which stores a set of value - for instance, if we put two elements in a list, foo and bar, we add data to each of these elements, so that when we call foo, we output 1, 2, 3, 4, and if we call bar, we output 0.4, the values which we assigned to these elements, respectively. 
+
+To subset a list, we use the double square brackets - `x[[1]]`. We can even do it with the doller sign, providing the name of the element - this differs in that we don't need to remember which position in the list the element is `x$foo`.      
+
+
+Subsetting a matrix is quite intuitive if one deals with dataframes regularly - using the [row, column] syntax. `x[1, 2]` will retrieve the element in the first row, second column. No doubt, we can slice multiple values by providing an index. 
+
+
+**Partial matching** is a quick and dirty search strategy which can be used to query an elements which contain say, the letter a - this is also known as **fuzzy** matching : `x$a` if x is a list.   
+
+
+### Removing Missing Values 
+
+"More realistic data have many missing values.".   
+
+Check to see if a vector has missing (NA) values.   
+`is.na(x)`    
+
+Investigate the **complete.cases()** function to quickly remove missing values. 
+
+```
+good <- complete.cases(airquality) # Assign only the complete values to this variable
+airquality[good,][1:6, ] # Subset the original data with the new conditional variable 'good' 
+```   
+
+In *Julia* the NA values have the type Missing, and are represented as *missing* - thus allowing one to filter them out using the ! not conditional and the **ismissing()** function.  
+`filter(!ismissing, x) # Where x is the vector`    
+
+**skipmissing()** is another function that will come in handy when handling missing values.  
+
+### Quiz 
+
+data <- url("https://d396qusza40orc.cloudfront.net/rprog/data/quiz1_data.zip")  
+
+11. Use the Week 1 Quiz Data Set to answer questions 11-20.
+
+`names(qzdata)`   
+
+12. Extract the first 2 rows of the data frame and print them to the console. What does the output look like?  
+
+`qzdata[:2,]`  
+
+13. How many observations (i.e. rows) are in this data frame? 
+`nrow(qzdata)` = 153 
+
+14. Extract the last 2 rows of the data frame and print them to the console. What does the output look like?  
+
+`tail(qzdata, 2)`  
+
+15.  What is the value of Ozone in the 47th row.  
+
+`qzdata[47, ]`    
+
+16. How many missing balues are in the Ozone column of this data frame?   
+
+```  
+new <- complete.cases(qzdata$Ozone) # select only the complete cases   
+nrow(qzdata[new,] # subset the original data with complete data    
+```   
+153 - 116 = 37 
+
+17. What is the mean of the Ozone column in this dataset - exclude missing values.   
+
+`mean(qzdata[new,]$Ozone)`   
+42.1    
+
+18. Extract the subset of rows of the data frame where Ozone values are above 31 and Temp values are above 90. What is the mean of Solar.R in this subset?   
+
+Surely this can be done so much easier and cleaner with more knowledge, and using something like **dyplr**..   
+
+```
+qz2 <- qzdata[qzdata$Ozone > 31, ]  
+t3 <- complete.cases(qz2[qz2$Temp > 90, ]$Solar.R)   
+qz3 <- qz2[qz2$Temp > 90, ]    
+qz3[t3, ]   
+mean(qz3[t3, ]$Solar.R)    
+```    
+
+19. What is the mean of "Temp" when "Month" is equal to 6?
+
+`mean(qzdata$Temp[qzdata$Month == 6])`     
+
+20. What was the max ozone value in the month of May?    
+
+`max(qzdata$Ozone[qzdata$Month == 5], na.rm = "TRUE")`    
+
+#### END 
+
+
+
+

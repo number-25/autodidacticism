@@ -1,0 +1,180 @@
+---
+title: "Week-2-RProgramming"
+author: "Dean Basic"
+date: "2022-08-17"
+output: html_document
+---
+
+# Week 2 Coursera R Programming Course 
+
+## Control Structures in R 
+
+This is a formal way of saying, operations which *control* how R executes code.  
+Think of if, else, when loops, break, repeat, end and so on and so forth.    
+
+### If 
+
+A sample below. We can see R's idiosyncratic way of creating these structures. Pay attention to the use of the curly brackets - something which differs much from *Julia*. 
+
+```  
+if (conidition) {
+    y <- 10 
+} else {
+    y <- 0 
+}   
+```    
+
+R makes it easy to memorize the if-else syntax by simply splitting the two words up -
+**if else** in R is **ifelse** in *Julia*.    
+
+In *Julia*, we would do.. 
+```    
+if (condition)
+    x = 10 
+else 
+    x = 0  
+end 
+```    
+> "The if-else combination is probably the most commonly used control structure in R (or perhaps any language). This structure allows you to test a condition and act on it depending on whether it’s true or false." 
+
+
+### For loops   
+
+The most common type of loop operator - it is an iterator.   
+
+```  
+for (i in 1:10) {
+    print(i) # This will just print the numbers 1 through to 10
+}
+```    
+
+These loops can be nested - we can have a for loop within a for loop!    
+
+> "For loops are pretty much the only looping construct that you will need in R. While you may occasionally find a need for other types of loops, in my experience doing data analysis, I’ve found very few situations where a for loop wasn’t sufficient."    
+
+The **seq()** function is very handy, it can be used to create a sequence of numbers between a range, by increments that one desires. Say we want all the numbers from 0.1 to 1.0, at increments of 0.05.   
+
+`seq(0.1, 1.0, by = 0.05)`   
+
+A short hand for 1:17 is `seq(17)`.   
+
+> "The seq_along() function is commonly used in conjunction with for loops in order to generate an
+integer sequence based on the length of an object (in this case, the object x)."    
+
+> "Nested loops are commonly needed for multidimensional or hierarchical data structures (e.g.matrices, lists).   
+
+For *i* in , for *j* in ..... is the typical format.   
+
+### While loops
+
+The logical loop - is given a condition, say, **while** x is less than 10, execute a command - the operation will compare variable to the condition, and if the execution is TRUE, it will proceed through the computation. 
+
+``` 
+count <- 0
+while(count < 10) {
+    print(count)
+    count <- count + 1
+}
+```
+
+In *Julia*, we can use the updating operator (I think it's called this haha).
+
+```
+count = 0
+while count < 10 
+    print(count)
+    count += 1 
+end 
+```      
+### Repeat, Next, Break 
+
+This is a construct which initiates an infinite loop. Not commonly used in statistical or data analysis applications but they do have their purpose. **The only way to exit a *repeat* loop is to provide a *break* statement**.   
+
+*Next* is used to skip an iteration of a loop - say we have a set of numbers from 0 to 100, and we want to perform some operation on the numbers from 20 upwards, we can provide and *if* statement in the loop, to skip the first 20 iterations, meaning, so long as i is less than 20, skip and thus *next*.    
+
+## Function 
+
+"Functions are defined using the function() directive and are stored as R objects just like anything else. In particular, they are R objects of class “function”." **Functions have their own class**.      
+
+`f <- function() {}`    
+
+In *Julia*, much the same : `function nameoffunction()`.   
+
+> "In general, if you find yourself doing a lot of cutting and pasting, that’s usually a good sign that you might need to write a function."  
+
+A basic demonstration.   
+
+```
+f <- function(len) {
+    for (i in seq_len(len)) {
+      cat("Hello")    
+  }
+}
+```
+
+Built into R functions are options which specify how missing values (NA) should be handled. This is done using the `na.rm = FALSE/TRUE` term.    
+
+We can find the *arguments* that a function contains, by using the `args(functionmame)` function - it will show us what we can, and perhaps, need to provide to the function, and what some of its internal logic consists of.    
+What is key to keep in mind with functions, is the order of arguments that one is inputting - if the arguments are being input explicity with their name, then the order does not matter, however, as functions typically have a predetermined order of arguments, inputting the values without respecting these positional rules is almost certain to lead to misguided outcomes - for instances, if one ones to calculate the probability density function of a poisson distributed sample, then confusing lambda for the number of trials, will lead to confused results. Lambda being the arrival rate (mean observed rate) - e.g. 5 mutations per year, independent of each other - and the sample rate being say 10 mutations - is 10 surprising, or relatively compatible with the model?    
+
+
+**Look further into the "..." argument - and how it translates to *Julia***   
+
+
+## Scoping Rules - Symbol Binding 
+
+This section determines how functions, and variables are 'observed' by the language - can they be seen globally, or are they restricted to local, specific subregions, such as another function.  
+
+This becomes particularly relevant if we seek to create a generalised function, such as a 'exponent function' wherein we can create several new functions based on the structure of an existing function - for instance `cube <- exponent(3)` which create a function which cubes any number. More on this as I learn additional programming......    
+
+
+The *Julia* manual says it best IMO: 
+
+> "The scope of a variable is the region of code within which a variable is accessible. Variable scoping helps avoid variable naming conflicts. The concept is intuitive: two functions can both have arguments called x without the two x's referring to the same thing. Similarly, there are many other cases where different blocks of code can use the same name without referring to the same thing. The rules for when the same variable name does or doesn't refer to the same thing are called scope rules; this section spells them out in detail."    
+
+
+## Coding Standards 
+
+* Indenting
+* Spacing
+* Length of functions
+* Pay attention to column width 
+* GLOBAL and LOCAL variables
+* Comment length 
+* Commenting absolutely 
+* Splitting code into functions - making it easier to debug and so forth 
+* Using appropriate classes and types for optimal speed and such 
+
+
+## Date and Time
+
+Dates have the *Date* class in R -- times are formatted using the POSIXct (long interger) or the POSIXlt class (a list). Not much to memorise here - better to consult the manuals for this.  
+
+
+### Quiz 
+1. 27 
+
+2. Answered: 'x' is a vector of length 10 and 'if' can only test a single logical statement. 
+
+3. Answer is 1
+
+4. 10
+
+5. f 
+
+6. a collection of symbol/value pairs
+
+7. lexical scoping
+
+8. The values of free variables are searched for in the environment in which the function was defined. 
+
+9. The environment in which it was defined. 
+
+
+
+
+
+
+
+
+

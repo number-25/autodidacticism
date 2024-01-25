@@ -1,0 +1,165 @@
+---
+title: "Week-3-Working-Notes"
+author: "Dean Basic"
+date: "2022-08-29"
+output: html_document
+---
+
+# Loop Functions
+
+Many loop functions can built into R - often they have the "apply" suffix in 
+their name; e.g. lapply(), sapply(), apply(), tapply(), mapply()... and the
+auxillary function split() which often helps with these functions.    
+
+• lapply(): Loop over a list and evaluate a function on each element   
+• sapply(): Same as lapply but try to simplify the result   
+• apply(): Apply a function over the margins of an array  
+• tapply(): Apply a function over subsets of a vector  
+• mapply(): Multivariate version of lapply  
+
+
+Studying *Julia*, it will occur to one that this iterative, looping approach for functions is known as **broadcasting** , and is quite simply engaged by including the broadcasting operator when calling the function - allowing the function to operate on each element in the data. Whether *Julia* has specific sub-designators which mirror t/m/s/*apply, is a curiousity worth looking into. 
+
+
+## lapply
+
+
+**lapply*()** *loops* (is this the reason for the l in lapply?) over a list of
+elements in a list and applies a function to each element of that list, returning a list back as output also.    
+
+"This function takes three arguments: (1) a list X; (2) a function (or the name of a function) FUN; (3) other arguments via its ... argument. If X is not a list, it will be coerced to a list using as.list()."
+
+**Remember that lapply() ALWAYS returns a list, regardless of the input format**
+
+An anonymous function, in most simply terms, is a function which is assigned WITHIN another function such as lapply, and is thus "anonymous" and unnamed - it doesn't have an explicit variable/name that it can be called from within the larger environment. I would like to call these *hiding functions*.    
+
+For reference see this page for [*Julia*](https://en.wikibooks.org/wiki/Introducing_Julia/Functions#Anonymous_functions)
+
+
+## apply
+
+apply loops over elements within a matrix/array, and applies a function to each row-column locus of the matrix, (returning a matrix as output?)
+
+`apply(x, 1, mean)` - see how we must provide a "margin" argument to the function to indicate along which dimension the array must be preserved - e.g. the 1st or the 2nd dimension; collapsing by the first dimension, which is the row dimension, we are able to take the mean of the columns, and likewise, we could collapse by the column (2) to take the mean of the rows, preserving the number of rows.     
+
+" For the special case of column/row sums and column/row means of matrices, we have some useful
+shortcuts.
+
+• rowSums = apply(x, 1, sum)  
+• rowMeans = apply(x, 1, mean)  
+• colSums = apply(x, 2, sum)  
+• colMeans = apply(x, 2, mean)  
+
+The shortcut functions are heavily optimized and hence are much faster, but you probably won’tnotice unless you’re using a large matrix. Another nice aspect of these functions is that they are a bit more descriptive. It’s arguably more clear to write colMeans(x) in your code than apply(x, 2, mean"       
+
+You can do more than take sums and means with the apply() function. For example, you can compute quantiles of the rows of a matrix using the quantile() function.   
+
+
+## mapply
+
+A type of *apply()* function which is very handy for vectorizing certain functions. 
+
+
+
+
+## tapply
+
+tapply is used to apply a function over *subsets* of a vector - say, over all observations in a data frame belonging to women or men by explicity providing this information in the argument. 
+
+
+# Debugging  
+
+Getting to the bottom of problems in our code.  
+
+Warnings, errors, unexpected results, unsatisfied conditionals and so on.   
+
+## Tools for debugging
+
+Not absolutely essential to know these, but they DO home in handy and should thus be known to you. They are all interactive tools which allow one to go through the function line-by-line, though one can also use the brute method of inserting cat-print statements throughout the code.   
+
+* traceback()  
+* debug()   
+* browser()  
+* trace()  
+* recover()  
+
+### traceback() 
+
+traceback prints out where the error in the function occurred - we must call this function directly after we encounter an error in our function. Very helpful to tell people what your traceback was after an error occurred. `traceback()`   
+
+
+### debug
+
+We call this function by providing the function name to the argument as such 
+`debug(lm) # debugging the lm function`. After which we provide the exact function and its arguments, and work through the interactive session which pops up. "step through the function until the error appears".   
+
+**debugging tools are not substitutes for thinking!** 
+
+
+# Swirl Practice notes 
+
+## lapply and sapply 
+
+The function of lapply() is to apply a function to every element of a list - in this example to a data-frame, which is just a more structured list of elements in their rows. It will also return a list as output. 
+
+The argument of lapply() are (1) data to operate on and (2) the function to apply, and sometimes, (...) a list of options and arguments specific to the function that we are applying.  
+
+
+sapply does virtually the same thing as lapply(), the biggest difference being is that is simplifes the output, hence the s in **s**apply().    
+
+## vapply and tapply 
+
+vapply is virtually identical to sapply and lapply, with the biggest difference being the ability to exactly specify the format that the output will be in. 
+
+"You might think of vapply() as being 'safer' than sapply(), since it requires
+you to specify the format of the output in advance, instead of just allowing R
+to 'guess' what you wanted. In addition, vapply() may perform faster than
+sapply() for large datasets. However, when doing data analysis interactively (at the prompt), sapply() saves you some typing and will often be good enough."
+
+The tapply information sheet states that tapply "Applies a function over a ragged array" - so in a sense, just as broadcasting in *Julia* applies the function to each element in the data frame, this too cn do so.  
+The tapply() is most useful in splitting the dataframe into groups before applying the function - by operating on specific subsets of the data frame - say, take the columns containing height, and then from these calculate the population numbers of each of the 'height brackets' - as you can see, this best works when taking information from a categorical variable. 
+
+tapply() argument convention for subsetting data is {data, variable we want to perform function on, groups we want to split the dataframe BY}.    
+
+Similarly, the split() function follows the same convention (analysis group, identity group).     
+
+
+
+
+# Quiz Notes
+
+1. Load the iris data set - mean for the species virginica 
+
+```
+library(datasets)
+data(iris)
+```    
+
+`tapply(iris$Sepal.Length, iris$Species, mean)`    
+= 7 
+
+2. apply(iris[, 1:4], 2, mean)
+
+3. These three will output the mean miles per gallon of the dataset BY cylinder count 
+
+```
+sapply(split(mtcars$mpg, mtcars$cyl), mean)   
+
+with(mtcars, tapply(mpg, cyl, mean))
+
+tapply(mtcars$mpg, mtcars$cyl, mean)
+```    
+
+4. tapply(mtcars$hp, mtcars$cyl, mean)
+
+= 127 
+
+
+
+
+
+
+
+
+
+
