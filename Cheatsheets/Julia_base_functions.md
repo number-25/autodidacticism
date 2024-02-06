@@ -26,7 +26,7 @@ rev= option will indicate whether we should sort in reverse or not.
 
 ##### split a tuple based on a character: `split(tuple, 'character')` 
 We can split a tuple (or string) and use any character as the splitting delimiter. See for instance;
-```
+```julia
   addr = "julius.caesar@rome"
   uname, domain = split(addr, '@'); ␂
 ``` 
@@ -60,7 +60,7 @@ contents, which can be utilized and computed with - but often this index value m
 
 ##### list out the elements of a tuple with their associated index 
 If we have five elements in a tuple, and we want to perform some functions on these elements AND utilize their index values, we can give enumerate a go;  
-```
+```julia
    a = ["a", "b", "c"]   
    for (index, value) in enumerate(a)
            println("$index $value")
@@ -81,7 +81,7 @@ named_tuple.this
 
 ##### count the occurrence of a character in a string: `count(i->(i=='f'), "foobar, bar, foo")`
 Typically count is used to count integers, but it can be adapted to count characters in a string relatively easily. Here the option tells counts that we should operate on i, and i equals (==) the character 'f'. Here's an example of this function, used to count the letter frequency of a string.  
-```
+```julia
    function mostfrequent(string)
     emptydict = Dict()
     for letter in lowercase(str)
@@ -117,7 +117,7 @@ iterated through - for instance I had multiple values inside an array within
 each row of a dict, which I was attempting to 'flatten' out into a single
 column vector/array to iterate through, and this was one way of achieving
 this -- perhaps not the best way to go about it however... it must be noted that this will only work if each subarray is of the same size, in this case = 2
-``` 
+```julia
 samp = [["today", "yesterday"], ["tomorrow", "morning"]]
 
 for f in stack(samp) ; println(f); end
@@ -134,7 +134,7 @@ Reshape the array a as a one-dimensional column vector. Return a if it is
 already an AbstractVector. The resulting array shares the same underlying data
 as a, so it will only be mutable if a is mutable, in which case modifying one
 will also modify the other.   
-```
+```julia
 a = [1 2 3; 4 5 6] 
 vec(a)
 ```
@@ -147,9 +147,6 @@ vec(a)
 > 4
 > 5
 > 6    
-
-
-
 
 ## File IO, Directories, Navigation 
 
@@ -193,7 +190,7 @@ Especially helpful when importing external packages.
 ##### find the parent type of a subtype - it's 'supertype': `supertype(card)`     
 
 ##### keyword arguments are defined in functions when we want to be a bit more explicit in our function calls -- we must remember to use the *;* semicolon after the last ordinary argument:   
-```
+```julia
 function plotter(x, y; trend_color="black", intersect_color="red")
     something
 end
@@ -201,13 +198,12 @@ end
 plotter(1:10, 2:10, trend_color="blue", intersect_color="brown")     
 ```
 
-<<<<<<< HEAD
 ##### Parse a string as a number. If the type is an integer type, then a base
 can be specified (the default is 10). If the type is a floating point type, the
 string is parsed as a decimal floating point number. If the string does not
 contain a valid number, an error is raised. `parse(Int64, "1234")` and
-`parse(T::Type, string, base=Int)`          
-=======
+`parse(T::Type, string, base=Int)`  
+
 ##### declare an abstract Type which can have progency types/subtypes: `abstract type Gene end`  
 Writing functions and methods for the abstract type should propagate to their subtypes.   
 
@@ -218,23 +214,19 @@ The number between the subtype and end indicates how many bits are required.
 
 ##### method definitions can also have type parameters qualifying their signature: `isintpoint(p::Point{T}) where {T} = (T == Int64)`    
 
-
->>>>>>> 665c5782ddd6cc3d12231408e771900b75fb3b3e
-
 ## Blocks
 Blocks allow for the grouping and compartmentalization of sets of statements, there are several kinds of blocks; begin, let, do.
 
 ##### begin blocks are a nice grouping bracket 
-```
+```julia
 begin
     something
     somethingmore
     more
 end 
 ``` 
-
 ##### let blocks allow for new bindings to be created between values and variables, to mediate between global and local variables/scopes
-```
+```julia
 z y x = 2 3 1
 
 let x = 5
@@ -246,7 +238,7 @@ value, whilst the remaining variables will be printed as per their global
 values     
 
 ##### do blocks are often handy when working with IO flow, reading and writing files. One of their main advantages is that they handle the closing of the stream automatically and thus the IO doesn't haven't to be closed explicitly
-```
+```julia
 data = "whole lotta red"
 
 open("newfile.txt", "w") do writer
