@@ -171,6 +171,8 @@ The second command will *read* out the output the command as a String
 
 ##### import/use only certain components of a module: `using .BenchMarks: timelag, NP`    
 
+##### memory mapped IO for loading large datasets not able to be stored in memory: `using Mmap; mmap(s, Matrix{Int}, (m,n))`    
+See more details [here](https://docs.julialang.org/en/v1/stdlib/Mmap/#Memory-mapped-I/O)
 
 ## General   
 
