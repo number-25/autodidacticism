@@ -100,6 +100,22 @@ end
 When you are reading and writing files, you might run into problems with whitespace. These errors can be hard to debug
 because spaces, tabs and newlines are normally invisible.     
 
+## DataFrames
+##### ask whether certain values are *in* the dataframe rows using the **in** function with broadcasting: `data.newvariable = in.(data.weight, [["120kg", "220kg"]])` 
+You must enclose the strings in double square brackets as otherwise the broadcasting will not iterate over both elements and a dimension error will be thrown - this is a super important note. When you enclose the array containing two elements in another array, you effectively create a single element array, which circumvents the dimension error.   
+
+##### simple ifelse function to create binary variables if certain conditions aren't met: 
+```julia 
+rest_data.wrongZip = ifelse.(rest_data.zipCode .< 0, true, false)
+# for multiple conditions - all values that are either missing or not 6 in AGS or 3 in ACR are false 
+first_q.largeLand = ifelse.((ismissing.(first_q.AGS)) .| (first_q.AGS .!= 6) .| (first_q.ACR .!= 3), false, true) 
+```
+
+##### get the column index of a data frame: `columnindex(data, "columnname")`    
+
+##### check if a column of a specific name is in the data frame: `hasname(data, "columname")`    
+
+
 
 
 ## Arrays
@@ -150,6 +166,8 @@ vec(a)
 
 ## File IO, Directories, Navigation 
 
+##### view the size of the objects-datasets in your environment: `varinfo(, args)`      
+
 ##### obtain the contents of an IObuffer as an array, afterwhich the IObuffer is reset to its initial state: `take!(io)`   
 
 ##### walk through a directory, listing its contents: `walkdir("path/path")`  
@@ -173,6 +191,12 @@ The second command will *read* out the output the command as a String
 
 ##### memory mapped IO for loading large datasets not able to be stored in memory: `using Mmap; mmap(s, Matrix{Int}, (m,n))`    
 See more details [here](https://docs.julialang.org/en/v1/stdlib/Mmap/#Memory-mapped-I/O)
+
+##### read a csv from a url directly into a DataFrame using CSV and HTTP packages: 
+```julia
+using CSV, HTTP, DataFrames
+csv_import = CSV.read(HTTP.get("url").body, DataFrame)
+```
 
 ## General   
 
@@ -215,6 +239,18 @@ Writing functions and methods for the abstract type should propagate to their su
 The number between the subtype and end indicates how many bits are required.   
 
 ##### method definitions can also have type parameters qualifying their signature: `isintpoint(p::Point{T}) where {T} = (T == Int64)`    
+
+##### filter datasets based upon specific conditions - get values that equal z from data y: `filter(x -> x == z, y)` or `filter(x => equals(x), y)`     
+
+We can do a lot more elegant multi-line filtration for multiple conditions using the do blocks
+```
+dr = Dates.Date(2015):Dates.Day(1):Dates.Date(2016);
+filter(dr) do x
+    Dates.dayofweek(x) == Dates.Tue &&
+    Dates.April <= Dates.month(x) <= Dates.Nov &&
+    Dates.dayofweekofmonth(x) == 2
+end
+```
 
 ## Blocks
 Blocks allow for the grouping and compartmentalization of sets of statements, there are several kinds of blocks; begin, let, do.
