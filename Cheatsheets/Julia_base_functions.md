@@ -200,6 +200,8 @@ csv_import = CSV.read(HTTP.get("url").body, DataFrame)
 
 ## General   
 
+##### empty the contents of a collection e.g. dict, array: `empty!(dict)`    
+
 ##### check whether a particular element or entity is of a specific type: `x **isa** Int64`    
 
 ##### print the field names of an object/structure: `fieldnames(object)`     
@@ -233,7 +235,18 @@ contain a valid number, an error is raised. `parse(Int64, "1234")` and
 ##### declare an abstract Type which can have progency types/subtypes: `abstract type Gene end`  
 Writing functions and methods for the abstract type should propagate to their subtypes.   
 
-##### the ternary **?** operator is a short hand for an in-else statement: `5 % 2 = 1 ? println("yes") : println("no")`      
+##### the ternary **?** operator is a short hand for an in-else statement: `5 % 2 = 1 ? println("yes") : println("no")` and another example:
+```julia
+# Instead of writing 
+x = 5
+if x < 5
+  println("x is less than 5")
+else
+  println("x is equal to or greater than 5")
+end 
+# We can one liner is 
+x < 5 ? println("x is less than 5") : println("x is equal to or greater than 5") 
+```        
 
 ##### declare a primitive Type: `primitive type Float64 <: AbstractFloat 64 end`    
 The number between the subtype and end indicates how many bits are required.   
@@ -251,6 +264,20 @@ filter(dr) do x
     Dates.dayofweekofmonth(x) == 2
 end
 ```
+
+## Looping
+### Continue and Break 
+##### using continue and break in our loops allows for additional control of the flow of execution - we can embed continue so that a particular iteration is skipped and the next item is evaluated, and we can use break to literally break! the loop where it is and end it: 
+```julia
+x = 0 
+while true 
+    global x += 1 
+    x > 6 && break 
+    isodd(x) && continue 
+    println("x is even")
+end 
+```
+
 
 ## Blocks
 Blocks allow for the grouping and compartmentalization of sets of statements, there are several kinds of blocks; begin, let, do.
@@ -283,3 +310,14 @@ open("newfile.txt", "w") do writer
     write(writer, data)
 end 
 ```
+
+## Numbers
+### Floating Point 
+##### adding two floating point numbers together and asking if they equal said combinant will not work `3.0 + 2.0 == 5.0` due to the way that floating point numbers are handled in computing. Since floats are always approximations of intergers, there is precision error involved and thus logically the computer cannot say that it's estimate of precision is true - for it isn't. So instead, for pragmattic purposes we can use the **isapprox(x + y, z)** function to evaluate a conditional `isapprox(3.0 + 2.0, 5.0)` will return true    
+
+
+
+
+
+
+
