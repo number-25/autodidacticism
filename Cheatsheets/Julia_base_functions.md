@@ -223,6 +223,7 @@ Especially helpful when importing external packages.
 
 ##### find the common type (if there is one) between two different elements - this is useful when creating function and methods which work on multiple related types, in the case of multiple dispatch. This creates more 'general' and malleable methods: `typejoin(typeof(x), typeof(y))`    
 
+##### check to see if a type is of an abstract or concrete type form: `isabstractype(x)` and `isconcretetype(y)`      
 
 ##### keyword arguments are defined in functions when we want to be a bit more explicit in our function calls -- we must remember to use the *;* semicolon after the last ordinary argument:   
 ```julia
