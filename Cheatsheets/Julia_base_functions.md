@@ -217,6 +217,13 @@ Especially helpful when importing external packages.
 
 ##### find the parent type of a subtype - it's 'supertype': `supertype(card)`     
 
+##### find the supertypes of an elements type: `supertypes(typeof(x))`     
+
+##### find the subtypes of a type: `subtypes(type)`     
+
+##### find the common type (if there is one) between two different elements - this is useful when creating function and methods which work on multiple related types, in the case of multiple dispatch. This creates more 'general' and malleable methods: `typejoin(typeof(x), typeof(y))`    
+
+
 ##### keyword arguments are defined in functions when we want to be a bit more explicit in our function calls -- we must remember to use the *;* semicolon after the last ordinary argument:   
 ```julia
 function plotter(x, y; trend_color="black", intersect_color="red")
@@ -264,6 +271,7 @@ filter(dr) do x
     Dates.dayofweekofmonth(x) == 2
 end
 ```
+
 
 ## Looping
 ### Continue and Break 
