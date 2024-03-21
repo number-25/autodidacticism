@@ -215,6 +215,8 @@ work on custom structs and types, it can become confusing as to which function
 one is working with e.g. the overloaded base one, or an unconfigured default.
 Especially helpful when importing external packages.    
 
+##### show and expand the macro transformed code, revealing what's ~behind the curtain~ : `@macroexpand @macro something`    
+
 ##### find the parent type of a subtype - it's 'supertype': `supertype(card)`     
 
 ##### find the supertypes of an elements type: `supertypes(typeof(x))`     
@@ -283,9 +285,14 @@ while true
     global x += 1 
     x > 6 && break 
     isodd(x) && continue 
-    println("x is even")
+    println("x is even")``
 end 
 ```
+### map 
+##### "map" a function, such as mean(), to all the columns of a matrix or ?dataframe? **using eachcol()**: `map(mean, eachcol(matrix))` 
+
+##### execute a function along with **eachcol** in a way similar to natural language - 'do this, for column in eachcol(x)': `[mean(col) for col in eachcol(x)]`      
+We enclose it in square brackets because we're actually storing the output sequentially in an array!
 
 
 ## Blocks
