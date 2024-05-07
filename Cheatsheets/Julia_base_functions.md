@@ -200,6 +200,8 @@ csv_import = CSV.read(HTTP.get("url").body, DataFrame)
 
 ## General   
 
+##### define a single line function: `divideten(x::Interger) = x / 10`    
+
 ##### empty the contents of a collection e.g. dict, array: `empty!(dict)`    
 
 ##### check whether a particular element or entity is of a specific type: `x **isa** Int64`    
