@@ -20,21 +20,21 @@ tasks is via asynchronous queues, called *channels*." The processes define the
 input-output of for a task/event, and channels are then used to guide the flow
 of data between processes.    
 
-### Scripting Hints and Tips
+## Scripting Hints and Tips
 
-#### General
+### General
 * Similar to what happens in bash, embedding a command within {} brackets will
 allow one to use said command e.g. { ls -1 }. This is called "closure" in
 Groovy".    
 * "By default, closures take a single parameter called it. To define a
   different name use the `variable -> syntax."`   
 
-#### Parameters 
+### Parameters 
 * Parameters can be assigned throughout the script using the params.[something]
 dot syntax, whereby something is the parameter name. This is in contrast to
 declaring the parameter with --parameter, which requires the user to provide
-input when launching the script. 
-```   
+input when launching the script.    
+```groovy   
   params.threads = 4
   script:
     """
@@ -43,8 +43,8 @@ input when launching the script.
 ```    
 * If there are many parameters, we can create a separate "params" file which
 are JSON or YAML format. The parameters file is then passed to the script using
-the `-params-file` option.     
-```
+the `-params-file` option.       
+```groovy
 {
   "sleep": 5,
   "input": "data/yeast/reads/etoh60_1*.fq.gz"
@@ -73,7 +73,7 @@ however.
 * The value factory is used to create a value channel. Below are three
 different types of value channels - a single value, a list, and a 'map'
 (dictionary in Julia).    
-```
+```groovy
   ch1 = Channel.value('mm10')   
   ch2 = Channel.value('chr1', 'chr2')   
   ch3 = Channel.value( ['chr1' : 248956422, 'chr2' : 242193529, 'chr3' : 198295559] )
@@ -81,7 +81,7 @@ different types of value channels - a single value, a list, and a 'map'
 
 ##### Queue Channels 
 * There are various methods for creating queue channels.  
-```
+```groovy
   Channel.of
   Channel.fromList
   Channel.fromPath
@@ -90,7 +90,7 @@ different types of value channels - a single value, a list, and a 'map'
 ```    
 * The **Channel.of** method can create a list of values. The … operator will create
 a range of values, similar to 1:22 in Julia and other languages. 
-```   
+```groovy   
   chromosome_ch = Channel.of('chr1', 'chr3', 'chr5', 'chr7')
   chromosome_ch.view()
 
@@ -99,7 +99,7 @@ a range of values, similar to 1:22 in Julia and other languages.
 * To create a **fromList** channel, which may store the strings of certain
 software, or values that need to be sequentially/iteratively input, we use the
 following.     
-```  
+```groovy  
   software_list = ['kallisto', 'sailfish', 'salmon']     
   aligner_ch = Channel.fromList(software_list)   
   aligner_ch.view() # let's view the channel contents!   
@@ -111,7 +111,7 @@ element within the set as it's own, meaning it can be subset n^n times.
 * The **Channel.fromPath** method can be fairly easily guessed by its name - it
 will create a channel from the contents of a provided path - this can often be
 a single file.   
-```
+```groovy
   read_ch = Channel.fromPath('/data/reads/sample*.fastq')
   read_ch.view()
 ```    
@@ -132,7 +132,7 @@ syntax is generally used for matching complete paths.
 we can use glob operators along with the specific channel method -
 `/reads/pairs/*_{1,2}.fastq`.     
 * This will create a specific queue channel from each pair.    
-```    
+```groovy    
   read_pairs_ch = fromFilePairs('reads/pairs/*_{1,2}.fastq')    
   read_pairs_ch.view()   
 ```
@@ -142,7 +142,7 @@ things further, if we have several files with similar prefixes e.g. ref_1_coli,
 ref_1_sub, than we can also specify this, and how many sets of such files there
 are. E.g. 10 sets of quad-paired reads, each set starts with the same prefix,
 but has a different suffix.   
-```    
+```groovy    
   reads_quad_ch = fromFilePairs('reads/quads/ref_{1,2,3,4}*, size:10)    
   reads_quad_ch.view()   
 ```
@@ -154,13 +154,13 @@ specifies the files and then create a channel from that.
   replication experiments a lot smoother than they would otherwise be.
 * This factory creates a queue channel from the fastq files corresponding to the SRA ID. 
 * You will need an NCBI API key for this.     
-```
+```groovy
   sra_ch = Channel.fromSRA('SR3434A')
   sra_ch.view()
 ```    
 * If we create a list object, we can pass through multiple SRA ids (probably
 even have the ability to pass a file containing the IDs!)    
-``` 
+```groovy 
   ids = ['SRR334', "ENA34334', 'SRR4343']    
   sra_ch = Channel.fromSRA(ids)    
   sra_ch.view()    
@@ -169,7 +169,7 @@ even have the ability to pass a file containing the IDs!)
 * We can use data stored in a text file as input to the process, using the
 `fromPath` and `splitText.` operators. We can imagine a list of SRA ids, or
 parameters, sample names, metadata etc. 
-```
+```groovy
    Channel
       .fromPath('path/to/data')
       .splitText()
@@ -193,7 +193,7 @@ output from another process, there is an order and time asymmetry to it).
 But they are parallel, independent processes, which when tied to channels can
 do great things.   
 * Once we've created a process we have to list it in our workflow block.   
-``` 
+```groovy 
   //process_index.nf
   nextflow.enable.dsl=2
 
@@ -210,7 +210,7 @@ do great things.
 ```     
 * The basic skeleton of a process is outlined below. The bare minimum that this
 block requires is a script command
-```
+```groovy
   process < NAME > {
     [ directives ]        
     input:                
@@ -229,7 +229,7 @@ e.g. samtools sort, then index, then view etc.
 * "By default the process command is interpreted as a Bash script. However any
 other scripting language can be used just simply starting the script with the
 corresponding Shebang declaration. For example:" 
-```
+```groovy
   process PYSTUFF {
     script:
     """
@@ -240,7 +240,7 @@ corresponding Shebang declaration. For example:"
   """
 ```     
 * It is terrific to do this for small jobs, but for larger pieces of code, it is recommended to save the script within it's own file and invoke it directly as such;
-```
+```groovy
   process JULIO {
     script:
     """
@@ -255,7 +255,7 @@ workflow {
 seeking to run the same process but with different parameters for the program,
 which we would provide as a list in the channel declaration. This will iterate
 the scan but with different parameters every time.    
-```
+```groovy
   ch1 = Channel.fromPath('data/proteins/*.fa')
   modes_list = ['sensitive', 'fast', 'divergent']
 
@@ -269,7 +269,7 @@ the scan but with different parameters every time.
 * When a process produces multiple output files, often too many to explicitly
   declare, we can provide a glob asterisk (placeholder/variable), and this way
   we can easily specify the output in our script in a single form; as such   
-```
+```groovy
   process FASTQC {
   input:
   path read
@@ -285,11 +285,6 @@ the scan but with different parameters every time.
 }
 ```    
 * As a reminder, using two stars ** in the glob will match subdirectories e.g. `/reads/**/SR_*.fastq`
-
-
-
-
-
 
 #### Scripts 
 The script module is the final element of a process. There can only ever be one
@@ -313,7 +308,7 @@ instance, if we created a process called minimap2, and knowing that minimap2
 can map gDNA, cDNA, dRNA and so on, we can create a conditional if/else
 structure which will run minimap2 in different modes depending on what the
 user provides. For instance;   
-```
+```groovy
   mode = 'genomic nanopore'
 
   process minimap2 {
@@ -339,7 +334,7 @@ discreet scripts and reused in other workflows. This is very handy for generic
 processes such as read mapping, QC and so forth. No doubt, the commands and
 variables between the script and the current workflow must be standardised in
 order to allow true plug-play integration.    
-```    
+```groovy    
   process templateExample {
     input:
     val STR
@@ -367,7 +362,7 @@ confused `echo $USER says !{str}`
 These are the portions of the workflow block which we declare the input channels
 that we're using. A process has to have at most, and at least, one input block.
 The input block follows the basic formality:  
-```   
+```groovy   
   input:  
     <input qualifer> <input name>    
 ```    
@@ -380,7 +375,7 @@ otherwise, they are redundant.
 It is probably best to learn by observing the way the different blocks are used
 in a job   
 ##### Value input block
-```
+```groovy
   process valueExample {
     input: 
     val x 
@@ -397,7 +392,7 @@ in a job
 Path is one of the most common input blocks, allowing users to create an input
 channel from files contained in a specific directory, or sub-directories and
 para-directories.   
-```    
+```groovy    
   process pathExample {
     input: 
     path protein_alignments 
@@ -417,7 +412,7 @@ name:'this_file.fa'` or even simpler `input: path 'this_file.fa'`
   **.buffer**operator/function, which says that the files will come in sets of
   4, meaning each file will have the same name but with a prefix of 1...4 added
   to it.    
-```   
+```groovy   
   process multipleFilesExample { 
   input: 
     path funny_data_
@@ -437,7 +432,7 @@ of the program versions that we are using in the workflow, and then at the
 closure of the workflow, we can print these versions into a .txt file - this is
 simply a novice example there are many more potential, and creative ways to use
 this.   
-```    
+```groovy    
   process envExample {
   input:
    env PROGRAMS 
@@ -457,7 +452,7 @@ this.
 A bit trickier to wrap ones head around given the fact that nextflow emphasizes
 being explicit and employing thoughtful declaration and various symbols.
 Nonetheless, learning by example we do.    
-```    
+```groovy    
   process printAll {
     input:
     stdin str
@@ -480,7 +475,7 @@ by virtue of its type, will be able to 'store' multiple different values, and
 so in nextflow this is also the case. We declare multiple values here. The
 tuple values can contain other input blocks such as env, path, val and stdin --
 this is what makes it powerful, but also order sensitive.    
-```    
+```groovy    
   process tupleExample {
       input:
       tuple val(x), path('latin.txt')
@@ -504,7 +499,7 @@ nextflow is declaring this in the input block, saying that we have files in
 path x, and then for **each** element in the list we provide, we will perform
 functions on them.   
 
-```
+```groovy
   process ExpMax {
     input: 
     path files
@@ -525,7 +520,7 @@ We can declare multiple input channels that we wish to source data from -
 getting creative we may provide an array of values or different parameters, or
 rename file and directories in a specific order... the list of what we can do
 is enormous, and is mostly constrained by the demands of our task at hand.    
-```  
+```groovy  
   process multipleInputs {
     input: 
     param a
@@ -555,7 +550,7 @@ which capture the data - often times we can link input/output channels by
 declaring them using the exact same name in both input and output. If we create
 an output channel and name it X, then if we want to use x as input for the next
 process, this is what we declare and specify in the next processes input block. 
-```   
+```groovy   
   process outputExample {
     input: 
     path g 
@@ -584,7 +579,7 @@ process flows. Say we have several .fq files with different prefixes inside a
 directory, and we wanted to run QC on them all and ensure that each QC output
 contained the respective matching prefix.   
 
-```
+```groovy
   process something {
     input: 
     path read 
@@ -621,7 +616,7 @@ specify the input and then declare the script block.
 * Using the tuple declaration we are able to specify multiple output forms,
   such as values, paths, environments and so on. This is how we might undertake
   iteration and keep track of all our files correctly.     
-```   
+```groovy   
   process FASTP {
     input:
     tuple val(sample_id), path(reads)
@@ -645,7 +640,53 @@ specify the input and then declare the script block.
   } 
 ```       
 
-##### Conditional Execution (If, when, for and so on)
+### Organising Outputs 
+#### PublishDir directive/declaration 
+If we'd like to format our outputs within a new directory, in a specific format, we should specify the name of the directory that should be created. 
+```groovy
+process COMBINE_READS {
+  publishDir "results/merged_reads"
+  … yada yada … 
+```
+There are parameters and options we can use with publishDir, one being
+**mode:**, which copies the output file itself to the output directory rather
+than creating a symbolic link from the channel directory which usually comes in
+the '2342343494434882333834' format. "The default mode (symlink) is helpful for checking intermediate files which are not needed in the long term.". You can find the full list [here](https://www.nextflow.io/docs/latest/process.html#publishdir).   
+
+#### Multiple output directories 
+This is a very important one! Say we want to run two different programs in our script block, with outputs into different folders, how would we do this? One way is to declare two publishDir directives using the **pattern:** option, whereby the pattern specified matches the form out the output in the script block. If we want all `pattern: "*.fq"` files to go into the `fq/reads` directory, we would specify this as such, ensuring that all pattern-script information is lining up. Here is an example:
+```groovy
+params.transcriptome="${projectDir}/data/yeast/transcriptome/Saccharomyces_cerevisiae.R64-1-1.cdna.all.fa.gz"
+
+process SPLIT_FASTA {
+  publishDir "results/ids", pattern: "*_ids.txt", mode: "copy"
+  publishDir "results/sequence", pattern: "sequence.txt", mode: "copy"
+
+
+  input:
+  path transcriptome
+
+  output:
+  path "*"
+
+  script:
+  """
+  zgrep  '^>' $transcriptome > sequence_ids.txt
+  zgrep -v '^>' $transcriptome > sequence.txt
+  """
+}
+// Both 'Channel' and 'channel' keywords work to generate channels.
+// However, it is a good practice to be consistent through the whole pipeline development
+transcriptome_ch = channel.fromPath(params.transcriptome)
+
+workflow {
+  SPLIT_FASTA(transcriptome_ch)
+  // use the view operator to display contents of the channel
+  SPLIT_FASTA.out.view()
+}
+```    
+
+#### Conditional Execution (If, when, for and so on)   
 As is common in most programming languages, nextflow allows conditional
 execution and structuring of the code - running a process only when certain
 conditions are met, or for every element in an array, and so on and so on. The
@@ -653,7 +694,7 @@ conditions, when declared outside of the script/shell block, are interpreted by
 nextflows own logic, but, when they are used in the script block, unless
 specified, they will default to shell/bash logic, so it is important to get
 these right. Here's a light example.      
-```   
+```groovy   
   process conditional {
   input:
   val chr
@@ -673,7 +714,6 @@ these right. Here's a light example.
   }    
 ```    
 
-
 ### Operators 
 Operators are methods which allow you to connect channels, and perform various
 manipulations, transforming the channel contents for many means and ends.   
@@ -688,6 +728,30 @@ look at what's inside a channel e.g. `this_ch.view()`.
 
 
 ### Directives
+Directives allow one to specify options when running the script, such as the amount of memory and cpus to use, or whether a certain phrase should be printed, and so on. They are akin to positional statements or options. Below is an example.
+
+```groovy
+process PRINTCHR {
+  tag "tagging with chr$chr"
+  cpus 1
+  echo true
+
+  input:
+  val chr
+
+  script:
+  """
+  echo processing chromosome: $chr
+  echo number of cpus $task.cpus
+  """
+}
+
+chr_ch = channel.of(1..22, 'X', 'Y')
+
+workflow {
+  PRINTCHR(chr_ch)
+}
+```   
 
 
 
