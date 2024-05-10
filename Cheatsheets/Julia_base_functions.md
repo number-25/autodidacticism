@@ -278,7 +278,12 @@ end
 ```
 
 
-## Looping
+## Looping and iterating 
+
+##### allow element-wise broadcasting over arrays, instead of treating the array as a single element, using **Ref** function: `in.([1, 3, 5, 7, 9], Ref([1, 2, 3, 4]))`   
+
+Ref can be seen as shorthand for "Reference" - it takes the values of a collection, and creats a single value reference of the value, which it stores in an array, almost like a little iterator of it's own. So when we run broadcasting in combination with **Ref()**, Ref will operator on each element of the array, and thus the size of the first and second arrays will be equal (1 each), allowing for the broadcasting to work as intended.... a bit random but hey this is effective.
+
 ### Continue and Break 
 ##### using continue and break in our loops allows for additional control of the flow of execution - we can embed continue so that a particular iteration is skipped and the next item is evaluated, and we can use break to literally break! the loop where it is and end it: 
 ```julia
