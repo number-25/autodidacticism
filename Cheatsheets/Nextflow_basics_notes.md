@@ -45,7 +45,7 @@ input when launching the script.
     """
     minimap2 -t ${params.threads} 
     """
-```    
+```
 * If there are many parameters, we can create a separate "params" file which
 are JSON or YAML format. The parameters file is then passed to the script using
 the `-params-file` option.       
@@ -54,7 +54,7 @@ the `-params-file` option.
   "sleep": 5,
   "input": "data/yeast/reads/etoh60_1*.fq.gz"
 }
-```  
+```
 
 ### Channels 
 As the name would imply, the channel is a conduit or body for data to flow
@@ -82,7 +82,7 @@ different types of value channels - a single value, a list, and a 'map'
   ch1 = Channel.value('mm10')   
   ch2 = Channel.value('chr1', 'chr2')   
   ch3 = Channel.value( ['chr1' : 248956422, 'chr2' : 242193529, 'chr3' : 198295559] )
-```    
+```
 
 ##### Queue Channels 
 * There are various methods for creating queue channels.  
@@ -92,7 +92,7 @@ different types of value channels - a single value, a list, and a 'map'
   Channel.fromPath
   Channel.fromFilePairs
   Channel.fromSRA
-```    
+```
 * The **Channel.of** method can create a list of values. The … operator will create
 a range of values, similar to 1:22 in Julia and other languages. 
 ```groovy   
@@ -100,7 +100,7 @@ a range of values, similar to 1:22 in Julia and other languages.
   chromosome_ch.view()
 
   chromosome_ch = Channel.of(1..22, 'X', 'Y')
-```    
+```
 * To create a **fromList** channel, which may store the strings of certain
 software, or values that need to be sequentially/iteratively input, we use the
 following.     
@@ -108,7 +108,7 @@ following.
   software_list = ['kallisto', 'sailfish', 'salmon']     
   aligner_ch = Channel.fromList(software_list)   
   aligner_ch.view() # let's view the channel contents!   
-```    
+```
 * So what's the difference between the first type methods of channel factory?
 They are both inputting lists no? Well, the first channel.of treats the list as
 a single element, one whole set, whereas the channel.fromList treats each
@@ -119,7 +119,7 @@ a single file.
 ```groovy
   read_ch = Channel.fromPath('/data/reads/sample*.fastq')
   read_ch.view()
-```    
+```
 * You can also use glob syntax to specify pattern-matching behaviour for files.
 A glob pattern is specified as a string and is matched against directory or
 file names.   
@@ -169,7 +169,7 @@ even have the ability to pass a file containing the IDs!)
   ids = ['SRR334', "ENA34334', 'SRR4343']    
   sra_ch = Channel.fromSRA(ids)    
   sra_ch.view()    
-```    
+```
 
 * We can use data stored in a text file as input to the process, using the
 `fromPath` and `splitText.` operators. We can imagine a list of SRA ids, or
@@ -179,7 +179,7 @@ parameters, sample names, metadata etc.
       .fromPath('path/to/data')
       .splitText()
       .view
-```   
+```
 * As expected with nextflow, we can modify the way this text input is handled -- for instance, we can specify how many many chunks of lines are passed using `(by :10)` following the `.splitText` function. To convert the text file to uppercase we can provide `{ it.toUpperCase() }` after the link chunk option. 
 
 
@@ -212,7 +212,7 @@ do great things.
     //process is called like a function in the workflow block
     INDEX()   
   }      
-```     
+```
 * The basic skeleton of a process is outlined below. The bare minimum that this
 block requires is a script command
 ```groovy
@@ -243,7 +243,7 @@ corresponding Shebang declaration. For example:"
 
     frame1 = DataFrames(vector{*.fastq},_
   """
-```     
+```
 * It is terrific to do this for small jobs, but for larger pieces of code, it is recommended to save the script within it's own file and invoke it directly as such;
 ```groovy
   process JULIO {
@@ -255,7 +255,7 @@ corresponding Shebang declaration. For example:"
 workflow {
   PYSTUFF()
 }
-```    
+```
 * Weaving together channels with processes can come in very handy when we are
 seeking to run the same process but with different parameters for the program,
 which we would provide as a list in the channel declaration. This will iterate
@@ -288,7 +288,7 @@ the scan but with different parameters every time.
   fastqc $read -o fqc_res
   """
 }
-```    
+```
 * As a reminder, using two stars ** in the glob will match subdirectories e.g. `/reads/**/SR_*.fastq`
 
 ### Scripts 
@@ -332,7 +332,7 @@ user provides. For instance;
     else  
         error "Incorrect sequence type provided" 
     }    
-```    
+```
 
 These process scripts can be 'externalised', or in other words, saved as
 discreet scripts and reused in other workflows. This is very handy for generic
@@ -351,7 +351,7 @@ order to allow true plug-play integration.
   workflow {
       Channel.of('this', 'that') | templateExample
   }
-```        
+```
 
 **IMPORTANT**    
 * The shell block is a string expression that defines the script
@@ -360,7 +360,7 @@ with one important difference: it uses the exclamation mark ! character,
 instead of the usual dollar $ character, to denote Nextflow variables.    
 * By using the *shell* block rather than the typical *script* module, we can
 use both $bash and !nextflow variables within the script without getting them
-confused `echo $USER says !{str}`    
+confused `echo $USER says !{str}`.
 
 
 ### Input blocks 
@@ -370,7 +370,7 @@ The input block follows the basic formality:
 ```groovy   
   input:  
     <input qualifer> <input name>    
-```    
+```
 * The **qualifier** defines the *type* of data that is to be received -- is it
 going to be a file path, a value, stdin, an environment, or commonly, a tuple
 containing a combination of qualifier for different aspects of the job? A key
@@ -391,7 +391,7 @@ in a job
     def num = Channel.of(1, 2, 3)  
     valueExample(num) 
   }
-```   
+```
 
 #### Path input block 
 Path is one of the most common input blocks, allowing users to create an input
@@ -407,7 +407,7 @@ para-directories.
   workflow {
   def proteins = Channel.fromPath('/path/to/proteins/*.{fa, fna}')
   pathExample(proteins)     
-```   
+```
 * Quite straight forward no? In some instances, if our input file has a
 specific name, we can explicitly specify this `input: path our_file,
 name:'this_file.fa'` or even simpler `input: path 'this_file.fa'`            
@@ -428,7 +428,7 @@ name:'this_file.fa'` or even simpler `input: path 'this_file.fa'`
     def fasta = Channe.fromPath( "/some/funny/data/*.fa ).buffer(size: 4)
     multipleFilesExample
     }
-```  
+```
 
 #### Env input block   
 This essentially consists of creating an $ENVIRONMENT variable which can be
@@ -449,7 +449,7 @@ this.
   workflow {
     Channel.of('julia.1.8', 'minimap2.2.1', 'samtools.9.1', 'nextflow.20.19')  
     }
-```      
+```
 > julia.1.8 
 > minima2.2.1 etc etc ec 
 
@@ -472,7 +472,7 @@ Nonetheless, learning by example we do.
       | map { it + '\n' }
       | printAll
   }
-```     
+```
 
 #### Tuple input block
 One of the most commonly encountered types of input block - as it's a tuple, it
@@ -494,7 +494,7 @@ this is what makes it powerful, but also order sensitive.
   workflow {
     Channel.of( [1, 'alpha'], [2, 'beta'], [3, 'delta'] ) | tupleExample
   }
-```   
+```
 
 #### Input iteration 
 Let's say we are prototyping a simulation and we are looking to run the same
@@ -518,7 +518,7 @@ functions on them.
     sequences = Channel.fromPath('/data/*.fa')
     values = ['2', '4', '16']   
     ExpMax(sequences, values)     
-```   
+```
  
 #### Multiple input channels
 We can declare multiple input channels that we wish to source data from -
@@ -541,7 +541,7 @@ is enormous, and is mostly constrained by the demands of our task at hand.
     b = Channel.of('Stringtie-fast', 'Stringtie-deep', 'Stringtie-divergent') 
     multipleInputs(a, b)    
   }     
-```     
+```
 * "In general, multiple input channels should be used to process combinations
 of different inputs, using the each qualifier or value channels. Having
 multiple queue channels as inputs is equivalent to using the merge operator,
@@ -572,7 +572,7 @@ process, this is what we declare and specify in the next processes input block.
     echo_ch = channel.fromPath('/files/in/path/*.fastq')
     outputExample(echo_ch) 
     }
-```     
+```
 We could then use the contents of the output channel (pathnames.txt) as input
 for the following process. Alternatively, we could end the output there without
 creating another channel, but simply creating an end file `output: path
@@ -602,7 +602,7 @@ contained the respective matching prefix.
     read_ch = channel.fromPath("data/reads/some1*.fq.gz")  
     something(read_ch) 
     }     
-```       
+```
 
 * There are some caveats on glob pattern behaviour    
   - Input files are not included in the list of possible matches.     
@@ -643,7 +643,7 @@ specify the input and then declare the script block.
   workflow {
     FASTP(reads_ch)
   } 
-```       
+```
 
 ### Organising Outputs 
 #### PublishDir directive/declaration 
@@ -689,7 +689,7 @@ workflow {
   // use the view operator to display contents of the channel
   SPLIT_FASTA.out.view()
 }
-```   
+```
       
 ### Conditional Execution (If, when, for and so on)   
 As is common in most programming languages, nextflow allows conditional
@@ -717,7 +717,7 @@ these right. Here's a light example.
   workflow {
   conditional(chr_ch)
   }    
-```    
+```
 
 ### Operators 
 Operators are methods which allow you to connect channels, and perform various
@@ -729,7 +729,99 @@ programs which allow one to do an assortment of common tasks without needing to
 create and recreate your own scripts for performing these tasks.   
 
 An example of an operator is the **.view()** , which will allow us to take a
-look at what's inside a channel e.g. `this_ch.view()`.     
+look at what's inside a channel e.g. `this_ch.view()`. If it helps in
+remembering the role of operators, we can think about julias dot syntax which
+accesses the indices of some collections, but also the various components of
+the struct - here, instead of accessing the contents of the data type, we
+access the various functions which can **operate** on the data.          
+
+There are various operators:
+* Filtering operators: reduce the number of elements in a channel.
+* Transforming operators: transform the value/data in a channel.
+* Splitting operators: split items in a channel into smaller chunks.
+* Combining operators: join channels together.
+* Maths operators: apply simple math functions on channels.
+* Other: such as the view operator.
+
+The basic format
+```groovy
+our_channel.<operator>
+```
+
+#### View operator 
+This will allow one to **view** the contents of the channel. 
+```groovy
+ch = channel.of('1','2','3')
+ch.view()
+
+
+ch = channel
+    .of('1','2','3')
+    .view()  
+```
+
+We can add **closure{}** options to modify how the items are printed. This is similar to the way variables can be wrapped in {} brackets for increased readability. In the following example we'll use groovy's built in variable $it which directly refers to the previous items in the scope - it figures this out on the fly, so it sees that the items as 1,2,3 and takes these in sequence.    
+```groovy
+ch = channel
+    .of('1','2','3')
+    .view({"chr$it"}) 
+```
+
+### Filtering operators 
+
+As the name suggests, this operator filters out the contents of a channel in
+various ways. We can think of only wanting to use the X, Y sex chromosomes and
+thus creating a filter for these, or any other combination we can think of. It
+allows regular expressions, literal values, booleans, and the filtering of
+specific Types e.g. filter Strings, Intergers etc.   
+
+#### Data type qualifier
+We'll filter our channel contents for Number type, which could be either Float or Integer. This will only print the chromosomes from 1 to 22 and omit the String types.       
+```groovy
+chr_ch = channel.of(1.22, 'X', 'Y')
+autosomes_ch = chr_chr.filter(Number) 
+autosomes_ch.view() 
+```
+
+#### Regex filtering 
+Filtering based on a regex is also possible.    
+```groovy
+chr_ch = channel
+    .of( 1..22, 'X', 'Y' )
+    .filter(~/^1.*/)
+    .view()
+```
+
+#### Boolean filtering 
+We can create small boolean statements which can be used for filtering. For instance, only accept the $it if { $it < 5 }. The boolean statement needs {} closure!!.  
+```groovy
+chr_1_5_ch = channel
+    .of( 1..22, 'X', 'Y' )
+    .filter(Number)
+    .filter { it < 5 }
+    .view()
+```
+
+#### Literal filtering 
+In a very straight forward sense, if we want only a specific value to be filtered, we can use a literal. 
+```groovy
+chrX_ch = channel
+  .of( 1..22, 'X', 'Y' )
+  .filter('X')
+  .view()
+```
+
+#### Modifying the channel contents 
+So we know we can filter the contents of the channel, but what about actually modifying it in place and moulding a new channel from them?    
+
+#### Map (iteration to elements of channel)    
+
+
+
+
+
+
+
 
 
 ### Directives
@@ -836,6 +928,7 @@ workflow {
   MULTIQC(FASTQC.out.fastqc_results.collect()).view()
 }
 ```   
+
 
 
 
