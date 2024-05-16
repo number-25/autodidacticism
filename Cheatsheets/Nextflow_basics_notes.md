@@ -28,6 +28,11 @@ allow one to use said command e.g. { ls -1 }. This is called "closure" in
 Groovy".    
 * "By default, closures take a single parameter called it. To define a
   different name use the `variable -> syntax."`   
+* Holy smokes - a god send of a page!! A
+[list](https://github.com/nextflow-io/patterns) of common nextflow
+implementation patterns, answering similar problems in a consistent way.
+Terrific skeleton for future beginners.   
+
 
 ### Parameters 
 * Parameters can be assigned throughout the script using the params.[something]
@@ -286,7 +291,7 @@ the scan but with different parameters every time.
 ```    
 * As a reminder, using two stars ** in the glob will match subdirectories e.g. `/reads/**/SR_*.fastq`
 
-#### Scripts 
+### Scripts 
 The script module is the final element of a process. There can only ever be one
 script block.   
 
@@ -358,7 +363,7 @@ use both $bash and !nextflow variables within the script without getting them
 confused `echo $USER says !{str}`    
 
 
-#### Input blocks 
+### Input blocks 
 These are the portions of the workflow block which we declare the input channels
 that we're using. A process has to have at most, and at least, one input block.
 The input block follows the basic formality:  
@@ -388,7 +393,7 @@ in a job
   }
 ```   
 
-##### Path input block 
+#### Path input block 
 Path is one of the most common input blocks, allowing users to create an input
 channel from files contained in a specific directory, or sub-directories and
 para-directories.   
@@ -425,7 +430,7 @@ name:'this_file.fa'` or even simpler `input: path 'this_file.fa'`
     }
 ```  
 
-##### Env input block   
+#### Env input block   
 This essentially consists of creating an $ENVIRONMENT variable which can be
 employed within the script. For instance we can create one corresponding to all
 of the program versions that we are using in the workflow, and then at the
@@ -448,7 +453,7 @@ this.
 > julia.1.8 
 > minima2.2.1 etc etc ec 
 
-##### STDIN input block 
+#### STDIN input block 
 A bit trickier to wrap ones head around given the fact that nextflow emphasizes
 being explicit and employing thoughtful declaration and various symbols.
 Nonetheless, learning by example we do.    
@@ -469,7 +474,7 @@ Nonetheless, learning by example we do.
   }
 ```     
 
-##### Tuple input block
+#### Tuple input block
 One of the most commonly encountered types of input block - as it's a tuple, it
 by virtue of its type, will be able to 'store' multiple different values, and
 so in nextflow this is also the case. We declare multiple values here. The
@@ -491,7 +496,7 @@ this is what makes it powerful, but also order sensitive.
   }
 ```   
 
-##### Input iteration 
+#### Input iteration 
 Let's say we are prototyping a simulation and we are looking to run the same
 files with the same program, but with different parameters and options -
 iterating through the parameters until we finish. One way of doing that in
@@ -515,7 +520,7 @@ functions on them.
     ExpMax(sequences, values)     
 ```   
  
-##### Multiple input channels
+#### Multiple input channels
 We can declare multiple input channels that we wish to source data from -
 getting creative we may provide an array of values or different parameters, or
 rename file and directories in a specific order... the list of what we can do
@@ -684,9 +689,9 @@ workflow {
   // use the view operator to display contents of the channel
   SPLIT_FASTA.out.view()
 }
-```    
-
-#### Conditional Execution (If, when, for and so on)   
+```   
+      
+### Conditional Execution (If, when, for and so on)   
 As is common in most programming languages, nextflow allows conditional
 execution and structuring of the code - running a process only when certain
 conditions are met, or for every element in an array, and so on and so on. The
@@ -753,6 +758,86 @@ workflow {
 }
 ```   
 
+### Workflows 
+The workflow section will essentially sculpt the flow of the entire pipeline -
+which channels are opening and going into the other, how the execution will be
+undertaken. A sneak peak:    
+```groovy
+process 
+  input:
+  output:
+  script:
+end 
+… 
+workflow {
+    read_pairs_ch = channel.fromFilePairs('data/yeast/reads/*_{1,2}.fq.gz',checkIfExists: true)
+
+    //index process takes 1 input channel as a argument
+    //assign process output to Nextflow variable fastqc_obj
+    fastqc_obj = FASTQC(read_pairs_ch)
+
+    //quant channel takes 1 input channel as an argument
+    //We use the collect operator to gather multiple channel items into a single item
+    MULTIQC(fastqc_obj.collect()).view()
+}   
+```   
+* "When a process defines two or more output channels, each of them can be accessed using the list element operator e.g. out[0], out[1], or using named outputs."   
+
+It can be useful to name the output of a process, especially if there are
+multiple outputs. The process output definition allows the use of the emit:
+option to define a named identifier that can be used to reference the channel
+in the external scope.For example in the script below we name the output from the FASTQC process as fastqc_results using the emit: option. We can then reference the output as
+FASTQC.out.fastqc_results in the workflow scope.   
+
+```groovy
+process FASTQC { 
+    input:
+      tuple val(sample_id), path(reads)
+    output:
+      path "fastqc_${sample_id}_logs", emit: fastqc_results
+    script:
+      """
+      mkdir fastqc_${sample_id}_logs
+      fastqc -o fastqc_${sample_id}_logs ${reads}
+      """
+}
+
+process MULTIQC {
+    publishDir "results/mqc"
+    input:
+      path fastqc_results
+    output:
+      path "*"
+    script:
+      """
+      multiqc .
+      """
+}
+
+workflow {
+    read_pairs_ch = channel.fromFilePairs('data/yeast/reads/ref*_{1,2}.fq.gz',checkIfExists: true)
+    
+    //FASTQC process takes 1 input channel as a argument
+    FASTQC(read_pairs_ch)
+
+    //MULTIQC channel takes 1 input channels as arguments
+    MULTIQC(FASTQC.out.fastqc_results.collect()).view()
+}
+```     
+* Specific paramaters can be assigned using the **params.anything** syntax, which creates somewhat of a constant that can be invoked throughout the code. 
+```groovy
+
+params.reads = 'data/yeast/reads/*_{1,2}.fq.gz'
+
+workflow {
+
+  reads_ch_ = channel.fromFilePairs(params.reads)
+  FASTQC(reads_ch_)
+  MULTIQC(FASTQC.out.fastqc_results.collect()).view()
+}
+```   
 
 
+
+      
 

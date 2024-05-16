@@ -217,7 +217,10 @@ work on custom structs and types, it can become confusing as to which function
 one is working with e.g. the overloaded base one, or an unconfigured default.
 Especially helpful when importing external packages.    
 
-##### show and expand the macro transformed code, revealing what's ~behind the curtain~ : `@macroexpand @macro something`    
+##### show and expand the macro transformed code, revealing what's behind the curtain : `@macroexpand @macro something`    
+
+##### see if a variable is defined using the @isdefined macro: `@isdefine q` and `z = @isdefined q` which will be stored as a boolean     
+This is similar to other function **isdefined()** and **isassigned()**.     
 
 ##### find the parent type of a subtype - it's 'supertype': `supertype(card)`     
 
@@ -228,6 +231,11 @@ Especially helpful when importing external packages.
 ##### find the common type (if there is one) between two different elements - this is useful when creating function and methods which work on multiple related types, in the case of multiple dispatch. This creates more 'general' and malleable methods: `typejoin(typeof(x), typeof(y))`    
 
 ##### check to see if a type is of an abstract or concrete type form: `isabstractype(x)` and `isconcretetype(y)`      
+
+##### assign a collection a to be a UNION of a specific type: `q = AbstractVector{<:Real}`   
+This will allow any elements of the type Real to be stored in it, and types such as AbstractType{Int} and AbstractType{Real} will be subtypes of this UNION.        
+
+##### If we have a sample collection of elements which will serve as a reference for our methods/functions, we can determine the Type of the collection by broadcasting the **identity()** function over our collection: `identity.([1.0, 1, 1.5])` and `identity.(Any[1.0, 1, 1.5])`    
 
 ##### keyword arguments are defined in functions when we want to be a bit more explicit in our function calls -- we must remember to use the *;* semicolon after the last ordinary argument:   
 ```julia
@@ -264,6 +272,9 @@ x < 5 ? println("x is less than 5") : println("x is equal to or greater than 5")
 The number between the subtype and end indicates how many bits are required.   
 
 ##### method definitions can also have type parameters qualifying their signature: `isintpoint(p::Point{T}) where {T} = (T == Int64)`    
+
+##### determine which *types* of elements/values a *collection* can hold: `eltype()`  
+
 
 ##### filter datasets based upon specific conditions - get values that equal z from data y: `filter(x -> x == z, y)` or `filter(x => equals(x), y)`     
 
