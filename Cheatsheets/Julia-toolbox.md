@@ -26,6 +26,11 @@ flipped a fair coin 15 times!
 We can replicate this set itself, and run the experiment another 15 times, to see the general flux of successes in repeated bernoulli trials.   
 `random(Binomial(15, 0.5), 1000)`      
 
+Generate random vector of numbers with a mean of 0 and a standard deviation of 1.
+`randn(100,5)` # 100 by 5 matrix 
+
+
+
 
 ### Sampling 
 
@@ -34,7 +39,7 @@ The function **ProbabilityWeights** is a game changer --- below we will take 100
 ```julia
 x = ["A" "G" "C" "T"] 
 samples(x, ProbabilityWeights[(1/8, 3/8, 3/8, 1/8)], 100)
-``` 
+```
 
 ### Probability mass and density functions 
 
@@ -45,7 +50,7 @@ value for a **continuously** disributed variable.
 PDF
 ```julia
 pdf(<Distribution(param), value)
-```   
+```
 
 
 ### Binomial
@@ -56,7 +61,7 @@ Let's generation a binomial distribution with 20 trials, and slightly biased fai
 ```julia
 using Distributions
 Binomial(20, 0.45)
-``` 
+```
 
 ### Point Estimation and Estimation
 
