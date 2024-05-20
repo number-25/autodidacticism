@@ -815,15 +815,102 @@ chrX_ch = channel
 So we know we can filter the contents of the channel, but what about actually modifying it in place and moulding a new channel from them?    
 
 #### Map (iteration to elements of channel)    
+If we want to iterate over the elements in a channel, to 'map' something to
+them, we can use the **.map()** operator. For instance, let's remove the "Chr"
+prefix from a channel containing chromosome values. We'll take advantage of the **.replaceAll()** operator/method/function.     
+```groovy
+chr_ch = channel
+    .of('chr1', 'chr2')
+    .map( { it.replaceAll("chr","") } ) 
+chr_ch.view()   
+```
 
+In the example below we use the map operator to transform a channel containing
+fastq files to a new channel containing a tuple with the fastq file and the
+number of reads in the fastq file. **We use the built in countFastq file method/operator
+to count the number of records in a FASTQ formatted file.**   
 
+```groovy
+q_ch = channel
+    .fromPath( 'data/yeast/reads/*.fq.gz' )
+    .map ({ file -> [file, file.countFastq()] })
+    .view ({ file, numreads -> "file $file contains $numreads reads" })
+```
 
+We can then add a filter operator to only retain those fastq files with more than 25000 reads.   
+```groovy
+channel
+    .fromPath( 'data/yeast/reads/*.fq.gz' )
+    .map ({ file -> [file, file.countFastq()] })
+    .filter({ file, numreads -> numreads > 25000})
+    .view ({ file, numreads -> "file $file contains $numreads reads" })
+```
 
+#### Flatten and Collect
+We can take an array/list containing several elements and "flatten" the collection so that the elements are now printed individually and are disembedded from the collection. This is akin to Julias **vcat()** and **collect()**.   
+> from [1,2,3] to 
+> 1
+> 2
+> 3
+```groovy
+ch =channel
+    .of(list1)
+    .flatten()
+    .view()
+```
 
+The reverse operation can be undertaken with **.collect()** 
+```groovy
+ch = channel
+    .of( 1, 2, 3, 4 )
+    .collect()
+    .view() 
+```
 
+#### Grouping by key
+This is similar to undertaken joins in SQL tables whereby by merge "by" a shared key between tables. In this case we would almost create a dict whereby there is a single key which maps to various values. There are also options such as **size:n** which will modify the behaviour  
+```groovy
+ch = channel
+     .of( ['wt','wt_1.fq'], ['wt','wt_2.fq'], ["mut",'mut_1.fq'], ['mut', 'mut_2.fq'] )
+     .groupTuple()
+     .view()
+```
+>[wt, [wt_1.fq, wt_1.fq]]
+[mut, [mut_1.fq, mut_2.fq]]
 
+#### Merging Channels 
+A very simple yet important operator/method which allows us to bring multiple channels together into a new channel. For instance we can gather the multiple QC items along the way into a final QC channel.    
 
+The **.mix()** operator 
+```groovy
+ch1 = channel.of( 1,2,3 )
+ch2 = channel.of( 'X','Y' )
+ch3 = channel.of( 'mt' )
 
+ch4 = ch1.mix(ch2,ch3).view()
+```
+
+The **.join()** operator. This creates a channel that joins together the items emitted by two channels for which exists a matching key. The key is defined, by default, as the first element in each item emitted.
+```groovy
+reads1_ch = channel
+  .of(['wt', 'wt_1.fq'], ['mut','mut_1.fq'])
+reads2_ch= channel
+  .of(['wt', 'wt_2.fq'], ['mut','mut_2.fq'])
+reads_ch = reads1_ch
+  .join(reads2_ch)
+  .view()  
+```
+
+#### Maths operators
+As we can guess these operators will allow us to do various mathematical operations on our channel and it's elements. Summing, dividing etc. etc. An easy example;
+```groovy
+ch = channel
+    .of(1..22,'X','Y')
+    .count()
+    .view()
+```
+
+   
 ### Directives
 Directives allow one to specify options when running the script, such as the amount of memory and cpus to use, or whether a certain phrase should be printed, and so on. They are akin to positional statements or options. Below is an example.
 
@@ -848,7 +935,7 @@ chr_ch = channel.of(1..22, 'X', 'Y')
 workflow {
   PRINTCHR(chr_ch)
 }
-```   
+```
 
 ### Workflows 
 The workflow section will essentially sculpt the flow of the entire pipeline -
@@ -872,7 +959,7 @@ workflow {
     //We use the collect operator to gather multiple channel items into a single item
     MULTIQC(fastqc_obj.collect()).view()
 }   
-```   
+```
 * "When a process defines two or more output channels, each of them can be accessed using the list element operator e.g. out[0], out[1], or using named outputs."   
 
 It can be useful to name the output of a process, especially if there are
@@ -915,7 +1002,7 @@ workflow {
     //MULTIQC channel takes 1 input channels as arguments
     MULTIQC(FASTQC.out.fastqc_results.collect()).view()
 }
-```     
+```
 * Specific paramaters can be assigned using the **params.anything** syntax, which creates somewhat of a constant that can be invoked throughout the code. 
 ```groovy
 
@@ -927,7 +1014,7 @@ workflow {
   FASTQC(reads_ch_)
   MULTIQC(FASTQC.out.fastqc_results.collect()).view()
 }
-```   
+```
 
 
 
