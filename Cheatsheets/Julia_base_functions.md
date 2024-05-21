@@ -29,7 +29,7 @@ We can split a tuple (or string) and use any character as the splitting delimite
 ```julia
   addr = "julius.caesar@rome"
   uname, domain = split(addr, '@'); ␂
-``` 
+```
 We can assign the various components of the string/tuple to their own tuples,
 and as you expect, we want the number of tuples to correspond to the number of
 elements after splitting.    
@@ -65,7 +65,7 @@ If we have five elements in a tuple, and we want to perform some functions on th
    for (index, value) in enumerate(a)
            println("$index $value")
        end
-```         
+```
 1 a   
 2 b   
 3 c    
@@ -94,11 +94,14 @@ Typically count is used to count integers, but it can be adapted to count charac
     end 
     sort(collect(emptydict), by=x->x[2], rev=true)
 end
-```     
+```
 
 ##### return a string representation of an object - take the object and output the way it's formatted: `repr(s), dump(s)`   
 When you are reading and writing files, you might run into problems with whitespace. These errors can be hard to debug
 because spaces, tabs and newlines are normally invisible.     
+
+##### Avoiding complicated escape combinations in strings. In instances in which we want to print a string which contains multiple special characters, which should not be interpolated and interpreted as newlines, instead of embedding escape characters amongst the string literal, we can simply prefix the entire string with **raw**, turning the string into a raw literal. For example this would help greatly if we want to pring file paths and the like: `raw"C:\my_folder\my_file.txt"` 
+
 
 ## DataFrames
 ##### ask whether certain values are *in* the dataframe rows using the **in** function with broadcasting: `data.newvariable = in.(data.weight, [["120kg", "220kg"]])` 
@@ -114,8 +117,6 @@ first_q.largeLand = ifelse.((ismissing.(first_q.AGS)) .| (first_q.AGS .!= 6) .| 
 ##### get the column index of a data frame: `columnindex(data, "columnname")`    
 
 ##### check if a column of a specific name is in the data frame: `hasname(data, "columname")`    
-
-
 
 
 ## Arrays
@@ -137,7 +138,7 @@ this -- perhaps not the best way to go about it however... it must be noted that
 samp = [["today", "yesterday"], ["tomorrow", "morning"]]
 
 for f in stack(samp) ; println(f); end
-``` 
+```
 
 > today
 > yesterday
@@ -266,7 +267,7 @@ else
 end 
 # We can one liner is 
 x < 5 ? println("x is less than 5") : println("x is equal to or greater than 5") 
-```        
+```
 
 ##### declare a primitive Type: `primitive type Float64 <: AbstractFloat 64 end`    
 The number between the subtype and end indicates how many bits are required.   
@@ -279,7 +280,7 @@ The number between the subtype and end indicates how many bits are required.
 ##### filter datasets based upon specific conditions - get values that equal z from data y: `filter(x -> x == z, y)` or `filter(x => equals(x), y)`     
 
 We can do a lot more elegant multi-line filtration for multiple conditions using the do blocks
-```
+```julia
 dr = Dates.Date(2015):Dates.Day(1):Dates.Date(2016);
 filter(dr) do x
     Dates.dayofweek(x) == Dates.Tue &&
@@ -306,6 +307,7 @@ while true
     println("x is even")``
 end 
 ```
+
 ### map 
 ##### "map" a function, such as mean(), to all the columns of a matrix or ?dataframe? **using eachcol()**: `map(mean, eachcol(matrix))` 
 
@@ -323,7 +325,8 @@ begin
     somethingmore
     more
 end 
-``` 
+```
+
 ##### let blocks allow for new bindings to be created between values and variables, to mediate between global and local variables/scopes
 ```julia
 z y x = 2 3 1

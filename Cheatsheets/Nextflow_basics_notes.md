@@ -910,7 +910,32 @@ ch = channel
     .view()
 ```
 
-   
+#### Splitting items in a channel 
+Nextflow has a number of built in splitting operators for common bioinformatics file types - csv, fasta/q, text. For instance we may like to split the samplesheet csv file in order to get the file paths of the fastq files in one channel, and the sample IDs in the other. Perhaps we want to stream the fastq on a line-by-line basis, and so on.    
+```groovy 
+csv_ch = channel
+    .fromPath('data/samples/samples.csv')
+    .splitCsv()
+    .view() 
+```
+This will produce 
+> [ref1, data/yeast/reads/ref1_1.fq.gz, data/yeast/reads/ref1_2.fq.gz]   
+
+Which can be indexed into thereafter on a column-wise basis 
+```groovy
+csv_ch = channel
+    .fromPath('data/yeast/samples.csv')
+    .splitCsv()
+csv_ch
+    .view({it[0]}) 
+```
+
+As expected, there are various options and qualifiers we can added to the operator/function, such as whether there is a header in the CSV and how to manage it, or the delimiter being used.   
+```groovy
+.splitCsv(sep: "\t")
+.splitCsv(header:true) 
+```
+
 ### Directives
 Directives allow one to specify options when running the script, such as the amount of memory and cpus to use, or whether a certain phrase should be printed, and so on. They are akin to positional statements or options. Below is an example.
 
@@ -1016,8 +1041,34 @@ workflow {
 }
 ```
 
+### Reporting 
+Logging in nextflow is relatively convenient thanks to the terrific built in
+functions. Getting to the bottom of where ones workflow is breaking down or
+acting out is mostly what we'll be doing. Taking a look at computational load
+and other variables is also possible, especially if optimising for large-scale,
+resource intensive (and expensive) applications e.g. cloud.  
+
+#### Nextflow log
+By simply typing the `nextflow log` command we can get a basic summary of the logs for all pipelines run. By default, included in the summary, are the date and time it ran, how long it ran for, the run name, run status, a revision ID, the session id and the command run on the command line.  
+
+#### Execution report
+If we want to focus on a specific pipeline we can provide the name of the pipeline to the `nextflow log <pipeline_name>` command. The task ID is a a 32 hexadecimal digit,e.g. 3b3485d00b0115f89e4c202eacf82eba. A task’s unique ID is generated as a 128-bit hash number representing the specific component of the workflow that is being executed e.g. the qc process, or the fastq trimming, etc etc.  
+
+If we want even more specific metadata about the run we simply provide more
+arguments using the -f option `nextflow log <pipeline_name> -f 'process, exit,
+hash, duration'`    
+
+#### Filtering the log
+A really convenient function is the -F option whereby we provide the general name of the process we're searching for, say, fastqc, to the log command. This will help us sort through the many many hex coded directories and point exactly to the ones we're after `nextflow log <pipeline_name> -F 'process =~ /fastqc/'`  
+
+#### Templates for reports 
+We can construct custom templates for our reports, in markdown or html format. Super handy when we're after specific, standardised outputs each and everytime and are not interested in some parts of the log. 
+
+```groovy
+nextflow log elegant_descartes -t my-template.md > execution-report.md 
+
+nextflow log elegant_descartes -t template.html > provenance.html
+```
 
 
-
-      
 
