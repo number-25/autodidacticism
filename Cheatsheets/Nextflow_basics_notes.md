@@ -1061,7 +1061,7 @@ hash, duration'`
 #### Filtering the log
 A really convenient function is the -F option whereby we provide the general name of the process we're searching for, say, fastqc, to the log command. This will help us sort through the many many hex coded directories and point exactly to the ones we're after `nextflow log <pipeline_name> -F 'process =~ /fastqc/'`  
 
-#### Templates for reports 
+#### Templates for reports
 We can construct custom templates for our reports, in markdown or html format. Super handy when we're after specific, standardised outputs each and everytime and are not interested in some parts of the log. 
 
 ```groovy
