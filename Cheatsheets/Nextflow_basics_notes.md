@@ -936,6 +936,10 @@ As expected, there are various options and qualifiers we can added to the operat
 .splitCsv(header:true) 
 ```
 
+The operator **.onComplete()** will allow one to assign a message to be printed to stdout once the workflow has finished completion. This is often a good place to specify the location of html formatted reports.  
+
+
+
 ### Directives
 Directives allow one to specify options when running the script, such as the amount of memory and cpus to use, or whether a certain phrase should be printed, and so on. They are akin to positional statements or options. Below is an example.
 
