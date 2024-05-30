@@ -46,6 +46,10 @@ If we anticipate that we won't have internet access when running the pipeline, w
 * A `nextflow_schema.config` describes the input parameters that the pipeline accepts. It is often [built](https://nf-co.re/pipeline_schema_builder) using the interactive nf-core tool `nf-core schema build`.    
 
 ## Modules 
+* View info
+[here](https://training.nextflow.io/hello_nextflow/04_hello_modules/#32-create-file-stubs-for-the-process-modules),
+[here](https://training.nextflow.io/basic_training/modules/) and
+[here](https://sateeshperi.github.io/nextflow_varcal/nextflow/nextflow_modules).  
 * To list all the available nf-core modules run `nf-core modules list`   
 * Installing a module is as easy as `nf-core modules install <module>`   
 * Updating can be done by `nf-core modules update <module>`     
@@ -56,11 +60,17 @@ prompt will ask us to name the module, followed by a prompt which asks for the
 installation of specific tools e.g. samtools to use in our module, thereafter
 nf-core will ask which labels we would like to use for the module e.g. high
 mem, low-cpu etc. A list of TO-DOs will be created, if linting is enabled, and
-some templates automatically created.   
+some templates automatically created.
+
+### Writing modules 
+* When we create a module, it always consists of a main.nf file, which contains the main process instruction and scripts. Often times we also provide a config/metadata.yaml file which lists additional information about the module.  
+* Module are used in a workflow by importing them, as we would in julia and other languages `include { SAMTOOLS_INDEX } from './modules/local/samtools/index/main.nf'` 
+* 
+
 
 ## Sub-workflows 
 * These are varitions of a program, often implementing a very specific
-option/feature of a program e.g. GATK call, rather than all of GATK.    
+option/feature of a processing task e.g. GATK call, rather than all of GATK, and then quality control and indexing.    i
 * The nf-core subworkflows are listed with `nf-core subworkflows list`, and
 essentially, most of the options and functions of the `nf-core modules` are
 also available to `nf-core subworkflows` e.g. linting, remove, test and so on.   
@@ -104,6 +114,20 @@ often going to be used with cutadapt.
 * `docker pull biocontainers/fastqc:v0.11.5`      
 *
 
+## Testing 
+* Nf-core requires extensive testing in order to be confident that it is
+running in a standardised manner, using the core principles across all
+workflows. A nice guide can be found
+[here](https://training.nextflow.io/hello_nextflow/05_hello_nf-test/) and the general idea behind nf-core testing in this [blog post](https://nextflow.io/blog/2024/nf-test-in-nf-core.html).    
+* "It is critical for reproducibility and long-term maintenance to have a way
+to systematically test that every part of your workflow is doing what it's
+supposed to do. To that end, people often focus on top-level tests, in which
+the workflow is un on some test data from start to finish. This is useful but
+unfortunately incomplete. You should also implement module-level tests
+(equivalent to what is called 'unit tests' in general software engineering) to
+verify the functionality of individual components of your workflow, ensuring
+that each module performs as expected under different conditions and inputs." 
+* As many programs have multiple input and output combinations, ideally a test should be written for each of these, maximizing coverage of the script 
 
 
 
