@@ -104,6 +104,8 @@ because spaces, tabs and newlines are normally invisible.
 
 
 ## DataFrames
+##### create a simple empty vector from predefined column-names `sample_df = DataFrame([name => [] for name in column_names])`   
+
 ##### ask whether certain values are *in* the dataframe rows using the **in** function with broadcasting: `data.newvariable = in.(data.weight, [["120kg", "220kg"]])` 
 You must enclose the strings in double square brackets as otherwise the broadcasting will not iterate over both elements and a dimension error will be thrown - this is a super important note. When you enclose the array containing two elements in another array, you effectively create a single element array, which circumvents the dimension error.   
 

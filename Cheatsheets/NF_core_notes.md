@@ -10,7 +10,10 @@
 * `nf-core install` will download and install pipelines.  
 * `nf-core modules install <module>` will download and install modules.   
 * `nf-core lint` will perform quality checks on pipeline to ensure the adherence to best practices.    
-
+* `nf-core pull nf-core/<workflow>` to install a pipeline from nf-core. 
+* `nextflow run nf-core/<workflow> -profile <profile> --outdir <dir>` to run the pulled nf-core pipeline.  
+* `nf-core launch <arguments>` allows one to run the pipeline using very specific config parameters stored in a file, or linked/aliased to nextflows web-id code.
+* `nf-core download <workflow>` to download the entire contents of the pipeline, including singularity images, for use offline. 
 
 ## Config files 
 * There are various config files found in the `/conf` directory
