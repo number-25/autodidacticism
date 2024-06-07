@@ -25,7 +25,138 @@ contain prefilled reference genomes which are hosted externally.
 An institution/cluster specific config file containing executor
 information and additional parameters should be provided here and
 use when running pipelines using these clusters. These specific config profiles are then provided to the executor as `--profile bunya.config`.          
+* Config files store variables which are linked to specific files and parameters e.g. `home_dir = "$HOME"`   
+* We can call the specific parameter we have defined by using the **params.<alias>** function. 
+### Configuration 
+* A convenient way to define multiple parameters is to use the curl expansion 
+```groovy
+params {
+    input  = ''
+    outdir = './results'
+}
+```
+* If we want to combine several config files we can use the `includeConfig '<config>'` function e.g. within a general config file unify several other specific configs pertaining to various components of the workflow, such as system resources.
+* Configuration settings can be spread across several files. This also allows
+settings to be overridden by other configuration files. The priority of a
+setting is determined by the following order, ranked from highest to lowest.
 
+1. Parameters specified on the command line (--param_name value).
+2. Parameters provided using the -params-file option.
+3. Config file specified using the -c my_config option.
+4. The config file named nextflow.config in the current directory.
+5. The config file named nextflow.config in the workflow project directory ($projectDir: the directory where the script to be run is located).
+6. The config file $HOME/.nextflow/config.
+7. Values defined within the workflow script itself (e.g., main.nf).
+
+* **Extremely important point - Parameters starting with a single dash -
+(e.g., -c my_config.config) are configuration options for nextflow, while
+parameters starting with a double dash -- (e.g., --outdir) are workflow
+parameters defined in the params scope. The majority of Nextflow
+configuration settings must be provided on the command-line, however a
+handful of settings can also be provided within a configuration file, such as
+workdir = '/path/to/work/dir' (-w /path/to/work/dir) or resume = true
+(-resume), and do not belong to a configuration scope.**   
+
+* For specific config settings for each process, e.g. cpus, directory, memory, time and so forth, we can assign this in the nextflow.config file specifically for the process
+```groovy
+process {
+    withName: FASTQC {
+    cpus = 2
+    memory = 8.GB
+    time = '1 hour'
+    publishDir = [ path: params.outdir, mode: 'copy' ] 
+    }
+    withName: MINIMAP2 {
+    cpus = 16
+    memory = 32.GB
+    time = '12 hour'
+    }
+}
+```
+* While this may look very tidy and specific, it can be far too verbose and excessive when we are running many processes which can often be broken down into groups which require similar resources, and so we can assign **withLabel** settings, which look identical to the above config but don't use the **withName** operator. 
+```groovy
+process {
+    withLabel: big_mem {
+        cpus = 16
+        memory = 64.GB
+    }
+}
+```
+* Run this as so:
+```groovy
+process P2 {
+
+    label "big_mem"
+
+    script:
+    """
+    echo P2: Using $task.cpus cpus and $task.memory memory.
+    """
+}
+```
+* Much like the config files, there is a priority to the 'selector' information
+1. withName selector definition. 
+2. withLabel selector definition. 
+3. Process specific directive defined in the workflow script.  
+4. Process generic process configuration.   
+
+### Configuring with Conda 
+* We can use conda environments within nextflow, specifying the exact environment of condas that we should use, the dependencies in a yaml file, and the software based on the repo.
+```groovy
+process {
+    conda = "/home/user/miniconda3/envs/my_conda_env"
+    withName: FASTQC {
+        conda = "environment.yml"
+    }
+    withName: SALMON {
+        conda = "bioconda::salmon=1.5.2"
+    }
+}
+```
+* To put this in its own discrete config file, with process and selectors 
+```groovy
+// fastp.config
+process {
+    withName: 'FASTP' {
+        conda = "bioconda::fastp=0.12.4-0"
+    }
+}
+```
+### Singularity and Docker configs 
+* Configuration of docker and singularity is also possible using the various directives and selectors 
+```groovy
+process.container = 'quay.io/biocontainers/salmon:1.5.2--h84f40af_0'
+docker.enabled = true
+docker.runOptions = '-u $(id -u):$(id -g)'
+
+withName: porechop { container = 'docker://quay.io/biocontainers/porechop:0.2.4--py310h30d9df9_3' }
+
+process.container = 'https://depot.galaxyproject.org/singularity/salmon:1.5.2--h84f40af_0'
+singularity.enabled = true
+```
+
+### Configuration profiles
+* One of the coolest plug-and-play features of nextflow is the one provided by configuration profiles - we can craft tailor made profiles specific to your computing environment. If we are on a HPC cluster we can create a HPC-wide profile that all can use, if we are running on laptops we can do one for this, another for a cloud compute environment. We would specify which provide using the **-profile** option `nextflow run <script> -profile bunya`  
+```groovy
+profiles {
+
+bunya {
+        params.genome = '/data/stared/ref.fasta'
+        process.executor = 'sge'
+        process.queue = 'long'
+        process.memory = '10GB'
+        process.conda = '/some/path/env.yml'
+    }
+
+cloud {
+        params.genome = '/data/stared/ref.fasta'
+        process.executor = 'awsbatch'
+        process.container = 'cbcrg/imagex'
+        docker.enabled = true
+    }
+
+}
+```
 
 ## Params file 
 * If we would like to repeatedly run a specific combination of
