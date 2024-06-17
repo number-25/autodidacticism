@@ -102,6 +102,20 @@ because spaces, tabs and newlines are normally invisible.
 
 ##### Avoiding complicated escape combinations in strings. In instances in which we want to print a string which contains multiple special characters, which should not be interpolated and interpreted as newlines, instead of embedding escape characters amongst the string literal, we can simply prefix the entire string with **raw**, turning the string into a raw literal. For example this would help greatly if we want to pring file paths and the like: `raw"C:\my_folder\my_file.txt"` 
 
+##### 'chop' n, m characters from the head and fail of a string: `chop("abcd", 1, 2)` with output 'b' 
+
+##### print the UTF-8 byte encoding of a character: `codeunits()`
+
+##### check to see if the string is ASCII encoded: `isascii()`  
+
+##### convert a String to a suitable fixed-width StringType:
+```julia
+using InlineStrings
+s1 = InlineString("x")
+s2 = inlinestrings(["abcs", "aaaaa", "dan"]) 
+```
+
+##### observe the memory footprint of a variable: `Base.summarysize(s1)` 
 
 ## DataFrames
 ##### create a simple empty vector from predefined column-names `sample_df = DataFrame([name => [] for name in column_names])`   
@@ -119,6 +133,13 @@ first_q.largeLand = ifelse.((ismissing.(first_q.AGS)) .| (first_q.AGS .!= 6) .| 
 ##### get the column index of a data frame: `columnindex(data, "columnname")`    
 
 ##### check if a column of a specific name is in the data frame: `hasname(data, "columname")`    
+
+##### rename dataframe columns:
+```julia
+column_names = ["id", "title", "price"]
+rename(df, column_names)
+```
+
 
 
 ## Arrays
@@ -184,6 +205,19 @@ Really handy for iterating through the contents of a directory, of the many many
 ##### verify whether something is a file or a directory: `isfile("file"), isdir("/path")`     
 
 ##### print the absolute path of a file: `abspath("file")`    
+
+##### @__FILE__ macro will expand to the absolute file path of the file in question: if the current directory is /my_dir and the file is scan.jl, then `@__FILE__` expand to /my_dir/scan.jl
+
+##### @__DIR__ macro will expand to the absolute directory in question: `@__DIR__` will expand to /my_dir 
+
+"If Julia is running code in a file, @__FILE__ should give you the full path to
+that file and @__DIR__ should equal dirname(@__FILE__). If you are running code
+directly in the REPL, @__DIR__ should give you the same result as pwd() and
+@__FILE__ will (*) give you a string indicating you are running from the REPL.
+If you are evaluating code in some IDE you need to consult its documentation to
+find out how it does that or at least tell us what environment you are working
+in." [From here](https://discourse.julialang.org/t/should-dir-give-a-path-to-the-directory-of-the-current-file/71303)
+
 
 ##### execute a shell command within julia: `run`ls`, read(run(`ls`), String)`
 The second command will *read* out the output the command as a String   

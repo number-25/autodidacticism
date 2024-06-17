@@ -73,9 +73,6 @@ MLE for a given probability distribution, and the sample distribution.
 
 
 
-
-
-
 ## Writing to Files 
 
 Write a vector of values to a file using the DelimitedFiles package. 
@@ -114,7 +111,7 @@ Test whether you have reached the end of an input stream - use `eof(stream` in c
        println("Found: $x") 
 # process the character
 end
-```    
+```
 
 ## Formatting 
 ### Sub and super scripts
@@ -130,15 +127,14 @@ On the other hand, superscript is denoted with ( \^1 TAB, \_^3 TAB ).
 ### Summaries
 Create a basic dict containing a tally of all the elements in a vector - this
 is handy for counting the frequency of count data. E.g. how many times 0
-occurs, 1, 2 and so on. This is similar to R's function **table()**.     
+occurs, 1, 2 and so on. This is similar to R's function **table()**.
 
 ```julia
 real = rand(Poisson(0.5), 100)
 countmap(real)
-```     
+```
 
 **enumerate** 
-
 
 ## Functions 
 
@@ -148,9 +144,12 @@ such. x will be our variable, and we will execute the function filter, so
 filter values of x, such that the dayname of x is Monday in the dataset
 calendar. For this to evaluate to true, there must be daynames in calendar
 which are called Monday
+
 ```julia
 filter(x -> Dates.daynames(x) == "Monday", calendar)
 ```
+
+
 
 
 
