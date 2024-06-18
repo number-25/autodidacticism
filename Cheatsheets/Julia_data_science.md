@@ -126,7 +126,7 @@ passion and curiosity as the backbones of science and inquiry!
 
 Joining datasets together is a common operation, especially within SQL - we can
 think of the common terminology of inner join, outer join and so on that's
-almost synonymous with databases. 
+almost synonymous with databases 
 
 Inner join - here we will join based on a shared ID between data frames/tables
 ```julia
@@ -160,7 +160,7 @@ countmap(rest_data.nearMe)
 We may want to summarise certain aspects of our dataset by chunking them into
 categorical blocks - similar to percentiles. Say we want to get a look at the
 distribution of gene lengths or zip codes in our dataset, at quartile ranges -
-we can turn to categorical variables. For this we need the CategoricalArrays.jl package. 
+we can turn to categorical variables. For this we need the CategoricalArrays.jl package 
 
 "Cut" the column into 4 quadrants/quintiles
 `cut(df.col1, 4)`
@@ -185,7 +185,7 @@ Connect to the UCSC genome browser MySQL portal
 Query the serve and store the query in a dataframe 
 `result = DBInterface.execute(ucscDB, "show databases") |> DataFrame;` 
 Is a certain genome build in the list?
-`"hg38" in result.Database `       
+`"hg38" in result.Database`       
 Close the connection
 `DBInterface.close!(ucscDB)`  
 
@@ -203,7 +203,7 @@ Some more refined queries
 `query = DBInterface.execute(hg38, "select * from all_mrna where misMatches between 1 and 3") |> DataFrame`
 
 ### HDF5 
-HDF5 is a data format used for storing large datasets - FAST5 uses a HDF5 backbone, and we know how large FAST5 files are!!! It stands for Heirarchical Data Format. We will be working with the julia library HDF5.jl. 
+HDF5 is a data format used for storing large datasets - FAST5 uses a HDF5 backbone, and we know how large FAST5 files are!!! It stands for Heirarchical Data Format. We will be working with the julia library HDF5.jl 
 
 **"HDF5 stands for Hierarchical Data Format v5 and is closely modeled on file
 systems. In HDF5, a "group" is analogous to a directory, a "dataset" is like a
@@ -243,8 +243,39 @@ Read specific parts of the hierarchy
 openh5 = h5open("example.h5", "r+")
 read(openh5,"foo/mydataset")
 ```
+For convience and consistency we can also use the do block conventions, which will take care of closing the stream for us
+```julia
+h5open("example.h5", "r+") do stream
+    group = create_group(stream, "dogroup")
+    dataset = create_dataset(group, "thisdata", Float64, (10,10))
+    write(dataset, rand(10,10))
+end 
+```
 
 ### XML and Xpath 
+A basic explanation of the use of XML in Julia is provided by a XML.jl snippet from github. Jeff Leek recommends this presentation as a nice [intro](https://www.stat.berkeley.edu/users/statcur/Workshop2/Presentations/XML.pdf)
+
+```julia
+filename = joinpath(dirname(pathof(XML)), "..", "test", "data", "books.xml")
+doc = read(filename, Node)
+children(doc)
+# 2-Element Vector{Node}:
+#  Node Declaration <?xml version="1.0"?>
+#  Node Element <catalog> (12 children)
+
+doc[end]  # The root node
+# Node Element <catalog> (12 children)
+
+doc[end][2]  # Second child of root
+# Node Element <book id="bk102"> (6 children)
+```
+
+Find texts using an XPath query 
+```julia
+for species_name in nodecontent.(findall("//species/text()", primates))
+    println("- ", species_name)
+end
+```
 
 Parse a HTML file as an XML and query it. We'll use the EzXML.jl library. The basic steps are -
 1. Load HTTP package, perform a HTTP get request on the url
@@ -265,21 +296,10 @@ for citation in nodecontent.(findall("//td[@id='col-citedby']", scholar_root))
 end
 ```
 
+### Excel XLSX 
+Julia has it's own package for excel file, aptly titled "XLSX"
 
-For convience and consistency we can also use the do block conventions, which will take care of closing the stream for us
-```julia
-h5open("example.h5", "r+") do stream
-    group = create_group(stream, "dogroup")
-    dataset = create_dataset(group, "thisdata", Float64, (10,10))
-    write(dataset, rand(10,10))
-end 
-```
-
-
-
-
-
-
+Reading an excel file in Julia is done in it's most basic form as XLSX.readxlsx("data') or XLSX.readdata("data", args...) - the documentation will be the best place to start. The inverse function XLSX.writexlsx("data) will appropriately write excel data.
 
 ## Real case examples 
 
