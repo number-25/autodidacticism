@@ -32,10 +32,14 @@ If we anticipate that we won't have internet access when running the pipeline, w
 * To check our pipeline against nextflows community best practices, we undertake 'linting' - a series of checks will be performed to ensure that files are in their correct location, they are present where they should be present and so on -- ``nf-core lint`    
 * Custom workflows which are not intended to be used as official nf-core pipeline, will often fail linting due to the various modifications which will be made to 'de-officialize' the default nf-core template. See [guidelines](https://nf-co.re/docs/contributing/tutorials/unofficial_pipelines) for additional recommendations.     
 * The python tool **prettier** can be used to check the formatting of our markup files, these including markdown files. It is run by using `prettier -c .`. See for [more](https://nf-co.re/docs/contributing/code_formatting).     
-*
+* To modify which files can be ignored during linting, we can modify the .nf-core.yml file in the base directory. See information at 1hr 5min [here](https://www.youtube.com/watch?v=ZD0SBjMUy4w&list=PL3xpfTVZLcNhoWxHR0CS-7xzu5eRT8uHo&index=19) 
+* Check formatting of our markdown files using prettier formatter - `prettier -c .` to check files, and then `prettier -w .` to write and fix the issues. 
+
 
 ## Schema JSON
-* A `nextflow_schema.config` describes the input parameters that the pipeline accepts. It is often [built](https://nf-co.re/pipeline_schema_builder) using the interactive nf-core tool `nf-core schema build`.    
+* A `nextflow_schema.config` describes the input parameters that the pipeline accepts. It is often [built](https://nf-co.re/pipeline_schema_builder) using the interactive nf-core tool `nf-core schema build` and also using the web portal. 
+* We use `schema build` to update the nextflow_schema.config when we have added new params e.g `big_mem = '32.GB'`  
+
 
 ## Modules 
 * View info
