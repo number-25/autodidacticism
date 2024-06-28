@@ -188,6 +188,16 @@ vec(a)
 > 5
 > 6    
 
+##### get the value of an array which you are definitely sure contains only a single element - this would avoid indexing
+```julia
+# From this
+json_query.rates[1].mid
+
+# To this
+only(json_query.rates).mid
+```
+This works since the `rates` field only has a single index ([1]) which contains 3 fields, mid being one of them. Errors will be thrown if there is a violation of `0 < x < 2` 
+
 ## File IO, Directories, Navigation 
 
 ##### view the size of the objects-datasets in your environment: `varinfo(, args)`      
