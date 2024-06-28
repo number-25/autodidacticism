@@ -30,8 +30,6 @@ Generate random vector of numbers with a mean of 0 and a standard deviation of 1
 `randn(100,5)` # 100 by 5 matrix 
 
 
-
-
 ### Sampling 
 
 The Stats.Base package allows us to *sample* specified values from specific probability frequencies, say, sample A and G which occur at 1/3 and 2/3 probability.  
@@ -149,7 +147,17 @@ which are called Monday
 filter(x -> Dates.daynames(x) == "Monday", calendar)
 ```
 
+## Types
 
+### Missing values and Nothing 
+Real life data will often have missing values within it - measurements are not
+always made, human error pokes it's ears up, variance is common and should be
+expected. For this, the specific Type `missing` is here for a reason. It is not
+simply 0, which has a definite value, but is unknown because it is missing - an
+important difference. In contrast, the `nothing` Type is used when the value is
+indeed nothing - which for instance may occur if we are collecting peoples
+favorite basketball team, and we ask someone who doesn't follow basketball,
+their response would be nothing.  
 
 
 
