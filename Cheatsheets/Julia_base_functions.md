@@ -1,4 +1,4 @@
-# A collection of Julia base functions
+# A collection of features, functions and implementations in Julia
 Many are often applicable to several types and data structures. 
 
 ## Dicts
@@ -248,6 +248,22 @@ csv_import = CSV.read(HTTP.get("url").body, DataFrame)
 ## General   
 
 ##### define a single line function: `divideten(x::Interger) = x / 10`    
+
+##### define the return type of a function:
+```julia
+function divrem(x, y)::Int8
+  something
+  something
+end 
+```
+
+##### tuples of size would need to contain a comma after the first element for otherwise a tuple wont be created and the variable will simply take on the elements Type: `t = (1,)` 
+
+##### use ignored elements in variable names in order to assign a specific value from an iterator - pretty bizarre but it is an option to have in mind:
+```julia
+_, _, _, d = 1:10
+```
+d will have the value 4. "If only a subset of the elements of the iterator are required, a common convention is to assign ignored elements to a variable consisting of only underscores _ (which is an otherwise invalid variable name, see Allowed Variable Names)"
 
 ##### empty the contents of a collection e.g. dict, array: `empty!(dict)`    
 
