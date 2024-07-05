@@ -6,9 +6,9 @@ Many are often applicable to several types and data structures.
 [Strings](#Strings)   
 [Dataframes](#DataFrames)   
 [Arrays](#Arrays)    
-[File IO, Directories, Navigation](#File IO, Directories, Navigation) 
+[File IO, Directories, Navigation](#File IO, Directories, Navigation)  
 [General, Assorted](#General)    
-[Loops, Iteration](#Looping and iterating )   
+[Loops, Iteration](#Looping and iterating)   
 [Blocks](#Blocks)   
 [Numbers](#Numbers)
 [Control Flow](#Control Flow)    
@@ -213,7 +213,7 @@ only(json_query.rates).mid
 ```
 This works since the `rates` field only has a single index ([1]) which contains 3 fields, mid being one of them. Errors will be thrown if there is a violation of `0 < x < 2` 
 
-## File IO, Directories, Navigation 
+## File IO, Directories, Navigation
 
 ##### view the size of the objects-datasets in your environment: `varinfo(, args)`      
 
@@ -367,7 +367,7 @@ end
 ```
 
 
-## Looping and iterating 
+## Looping and iterating
 
 ##### allow element-wise broadcasting over arrays, instead of treating the array as a single element, using **Ref** function: `in.([1, 3, 5, 7, 9], Ref([1, 2, 3, 4]))`   
 
