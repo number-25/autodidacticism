@@ -1,6 +1,21 @@
 # A collection of features, functions and implementations in Julia
 Many are often applicable to several types and data structures. 
 
+[Dictionaries](#Dicts)  
+[Tuples](#Tuples)   
+[Strings](#Strings)   
+[Dataframes](#DataFrames)   
+[Arrays](#Arrays)    
+[File IO, Directories, Navigation](#File IO, Directories, Navigation)    
+[General, Assorted](#General)    
+[Loops, Iteration](#Looping and iterating)   
+[Blocks](#Blocks)   
+[Numbers](#Numbers)
+[Control Flow](#Control Flow)    
+[Missing and Nothing values](#Missing and Nothing values)   
+
+
+
 ## Dicts
 
 ##### get a key-value pair: `get(collection, key, default)`   
@@ -61,7 +76,7 @@ contents, which can be utilized and computed with - but often this index value m
 ##### list out the elements of a tuple with their associated index 
 If we have five elements in a tuple, and we want to perform some functions on these elements AND utilize their index values, we can give enumerate a go;  
 ```julia
-   a = ["a", "b", "c"]   
+a = ["a", "b", "c"]   
    for (index, value) in enumerate(a)
            println("$index $value")
        end
@@ -430,6 +445,23 @@ catch e
     end
 end
 ```
+
+## Missing and Nothing values
+##### missing will propagate when used in operations:
+```julia
+1 + missing 
+> missing
+
+1 * missing 
+> missing
+
+missing > 4 
+> missing
+```
+The only thing which will not propagate a missing is a boolean comparison to `true`: `true | missing` will evaluate to `true`
+
+##### use the coalesce(values, true/false) to specify how missing is to be treated in the particular execution and if it will evaluate to true or to false: `coalesce([1, true, missing, 10], true` will evaluate to
+> 1, true, true, 10
 
 
 
