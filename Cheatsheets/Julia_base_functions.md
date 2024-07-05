@@ -11,7 +11,7 @@ Many are often applicable to several types and data structures.
 [Loops, Iteration](#Looping-and-iterating)   
 [Blocks](#Blocks)   
 [Numbers](#Numbers)
-[Control Flow](#Control Flow)    
+[Control Flow](#Control-Flow)    
 [Missing and Nothing values](#Missing-and-Nothing-values)   
 
 
