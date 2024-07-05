@@ -6,13 +6,13 @@ Many are often applicable to several types and data structures.
 [Strings](#Strings)   
 [Dataframes](#DataFrames)   
 [Arrays](#Arrays)    
-[File IO, Directories, Navigation](#File IO, Directories, Navigation)  
+[File IO, Directories, Navigation](#File-IO,-Directories,-Navigation)  
 [General, Assorted](#General)    
-[Loops, Iteration](#Looping and iterating)   
+[Loops, Iteration](#Looping-and-iterating)   
 [Blocks](#Blocks)   
 [Numbers](#Numbers)
 [Control Flow](#Control Flow)    
-[Missing and Nothing values](#Missing and Nothing values)   
+[Missing and Nothing values](#Missing-and-Nothing-values)   
 
 
 
