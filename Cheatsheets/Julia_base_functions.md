@@ -155,8 +155,6 @@ column_names = ["id", "title", "price"]
 rename(df, column_names)
 ```
 
-
-
 ## Arrays
 
 ##### delete elements of an array by their index: `deleteat!(array, [index])`   
@@ -264,6 +262,14 @@ csv_import = CSV.read(HTTP.get("url").body, DataFrame)
 
 ##### define a single line function: `divideten(x::Interger) = x / 10`    
 
+##### function composition and piping/chaining. Combine functions by using the unicode circle character: `map(first ∘ reverse ∘ uppercase, split("you can compose functions like this")` 
+To use the compose character type `\circ<tab>`. This will apply each function one after the next to our input data. Very cool. 
+
+We can also use the piping operator to do the same thing: `1:10 |> sum |> sqrt`  
+
+The pipe operator can also be used with broadcasting, as .|>, to provide a useful combination of the chaining/piping and dot vectorization syntax
+`["a", "list", "of", "strings"] .|> [uppercase, reverse, titlecase, length]`
+
 ##### define the return type of a function:
 ```julia
 function divrem(x, y)::Int8
@@ -323,6 +329,27 @@ end
 
 plotter(1:10, 2:10, trend_color="blue", intersect_color="brown")     
 ```
+`kawargs...` provided in the varargs … form are stored as key-value pairs, whereby the argument can be provided to the function in the typical `function(x; kawarg1=1)` or using Dict mapping notation `function(x; :kawargs => 1)`, which you may have seen in the `plot()` examples
+
+##### varargs arguments (variable) in function designations allow for the input of additional arguments other than those specifically required for the function: `myfunction(x, y...)` 
+Here, the function will be structured in a way that handles additional arguments - variable number arguments
+i
+
+##### extra keywords can be collected using … as with varargs: 
+```julia
+function f(x; y=0, kwargs...)
+    ###
+end
+```
+
+##### optional - default arguments whereby a function has predefined arguments which can be changed on input: `date(y::Int64, m::Int64=1, d::Int64=1` 
+If the user doesn't provide m or d variables, the default to 1, but if
+they do provide these variables than they are assigned in the expected
+way. *"Optional arguments are actually just a convenient syntax for
+writing multiple method definitions with different numbers of arguments
+(see Note on Optional and keyword Arguments). This can be checked for
+our date function example by calling the methods function:"*   
+
 
 ##### Parse a string as a number. If the type is an integer type, then a base
 can be specified (the default is 10). If the type is a floating point type, the
@@ -462,6 +489,20 @@ The only thing which will not propagate a missing is a boolean comparison to `tr
 
 ##### use the coalesce(values, true/false) to specify how missing is to be treated in the particular execution and if it will evaluate to true or to false: `coalesce([1, true, missing, 10], true` will evaluate to
 > 1, true, true, 10
+
+We can also convert missing values to other values using coalesce: `coalesce.([1, missing, 20], 0)`     
+This will replace all missing values with a 0. 
+
+##### create a new method for a pre-existing function whereby missing values are propagated, whereby they ordinarily wouldn't be:
+```julia
+using Missings
+add(x::Int64, y::Int64) = x + y # will outpout MethodError for missing 
+propagating_add = passmissing(add) # will not propagate missing value
+```
+
+
+
+
 
 
 
