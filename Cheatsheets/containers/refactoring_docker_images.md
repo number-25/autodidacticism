@@ -44,7 +44,13 @@ RUN conda config --add channels conda-forge && \
     pysam \
     python-edlib
 ```
-Since we already have condaforge, we can remove this line, and for testing purposes, we can try remove bioconda and all the dependencies may already be accessible via condaforge. Including the `python=3.9` specifier led to conflicts with the base image which already had `python=3.10` installed, so this was removed. A big thing to take notice of is the absence of any `--clean` like commands at the tail of the installation. These can often trim down many mBs of unneeded files -- we'll add these in. 
+Since we already have condaforge, we can remove this line, and for testing
+purposes, we can try remove bioconda as all the dependencies may already be
+accessible via condaforge. Including the `python=3.9` specifier led to
+conflicts with the base image which already had `python=3.10` installed, so
+this was removed. A big thing to take notice of is the absence of any `--clean`
+like commands at the tail of the installation. These can often trim down many
+mBs of unneeded files -- we'll add these in. 
 
 Slightly modified, our new code block looks like. The final Dockerfile can be found [here](https://github.com/yfukasawa/LongQC/blob/master/Dockerfile).
 ```Dockerfile
@@ -66,8 +72,8 @@ RUN mamba install -y \
 ```
 
 With those modifications, that's it! We changed very little, barely undertook
-any work, and slimmed down the final image by ~1 GB. If one wanted to get into
-the cracks of it, i'm sure this could be pruned even further; but to get a
+any work, and slimmed down the final image by ~1GB. If one wanted to get into
+the cracks of it, I'm sure this could be pruned even further; but to get a
 sample look at just what is occupying the space, by running `sudo docker
 history longqc_mamba`, we get this output, which I'm just sampling here for demonstration. 
 ```
@@ -75,7 +81,7 @@ IMAGE          CREATED       CREATED BY                                      SIZ
 bdcd957a4ec8   11 days ago   /bin/sh -c mamba install -y     numpy     pa…   1.43GB
 ```
 
-The dependencies block of the dockerfile is responsible for 1.43 of the space, which is most of the final image. How do we bring this down? 
+The dependencies block of the dockerfile is responsible for 1.43GB of the space, which is most of the final image. How do we bring this down? 
 
 
 
