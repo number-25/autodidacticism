@@ -23,13 +23,13 @@ reproduced, we should create a `my_run_params.json` file which
 lists the specific options used. The .json is then provided to
 the executor when we run the pipeline, using the `--params-file`
 option.    
-* nf-core contain an `nf-core launch` program which allows users to easily, and interactively, construct a custom params file for a workflow which corresponds to the exact options one needs; e.g. this genome, this index, these UMIs and so on. [See more here](https://nf-co.re/launch).        
+* nf-core contains an `nf-core launch` program which allows users to easily, and interactively, construct a custom params file for a workflow which corresponds to the exact options one needs; e.g. this genome, this index, these UMIs and so on. [See more here](https://nf-co.re/launch).        
 
 ## Offline usage 
 If we anticipate that we won't have internet access when running the pipeline, we can download the entire nf-core pipeline locally, including all the test data and container images, allowing us to run it anywhere we need. This can be perform with `nf-core download <pipeline name>`.     
 
 ## Linting 
-* To check our pipeline against nextflows community best practices, we undertake 'linting' - a series of checks will be performed to ensure that files are in their correct location, they are present where they should be present and so on -- ``nf-core lint`    
+* To check our pipeline against nextflows community best practices, we undertake 'linting' - a series of checks will be performed to ensure that files are in their correct location, they are present where they should be present and so on -- `nf-core lint`    
 * Custom workflows which are not intended to be used as official nf-core pipeline, will often fail linting due to the various modifications which will be made to 'de-officialize' the default nf-core template. See [guidelines](https://nf-co.re/docs/contributing/tutorials/unofficial_pipelines) for additional recommendations.     
 * The python tool **prettier** can be used to check the formatting of our markup files, these including markdown files. It is run by using `prettier -c .`. See for [more](https://nf-co.re/docs/contributing/code_formatting).     
 * To modify which files can be ignored during linting, we can modify the .nf-core.yml file in the base directory. See information at 1hr 5min [here](https://www.youtube.com/watch?v=ZD0SBjMUy4w&list=PL3xpfTVZLcNhoWxHR0CS-7xzu5eRT8uHo&index=19) 
@@ -49,7 +49,7 @@ If we anticipate that we won't have internet access when running the pipeline, w
 * To list all the available nf-core modules run `nf-core modules list`   
 * Installing a module is as easy as `nf-core modules install <module>`   
 * Updating can be done by `nf-core modules update <module>`     
-* Many other functions such as `lint`, `patch`, `test`, `remove` and so on are availabe for implementing, testing and tweaking the modules
+* Many other functions such as `lint`, `patch`, `test`, `remove` and so on are available for implementing, testing and tweaking the modules
 * `modules.json` is a metadata file which tracks the modules which the pipeline has installed.     
 * Creating ones own module is undertaken with `nf-core modules create`. A
 prompt will ask us to name the module, followed by a prompt which asks for the
@@ -61,11 +61,9 @@ some templates automatically created.
 ### Writing modules 
 * When we create a module, it always consists of a main.nf file, which contains the main process instruction and scripts. Often times we also provide a config/metadata.yaml file which lists additional information about the module.  
 * Module are used in a workflow by importing them, as we would in julia and other languages `include { SAMTOOLS_INDEX } from './modules/local/samtools/index/main.nf'` 
-* 
-
 
 ## Sub-workflows 
-* These are varitions of a program, often implementing a very specific
+* These are variations of a program, often implementing a very specific
 option/feature of a processing task e.g. GATK call, rather than all of GATK, and then quality control and indexing.    i
 * The nf-core subworkflows are listed with `nf-core subworkflows list`, and
 essentially, most of the options and functions of the `nf-core modules` are
@@ -75,7 +73,7 @@ structure is somewhat different, as they use `take` and `emit` rather than
 `input` and `output`.    
 
 ## Containers and Environments
-* As an ethod of nextflow is reproducibility and containerisations, our processes will often use programs that are packaged neatly in images/containers.   
+* As an ethos of nextflow is reproducibility and containerisations, our processes will often use programs that are packaged neatly in images/containers.   
 
 ### Docker
 * Docker is a common container software which encapsulates almost any program we can think of, in a closed and contained (no pun) way.  
@@ -108,7 +106,6 @@ packaged as multi-tool images, minimizing the need to provide information for
 several inter-related containers used in a specific pipeline e.g. fastqc is
 often going to be used with cutadapt. 
 * `docker pull biocontainers/fastqc:v0.11.5`      
-*
 
 ## Testing 
 * Nf-core requires extensive testing in order to be confident that it is
@@ -124,4 +121,7 @@ unfortunately incomplete. You should also implement module-level tests
 verify the functionality of individual components of your workflow, ensuring
 that each module performs as expected under different conditions and inputs." 
 * As many programs have multiple input and output combinations, ideally a test should be written for each of these, maximizing coverage of the script 
+
+
+
 
