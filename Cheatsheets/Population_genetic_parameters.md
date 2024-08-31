@@ -3,5 +3,5 @@ Taken from ["The population genetics of mutations: good, bad and indifferent"](h
 
 | Notation  | Definition |
 | --------- | ---------- |
-| \\( U \\) | 
+| $$ U $$   | 
 
