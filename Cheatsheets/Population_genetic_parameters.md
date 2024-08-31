@@ -7,5 +7,5 @@ This is also a good exercise in MathJax formatting within markdown!
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | $U$                     | mutation rate per generation per genome; check context for effects of mutations                                  |
 | $G_e , G$               | effective haploid genome size (all functional base pairs), total haploid genome size (with neutral sites) |
-| $\mu , \mu_10 , \mu_01$ | mutation rate per locus or per site per generation, away from the preferred base, and back                       | 
+| $\mu , \mu_{10} , \mu_{01}$ | mutation rate per locus or per site per generation, away from the preferred base, and back                       | 
 
