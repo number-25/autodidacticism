@@ -13,5 +13,5 @@ This is also a good exercise in MathJax formatting within markdown!
 | $s$                                | selection coefficient; measures changes in fitness; check context for exact definitions (homozygous or heterozygous; positive or negative) |
 | $h$                                | dominance coefficient so that *sh* is the effect of heterozygous mutations                                                                           |
 | **DME (or DFE)**                   | distribution of mutational effects on fitness                                                                                                        |
-| $W_A$                              | Wrightian fitness of a genotype A (one of the many ways fitness can be defined)                                                                      |
+| ${W_A}$                              | Wrightian fitness of a genotype A (one of the many ways fitness can be defined)                                                                      |
 | $\varepsilon$                      | epistasis: interactions of mutational effects. If fitness is multiplicative, $\varepsilon = W_{AB} - W_AW_B$                                   | 
