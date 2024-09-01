@@ -24,4 +24,11 @@ This is also a good exercise in MathJax formatting within markdown!
 | $D , D' , {r^2}$                            | measures of linkage disequilibrium (LD)                                                                                                                                                                              |
 | ${V_G}$                                       | genetic variance in a quantitative trait                                                                                                                                                                             |
 | $V_M$                                       | increment in $V_G$ from new mutations per generation                                                                                                                                                                 |
-| $V_R$                                       | environmental variance in a quantitative trait                                                                                                                                                                       | 
+| $V_R$                                       | environmental variance in a quantitative trait                                                                                                                                                                       |
+
+* For historical reasons and due to the limitations of the alphabet, several
+symbols have different meanings in different contexts. Examples: ${h^2}$ =
+heritability of a quantitative trait; $r$ = rate of selfing; $r$ = rate of
+population growth; $D$ = ‘Tajima's D’, where $D$ < 0 may indicate population
+expansion or directional selection and $D$ > 0 a bottleneck or balancing
+selection.
