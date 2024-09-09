@@ -39,8 +39,10 @@ Find more about here on Sean's [website](http://eddylab.org/cupbook.html). PDF c
 
 ### Julia
 #### Courses
+ladie
 
 #### Books
+dadie
 
 ### R
 ### Courses
@@ -51,7 +53,8 @@ I took this course and ported much of it into Julia.
 
 ## Mathematics, Probability, and Statistics
 <details>
-<summary> See ful section </summary>
+<summary> See full section </summary>
+
 Coming from Biology, a field closely wedded to the qualitative aspects of Scientific inference, where our formal training for the most part omits many of the approaches utilised by the 'harder sciences', the transition to the quantitative world has perhaps been the most challenging part of this. In some respects, you must undergo a great change in how you approach problems, how you approach data and measures, and your relationship to truth and validity. Much of this can be uncomfortable, as you must confront the fragility of your prior approaches to questions. Personally, this is an ongoing project which demands a lot of effort and grit. I have immensely appreciated this change in my thought processes, and am very grateful that it has taken place. The world is a bigger place now than it ever was. A world where precision, consistency, and repetition are emphasised. You will likely develop an obsession with priors, and with starting assumptions. Sometimes before we can even approach a problem, we must sketch out some vague axioms we believe to be important. Unfortunately, these topics are taught in notoriously bland ways across campuses alike - they are premature, are forced, and very often, the student barely has any confidence in their own logic and reasoning. Such courses may at times skip over the very basic reason for using tools such as probability theory in the first place; to make *better* decisions in the presence of uncertainty.
 
 ### Statistics
