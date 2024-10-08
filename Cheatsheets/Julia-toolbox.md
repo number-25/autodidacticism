@@ -87,8 +87,19 @@ io = open("test.txt", "w") do io
     println(io, x)
   end
 end
-``` 
+```
 
+If the goal is to loop through a collection and iteratively write to a file based on what's in the collection, we can embed our function within a `do` block
+```julia
+open("tmp_key_values.txt", "r+") do writer
+    for (key, value) in collect(thisdict)
+        the_key = key
+        the_values = collect(value)
+        joined_values = join(the_values, ',')
+        write(writer, "$the_key \t $joined_values \n")
+    end
+end
+```
 
 
 ## STDIN
