@@ -1,6 +1,5 @@
 <img src="https://abfabrugcleaning.co.uk/wp-content/uploads/2015/06/Rug-Cleaning-Header-Default.jpg" height="" width="1200" align="center">
 
-Needs to be updated immanently.        - 
 
 
 # Computational Biology for Autodidacts
@@ -8,7 +7,16 @@ A collection of resources that I have used (and hereby endorse) for those lookin
 
 I will also include a separate list of resources that I have come across and been recommended, but have not used - as such, these will not be my endorsements, but simply references for you to explore further if you wish.
 
-## Courses 
+### Computational Biology and Bioinformatics
+<details>
+<summary> See full section </summary>
+
+#### Courses 
+#### Applied Computational Genomics at the University of Utah (2020/2021)
+If you've had to do play around with .bam and .bed files than you've very likely come in contact with the excellent program called [Bedtools](https://bedtools.readthedocs.io/en/latest/index.html). Almost every time I need to use this program I discover something new about it, it just keeps on giving. The brain behind the Bedtools is [Aaron Quinlan](http://quinlanlab.org), a leading Computational Biologist out of the University of Utah . He offers a Semester long, **completely free** course which lives on [GitHub](https://github.com/quinlan-lab/applied-computational-genomics). Do you notice the trend here? World class thinkers who are willing to spread their knowledge, help others, and move Science forward, all without paywalls. Pay it forward if you ever get the chance! This is a great, in depth course which has many practical tutorials embedded within it. The homework is challenging and fulfilling - I have learned a lot here. Did I mention that Aaron is a terrific, down to earth teacher?
+
+* Beginner/ entry level 
+* Head over to [https://github.com/quinlan-lab/applied-computational-genomics](https://github.com/quinlan-lab/applied-computational-genomics)
 
 #### Foundations of Computational and Systems Biology 
 I can't be the only one who's jaw hits the floor when they see how rich MIT Open Course Ware has become, and how far back their content reaches in time. There are perhaps no better examples of the spirit of education than this initiative. Free lectures by some of the worlds top thinkers? You've gotta be kidding me. MIT Open Courserware was made for auto-didacts, there is little more you could ask for when seeking to educate yourself. Detailed course structures and trajectories, additional recommended readings, good quality videos, and no pay walls - yes!  
@@ -18,13 +26,35 @@ This course is run by a couple of great educators (Christopher Burge, David Giff
 * Late beginner/intermediate level
 * [https://ocw.mit.edu/courses/biology/7-91j-foundations-of-computational-and-systems-biology-spring-2014/](https://ocw.mit.edu/courses/biology/7-91j-foundations-of-computational-and-systems-biology-spring-2014/) 
 
-#### Applied Computational Genomics at the University of Utah (2020/2021)
-If you've had to do play around with .bam and .bed files than you've very likely come in contact with the excellent program called [Bedtools](https://bedtools.readthedocs.io/en/latest/index.html). Almost every time I need to use this program I discover something new about it, it just keeps on giving. The brain behind the Bedtools is [Aaron Quinlan](http://quinlanlab.org), a leading Computational Biologist out of the University of Utah . He offers a Semester long, **completely free** course which lives on [GitHub](https://github.com/quinlan-lab/applied-computational-genomics). Do you notice the trend here? World class thinkers who are willing to spread their knowledge, help others, and move Science forward, all without paywalls. Pay it forward if you ever get the chance! This is a great, in depth course which has many practical tutorials embedded within it. The homework is challenging and fulfilling - I have learned a lot here. Did I mention that Aaron is a terrific, down to earth teacher?
+#### Books
+#### Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids 
+An oldie but a goody. Sean Eddy, Durbin et al., have all created phenomenal software that countless folks appreciate, the book stands on its own. Extensive and detailed, not to be taken lightly. 
+Find more about here on Sean's [website](http://eddylab.org/cupbook.html). PDF copies may or may not be floating about * wink *. 
 
-* Beginner/ entry level 
-* Head over to [https://github.com/quinlan-lab/applied-computational-genomics](https://github.com/quinlan-lab/applied-computational-genomics)
+</details>
+
+## Programming 
+<details> 
+<summary> See full section </section>
+
+### Julia
+#### Courses
+ladie
+
+#### Books
+dadie
+
+### R
+### Courses
+I took this course and ported much of it into Julia. 
+
+</details>
+
 
 ## Mathematics, Probability, and Statistics
+<details>
+<summary> See full section </summary>
+
 Coming from Biology, a field closely wedded to the qualitative aspects of Scientific inference, where our formal training for the most part omits many of the approaches utilised by the 'harder sciences', the transition to the quantitative world has perhaps been the most challenging part of this. In some respects, you must undergo a great change in how you approach problems, how you approach data and measures, and your relationship to truth and validity. Much of this can be uncomfortable, as you must confront the fragility of your prior approaches to questions. Personally, this is an ongoing project which demands a lot of effort and grit. I have immensely appreciated this change in my thought processes, and am very grateful that it has taken place. The world is a bigger place now than it ever was. A world where precision, consistency, and repetition are emphasised. You will likely develop an obsession with priors, and with starting assumptions. Sometimes before we can even approach a problem, we must sketch out some vague axioms we believe to be important. Unfortunately, these topics are taught in notoriously bland ways across campuses alike - they are premature, are forced, and very often, the student barely has any confidence in their own logic and reasoning. Such courses may at times skip over the very basic reason for using tools such as probability theory in the first place; to make *better* decisions in the presence of uncertainty.
 
 ### Statistics
@@ -35,4 +65,4 @@ I believe this is the most comfortable introduction to conceptualising problems,
 * PERFECT for absolute beginners. Great reference to have on hand for those more familiar. 
 * I must admit, the book is not cheap, and the smaller "Essential" book is just not worth buying - it is an anorexic ~150 pages of widely spaced formatting. I used library copies for both until I had enough savings to purchase the larger of the two books. If you prefer eBooks than I'd go looking.
 
-
+</details>

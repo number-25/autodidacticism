@@ -314,6 +314,11 @@ This is similar to other function **isdefined()** and **isassigned()**.
 
 ##### find the common type (if there is one) between two different elements - this is useful when creating function and methods which work on multiple related types, in the case of multiple dispatch. This creates more 'general' and malleable methods: `typejoin(typeof(x), typeof(y))`    
 
+##### promote values of mixed type to a common type - this will only work when the types are interconvertible e.g. Int to a Float64 `promoter(1, 2.5, 3)` 
+> (1.0, 2.5, 3.0)
+
+##### convert value from one type to an another (if possible) e.g. if x is a Int64 `convert(UInt8, x)`  
+
 ##### check to see if a type is of an abstract or concrete type form: `isabstractype(x)` and `isconcretetype(y)`      
 
 ##### assign a collection a to be a UNION of a specific type: `q = AbstractVector{<:Real}`   
