@@ -260,7 +260,14 @@ csv_import = CSV.read(HTTP.get("url").body, DataFrame)
 
 ## General   
 
+### Functions
+
 ##### define a single line function: `divideten(x::Interger) = x / 10`    
+Another simple one. 
+```julia
+f = <(4)
+f(3)
+```
 
 ##### function composition and piping/chaining. Combine functions by using the unicode circle character: `map(first ∘ reverse ∘ uppercase, split("you can compose functions like this")` 
 To use the compose character type `\circ<tab>`. This will apply each function one after the next to our input data. Very cool. 
@@ -278,6 +285,15 @@ function divrem(x, y)::Int8
 end 
 ```
 
+##### list the methods which a function can operate on, e.g. on custom structures, Int64, Any.: `methods(sum)`    
+
+##### a macro to show which types a function is operating on: `@which sort!(hand)`    
+When overflowing/overriding methods and functions, such as extending sort!() to
+work on custom structs and types, it can become confusing as to which function
+one is working with e.g. the overloaded base one, or an unconfigured default.
+Especially helpful when importing external packages.    
+
+
 ##### tuples of size would need to contain a comma after the first element for otherwise a tuple wont be created and the variable will simply take on the elements Type: `t = (1,)` 
 
 ##### use ignored elements in variable names in order to assign a specific value from an iterator - pretty bizarre but it is an option to have in mind:
@@ -292,15 +308,6 @@ d will have the value 4. "If only a subset of the elements of the iterator are r
 
 ##### print the field names of an object/structure: `fieldnames(object)`     
 > (:x, :y)       
-
-##### list the methods which a function can operate on, e.g. on custom structures, Int64, Any.: `methods(sum)`    
-
-##### a macro to show which types a function is operating on: `@which sort!(hand)`    
-When overflowing/overriding methods and functions, such as extending sort!() to
-work on custom structs and types, it can become confusing as to which function
-one is working with e.g. the overloaded base one, or an unconfigured default.
-Especially helpful when importing external packages.    
-
 ##### show and expand the macro transformed code, revealing what's behind the curtain : `@macroexpand @macro something`    
 
 ##### see if a variable is defined using the @isdefined macro: `@isdefine q` and `z = @isdefined q` which will be stored as a boolean     
@@ -362,7 +369,7 @@ string is parsed as a decimal floating point number. If the string does not
 contain a valid number, an error is raised. `parse(Int64, "1234")` and
 `parse(T::Type, string, base=Int)`  
 
-##### declare an abstract Type which can have progency types/subtypes: `abstract type Gene end`  
+##### declare an abstract Type which can have progeny types/subtypes: `abstract type Gene end`  
 Writing functions and methods for the abstract type should propagate to their subtypes.   
 
 ##### the ternary **?** operator is a short hand for an in-else statement: `5 % 2 = 1 ? println("yes") : println("no")` and another example:
@@ -398,12 +405,16 @@ filter(dr) do x
 end
 ```
 
+##### invert the function to also take advantage of filter(): `filter(line -> !isempty(line), readlines(filename))` 
+
+
+##### It can even be extended to strings using `endswith("somefile.png", ".png")`
 
 ## Looping and iterating
 
 ##### allow element-wise broadcasting over arrays, instead of treating the array as a single element, using **Ref** function: `in.([1, 3, 5, 7, 9], Ref([1, 2, 3, 4]))`   
 
-Ref can be seen as shorthand for "Reference" - it takes the values of a collection, and creats a single value reference of the value, which it stores in an array, almost like a little iterator of it's own. So when we run broadcasting in combination with **Ref()**, Ref will operator on each element of the array, and thus the size of the first and second arrays will be equal (1 each), allowing for the broadcasting to work as intended.... a bit random but hey this is effective.
+Ref can be seen as shorthand for "Reference" - it takes the values of a collection, and creates a single value reference of the value, which it stores in an array, almost like a little iterator of it's own. So when we run broadcasting in combination with **Ref()**, Ref will operator on each element of the array, and thus the size of the first and second arrays will be equal (1 each), allowing for the broadcasting to work as intended.... a bit random but hey this is effective.
 
 ### Continue and Break 
 ##### using continue and break in our loops allows for additional control of the flow of execution - we can embed continue so that a particular iteration is skipped and the next item is evaluated, and we can use break to literally break! the loop where it is and end it: 
