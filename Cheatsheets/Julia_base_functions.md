@@ -6,7 +6,7 @@ Many are often applicable to several types and data structures.
 [Strings](#Strings)    
 [DataFrames](#DataFrames)   
 [Arrays](#Arrays)  
-[File IO, Directories, Navigation](#File-IO,-Directories,-Navigation)  
+[File IO, Directories, Navigation](#File-IO-Directories-and-Navigation)  
 [General, Assorted](#General)  
 [Loops, Iteration](#Looping-and-iterating)   
 [Blocks](#Blocks)  
