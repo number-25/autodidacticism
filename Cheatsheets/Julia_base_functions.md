@@ -1,7 +1,7 @@
 # A collection of features, functions and implementations in Julia
 Many are often applicable to several types and data structures. 
 
-[Dictionaries](##Dicts)  
+[Dictionaries](#Dicts)
 [Tuples](##Tuples)   
 [Strings](##Strings)   
 [Dataframes](##DataFrames)   
