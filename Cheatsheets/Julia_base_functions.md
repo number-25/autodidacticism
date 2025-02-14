@@ -1,18 +1,18 @@
 # A collection of features, functions and implementations in Julia
 Many are often applicable to several types and data structures. 
 
-[Dictionaries](#Dicts)  
-[Tuples](#Tuples)   
-[Strings](#Strings)   
-[Dataframes](#DataFrames)   
-[Arrays](#Arrays)    
-[File IO, Directories, Navigation](#File-IO,-Directories,-Navigation)  
-[General, Assorted](#General)    
-[Loops, Iteration](#Looping-and-iterating)   
-[Blocks](#Blocks)   
-[Numbers](#Numbers)
-[Control Flow](#Control-Flow)    
-[Missing and Nothing values](#Missing-and-Nothing-values)   
+[Dictionaries](##Dicts)  
+[Tuples](##Tuples)   
+[Strings](##Strings)   
+[Dataframes](##DataFrames)   
+[Arrays](##Arrays)    
+[File IO, Directories, Navigation](##File-IO,-Directories,-Navigation)  
+[General, Assorted](##General)    
+[Loops, Iteration](##Looping-and-iterating)   
+[Blocks](##Blocks)   
+[Numbers](##Numbers)
+[Control Flow](##Control-Flow)    
+[Missing and Nothing values](##Missing-and-Nothing-values)   
 
 
 
