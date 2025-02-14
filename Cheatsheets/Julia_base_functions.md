@@ -1,17 +1,17 @@
 # A collection of features, functions and implementations in Julia
 Many are often applicable to several types and data structures. 
 
-[Dictionaries](#Dicts)
-[Tuples](##Tuples)   
-[Strings](##Strings)   
-[Dataframes](##DataFrames)   
-[Arrays](##Arrays)    
+[Dictionaries](#Dicts)  
+[Tuples](#Tuples)  
+[Strings](#Strings)    
+[DataFrames](##DataFrames)   
+[Arrays](##Arrays)  
 [File IO, Directories, Navigation](##File-IO,-Directories,-Navigation)  
-[General, Assorted](##General)    
+[General, Assorted](##General)  
 [Loops, Iteration](##Looping-and-iterating)   
-[Blocks](##Blocks)   
-[Numbers](##Numbers)
-[Control Flow](##Control-Flow)    
+[Blocks](##Blocks)  
+[Numbers](##Numbers)  
+[Control Flow](##Control-Flow)  
 [Missing and Nothing values](##Missing-and-Nothing-values)   
 
 
@@ -69,7 +69,7 @@ something like - **3-element Vector{Tuple{Int64, Int64}}:**
 (2, 2)   
 (3, 1)   
 
-* Rememeber that an array has more information associated with it than simply
+* Remember that an array has more information associated with it than simply
 it's contents, it also has the index values of the elements within it's
 contents, which can be utilized and computed with - but often this index value must be accessed, or even, created, by another function - for example with enumerate.   
 
