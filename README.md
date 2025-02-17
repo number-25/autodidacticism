@@ -38,15 +38,47 @@ Find more about here on Sean's [website](http://eddylab.org/cupbook.html). PDF c
 <summary> See full section </section>
 
 ### Julia
-#### Courses
-ladie
+#### Courses and Workshops 
 
-#### Books
-dadie
+[Advanced Scientific Computing: Producing Better Code by Tim Holy](https://youtube.com/playlist?list=PL-G47MxHVTewUm5ywggLvmbUCNOD2RbKA&si=JyUkp6ItntQLnQXf)   
+A terrific, short course on the use of Julia for scientific computing. Worth watching even for just the first lecture "Why Julia?" 
+
+[Julia Advance](https://youtube.com/playlist?list=PLOU8LxhyFylKQO--4HIjX7_uzzVfRd5xu&si=4tsZ826J-FynYz8M). A more advanced YouTube playlist which deals with topics in Julia that are best approached once one has a decent feel for the language and can get around the ecosystem comfortably. 
+
+[Julia for Data Science by Huda Nassar](https://youtube.com/playlist?list=PLP8iPy9hna6QuDTt11Xxonnfal91JhqjO&si=Vz_vOfZsUH9Y5MuA)   
+Another terrific, medium level course specifically geared towards Data Science. Videos are of varying lengths and difficulties.   
+
+
+
+#### Books 
+[Think Julia by Ben Lauwens and Allen B. Downey](https://github.com/BenLauwens/ThinkJulia.jl)   
+Perhaps the best starting point for one interested in working through a text and progressively walking through topics. The book is a portover from the popular [Think Python by Allen B. Downey](https://allendowney.github.io/ThinkPython/). I learned a great deal from this one, and found a load of additional references which I am still pursuing, such as [Introduction to the Theory of Computation](), and the [Structure and Interpretation of Computer Programs]() . A phenomenal book. 
+
+[Julia for Data Analysis by Bogumił Kamiński](https://www.manning.com/books/julia-for-data-analysis)
+Bogumił  is the creator and maintainer of the powerful [DataFrames.jl
+package](https://dataframes.juliadata.org/stable/). He is a frequent
+contributer to StackExchange and the the official Julia forum. If you've got a
+weird question, Bogumił has likely given the answer to it somewhere.. His short
+blog posts are also very helpful. 
+
+Julia for Data Scientists 
+Dr. Watson 
 
 ### R
 ### Courses
 I took this course and ported much of it into Julia. 
+
+
+### Nextflow and nf-core 
+
+I must admit, the documentation for Nextflow and nf-core has always felt
+slightly scattered to me, with overlapping and counter-intuitive "Tutorials,
+Guides, Examples, Best practices" sections across their web footprint. 
+
+The roadmap that I eventually narrowed down 
+
+
+
 
 </details>
 
@@ -64,5 +96,24 @@ I believe this is the most comfortable introduction to conceptualising problems,
 
 * PERFECT for absolute beginners. Great reference to have on hand for those more familiar. 
 * I must admit, the book is not cheap, and the smaller "Essential" book is just not worth buying - it is an anorexic ~150 pages of widely spaced formatting. I used library copies for both until I had enough savings to purchase the larger of the two books. If you prefer eBooks than I'd go looking.
+
+Probability theory 
+
+Reasoning about luck: Probability and its uses in physics 
+
+MIT prob theory? 
+
+Probability theory for the enthusiastic beginner 
+
+# Math 
+Combinatorics Through Guided Discovery 
+
+No bullshit guide to math and physics 
+
+Mathematics for the Nonmathematicians 
+Art of Problem Solving Vol 1. 
+
+
+
 
 </details>
