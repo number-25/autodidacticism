@@ -4,7 +4,10 @@
 ## PREAMBLE
 
 ## == BASE IMAGE == ##
-FROM ericmiguel/alpine-conda:0.0.1
+FROM mambaorg/micromamba:alpine3.20
+
+## Change shell to expose /bin/bash
+#SHELL ["/bin/bash", "--login" ,"-c"]
 
 ## == ENV VARIABLES == ##
 ENV TRANSIGNER_VERSION="1.1.3"
@@ -16,10 +19,10 @@ LABEL software.developers="Hyun Joo Ji, Mihaela Pertea"
 LABEL software.home="https://github.com/haydenji0731/transigner"
 LABEL software.version="1.1.3"
 LABEL publication.doi="https://doi.org/10.1101/2024.04.13.589356"
-LABEL base.image="miniconda3"
-LABEL python.version="3.12"
+LABEL base.image="micromamba:alpine3.20"
+LABEL python.version="3.9"
 
-## MEAT AND BONES 
+## BODY - MEAT AND BONES 
 
 ## Change USER
 USER root
@@ -39,45 +42,60 @@ RUN wget -q https://github.com/number-25/transigner/archive/refs/heads/quote_syn
 WORKDIR /meat/transigner-quote_syntax_error
 #WORKDIR /meat/transigner-1.1.3
 
-# Add transigner directory to PATH
+# Add transigner directory to PATH, this will allow the use of eash.sh script
 ENV PATH="${PATH}:/meat/transigner-quote_syntax_error"
 
-### Apk installs
+### Apk installs with --no-cache option to save space 
+### Packages for compiling transigner, and bash to allow easy.sh to run
 
 RUN apk add --no-cache \
     make \
-    clang \
     musl-dev \
     gcc \
-    bash
+    bash \
+    libgomp 
 
-### Create conda environment 
+### Create micromamba(conda) environment and install a single package into it
 
-RUN conda \
-    create -n transigner \
-    bioconda::minimap2 \
-    samtools \
-    pip \
+RUN micromamba \
+    create -n transigner bioconda::minimap2 
+
+# Activate the environment
+
+ARG MAMBA_DOCKERFILE_ACTIVATE=1 
+
+# Install the remainder of the packages 
+
+RUN micromamba install --yes \ 
+    bioconda::samtools \
+    conda-forge::pip \
     bioconda::pysam \
-    numpy \
-    pandas && \
-    /bin/sh -c activate transigner && \
+    conda-forge::numpy \
+    conda-forge::pandas && \
     make CFLAGS="-fopenmp" && \
     pip install --no-cache-dir . && \
-    conda clean -a && \
+    micromamba clean --all --yes && \
     chmod -R a+rX /meat 
+
+# Add mamba packages to path 
+
+ENV PATH="${PATH}:/opt/conda/envs/transigner/bin/"
+
+## == CLEAN UP == ##
 
 RUN apk del \
     make \
-    clang \
     musl-dev \
     gcc 
-    #ln -s /meat/transigner-quote_syntax_error 
 
 #CMD ["/bin/sh", "./easy.sh"]
+#CMD ["/bin/bash"]
+CMD ["transigner"]
 
 # Creating an user for non root executions inside the container...
 #RUN groupadd user && useradd -r -g user user && chown user:user .
+#RUN addgroup -S user && adduser -S user -G user
 
 # ... and efectively using that user
 #USER user
+# END 
