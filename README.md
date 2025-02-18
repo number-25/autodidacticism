@@ -35,7 +35,7 @@ Find more about here on Sean's [website](http://eddylab.org/cupbook.html). PDF c
 
 ## Programming 
 <details> 
-<summary> See full section </section>
+<summary> See full section </summary>
 
 ### Julia
 #### Courses and Workshops 
@@ -50,7 +50,13 @@ Another terrific, medium level course specifically geared towards Data Science. 
 
 
 
+
+Dr. Watson - both the technical purpose of the software, alongside the philosophy for why one ought to approach their projects in this manner. I found it compelling, and though I haven't started a project from the ground up using Julia, I have incorporated the ethos into my daily workflows. 
+
 #### Books 
+
+Julia
+
 [Think Julia by Ben Lauwens and Allen B. Downey](https://github.com/BenLauwens/ThinkJulia.jl)   
 Perhaps the best starting point for one interested in working through a text and progressively walking through topics. The book is a portover from the popular [Think Python by Allen B. Downey](https://allendowney.github.io/ThinkPython/). I learned a great deal from this one, and found a load of additional references which I am still pursuing, such as [Introduction to the Theory of Computation](), and the [Structure and Interpretation of Computer Programs]() . A phenomenal book. 
 
@@ -62,11 +68,16 @@ weird question, Bogumił has likely given the answer to it somewhere.. His short
 blog posts are also very helpful. 
 
 Julia for Data Scientists 
-Dr. Watson 
+
+
+
 
 ### R
 ### Courses
-I took this course and ported much of it into Julia. 
+
+Hadley Wickam? - author of many of the notable R packages. 
+
+I took this course, and performed many of the analysis in Julia as well as within R.(link) 
 
 
 ### Nextflow and nf-core 
