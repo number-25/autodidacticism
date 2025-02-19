@@ -5,8 +5,6 @@
 # Computational Biology for Autodidacts
 A collection of resources that I have used (and hereby endorse) for those looking to teach themselves Computational Biology, as well as the branching disciplines which greatly influence comp. bio., such as Probability, Information Theory, Mathematics and so on. 
 
-I will also include a separate list of resources that I have come across and been recommended, but have not used - as such, these will not be my endorsements, but simply references for you to explore further if you wish.
-
 ### Computational Biology and Bioinformatics
 <details>
 <summary> See full section </summary>
@@ -31,6 +29,9 @@ This course is run by a couple of great educators (Christopher Burge, David Giff
 An oldie but a goody. Sean Eddy, Durbin et al., have all created phenomenal software that countless folks appreciate, the book stands on its own. Extensive and detailed, not to be taken lightly. 
 Find more about here on Sean's [website](http://eddylab.org/cupbook.html). PDF copies may or may not be floating about * wink *. 
 
+#### Algorithms on Strings, Trees, and Sequences 
+Computer Science and Computational Biology by [Dan Gusfield](https://www.cambridge.org/core/books/algorithms-on-strings-trees-and-sequences/F0B095049C7E6EF5356F0A26686C20D3). Terrific detail, and since it was released eons ago, likely starts from a more ground level point of view. 
+
 </details>
 
 ## Programming 
@@ -48,14 +49,13 @@ A terrific, short course on the use of Julia for scientific computing. Worth wat
 [Julia for Data Science by Huda Nassar](https://youtube.com/playlist?list=PLP8iPy9hna6QuDTt11Xxonnfal91JhqjO&si=Vz_vOfZsUH9Y5MuA)   
 Another terrific, medium level course specifically geared towards Data Science. Videos are of varying lengths and difficulties.   
 
+[Julia Programming with a Data Scientist by Randy Davila](https://youtube.com/playlist?list=PLiUo37D6MN3GTDUk28NYIXqSl1hGVoni0&si=meBhZvubeXFE5EkZ)
+A 6 part series which uses famous datasets such as Iris, to explore the data analytic workflows in Julia.
 
-
-
-Dr. Watson - both the technical purpose of the software, alongside the philosophy for why one ought to approach their projects in this manner. I found it compelling, and though I haven't started a project from the ground up using Julia, I have incorporated the ethos into my daily workflows. 
+[Dr. Watson and Good Scientific Code Workshop](https://www.youtube.com/watch?v=x3swaMSCcYk) 
+Dr. Watson is a clever workspace/code/project organiser which aims to standardise and simplify the way one initiates scientific projects in Julia. The documentation is extensive, and the 4 hour workshops covers both the technical purpose of the software, alongside the philosophy for why one ought to approach their projects in this manner. I found it compelling, and though I haven't started a project from the ground up using Julia, I have incorporated the ethos into my daily workflows. 
 
 #### Books 
-
-Julia
 
 [Think Julia by Ben Lauwens and Allen B. Downey](https://github.com/BenLauwens/ThinkJulia.jl)   
 Perhaps the best starting point for one interested in working through a text and progressively walking through topics. The book is a portover from the popular [Think Python by Allen B. Downey](https://allendowney.github.io/ThinkPython/). I learned a great deal from this one, and found a load of additional references which I am still pursuing, such as [Introduction to the Theory of Computation](), and the [Structure and Interpretation of Computer Programs]() . A phenomenal book. 
@@ -67,29 +67,50 @@ contributer to StackExchange and the the official Julia forum. If you've got a
 weird question, Bogumił has likely given the answer to it somewhere.. His short
 blog posts are also very helpful. 
 
-Julia for Data Scientists 
+[Statistics with Julia by Yoni Nazarathy and Hayden Klok](https://statisticswithjulia.org/)   
+An ideal reference text for approaching Statistics in Julia. Julia itself has a
+noteworthy number of statistics modules built into it's Base feature set, so
+you'd be surprised how far you can do on the bare bones. The source for the
+book is [open](https://github.com/h-Klok/StatsWithJuliaBook), and there are a
+handful of [tutorials](https://statisticswithjulia.org/tutorials/) on the books
+site. Yoni still works at the University of Queensland where I completed my
+post-graduate studies, I'm still regretful that I never got a chance to meet
+with him.   
 
+#### Blog Posts
+* [Best practise: organising code in Julia](https://discourse.julialang.org/t/best-practise-organising-code-in-julia/74362/2) - really terrific guide, worth much!
 
+To be continued... 
 
+</details>
 
 ### R
-### Courses
+#### Courses
+[Data Science: Foundations using R on Coursera](https://www.coursera.org/specializations/data-science-foundations-r)   
+If you're in the genomics-bioinformatics space, the name Jeff Leek is likely
+familiar, and probably that of Roger Peng also. Both are excellent educators and
+forthright scientists. I learned a whole lot from [Jeff Leek's guide to
+genomics papers](https://github.com/jtleek/genomicspapers). An appreciation of
+the sources of variability and noise in genomics data was a yuuge take away
+from the papers, so I was glad to find this R course. It provides a easy to
+medium level entrypoint to R, often times using genomics data as examples.
+At the same time as I was learning R, I decided to primarily use Julia to work through the weekly problem sets, giving myself an additional opportunity to learn more of the latter language.   
 
-Hadley Wickam? - author of many of the notable R packages. 
+#### Books 
+[R for Data Science by Hadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund](https://r4ds.hadley.nz/)   
+A classic at this point - completely free online, need more be said? 
 
-I took this course, and performed many of the analysis in Julia as well as within R.(link) 
-
+<\details> 
 
 ### Nextflow and nf-core 
+
+<details> 
 
 I must admit, the documentation for Nextflow and nf-core has always felt
 slightly scattered to me, with overlapping and counter-intuitive "Tutorials,
 Guides, Examples, Best practices" sections across their web footprint. 
 
 The roadmap that I eventually narrowed down 
-
-
-
 
 </details>
 
@@ -108,23 +129,29 @@ I believe this is the most comfortable introduction to conceptualising problems,
 * PERFECT for absolute beginners. Great reference to have on hand for those more familiar. 
 * I must admit, the book is not cheap, and the smaller "Essential" book is just not worth buying - it is an anorexic ~150 pages of widely spaced formatting. I used library copies for both until I had enough savings to purchase the larger of the two books. If you prefer eBooks than I'd go looking.
 
-Probability theory 
+### Probability theory 
 
-Reasoning about luck: Probability and its uses in physics 
+[Reasoning About Luck: Probability and its Uses in Physics](https://www.cambridge.org/core/books/reasoning-about-luck/10C483B28237DF9B870E841794DB9541)
 
-MIT prob theory? 
+[MIT Introductionn to
+Probability](https://ocw.mit.edu/courses/res-6-012-introduction-to-probability-spring-2018/)
+alongside the prescribed text [Introduction to Probability by  Dimitri P.
+Bertsekas and John N. Tsitsiklis](http://athenasc.com/probbook.html), with
+[YouTube
+lectures](https://youtube.com/playlist?list=PLUl4u3cNGP60hI9ATjSFgLZpbNJ7myAg6&si=u95oAqTauX9_uneH)   
 
-Probability theory for the enthusiastic beginner 
+[Probability: For the Enthusiastic Beginner](https://davidmorin.physics.fas.harvard.edu/books/probability/)   
 
-# Math 
-Combinatorics Through Guided Discovery 
+### Mathematics 
 
-No bullshit guide to math and physics 
+[Combinatorics Through Guided Discovery by Kenneth P. Bogart](https://bogart.openmathbooks.org/)
 
-Mathematics for the Nonmathematicians 
-Art of Problem Solving Vol 1. 
+[No Bullshit Guide to Math and Physics by Ivan Savov](https://bogart.openmathbooks.org/)
 
+Mathematics for Nonmathematicians by Morris Kline
+The great Kline. 
 
+[Art of Problem Solving Vol 1. by Sandor Lehoczky and Richard Rusczyk](https://artofproblemsolving.com/store/book/aops-vol1)
 
 
 </details>

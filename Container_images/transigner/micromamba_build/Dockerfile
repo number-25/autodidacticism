@@ -35,15 +35,15 @@ WORKDIR /meat
 # Actual repo archive 
 #https://github.com/haydenji0731/transigner/archive/refs/tags/v${TRANSIGNER_VERSION}.tar.gz 
 
-RUN wget -q https://github.com/number-25/transigner/archive/refs/heads/quote_syntax_error.zip -O /meat/transigner-${TRANSIGNER_VERSION}.zip && \
+RUN wget -q https://github.com/number-25/transigner/archive/refs/heads/easy_sh_script_options.zip -O /meat/transigner-${TRANSIGNER_VERSION}.zip && \
     unzip /meat/transigner-${TRANSIGNER_VERSION}.zip && \
     rm /meat/transigner-${TRANSIGNER_VERSION}.zip 
 
-WORKDIR /meat/transigner-quote_syntax_error
+WORKDIR /meat/easy_sh_script_options 
 #WORKDIR /meat/transigner-1.1.3
 
 # Add transigner directory to PATH, this will allow the use of eash.sh script
-ENV PATH="${PATH}:/meat/transigner-quote_syntax_error"
+ENV PATH="${PATH}:/meat/easy_sh_script_options"
 
 ### Apk installs with --no-cache option to save space 
 ### Packages for compiling transigner, and bash to allow easy.sh to run
