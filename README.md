@@ -5,11 +5,11 @@
 # Computational Biology for Autodidacts
 A collection of resources that I have used (and hereby endorse) for those looking to teach themselves Computational Biology, as well as the branching disciplines which greatly influence comp. bio., such as Probability, Information Theory, Mathematics and so on. 
 
-### Computational Biology and Bioinformatics
+## Computational Biology and Bioinformatics
 <details>
 <summary> See full section </summary>
 
-#### Courses 
+### Courses
 #### Applied Computational Genomics at the University of Utah (2020/2021)
 If you've had to do play around with .bam and .bed files than you've very likely come in contact with the excellent program called [Bedtools](https://bedtools.readthedocs.io/en/latest/index.html). Almost every time I need to use this program I discover something new about it, it just keeps on giving. The brain behind the Bedtools is [Aaron Quinlan](http://quinlanlab.org), a leading Computational Biologist out of the University of Utah . He offers a Semester long, **completely free** course which lives on [GitHub](https://github.com/quinlan-lab/applied-computational-genomics). Do you notice the trend here? World class thinkers who are willing to spread their knowledge, help others, and move Science forward, all without paywalls. Pay it forward if you ever get the chance! This is a great, in depth course which has many practical tutorials embedded within it. The homework is challenging and fulfilling - I have learned a lot here. Did I mention that Aaron is a terrific, down to earth teacher?
 
@@ -24,7 +24,7 @@ This course is run by a couple of great educators (Christopher Burge, David Giff
 * Late beginner/intermediate level
 * [https://ocw.mit.edu/courses/biology/7-91j-foundations-of-computational-and-systems-biology-spring-2014/](https://ocw.mit.edu/courses/biology/7-91j-foundations-of-computational-and-systems-biology-spring-2014/) 
 
-#### Books
+### Books
 #### Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids 
 An oldie but a goody. Sean Eddy, Durbin et al., have all created phenomenal software that countless folks appreciate, the book stands on its own. Extensive and detailed, not to be taken lightly. 
 Find more about here on Sean's [website](http://eddylab.org/cupbook.html). PDF copies may or may not be floating about * wink *. 
@@ -39,6 +39,7 @@ Computer Science and Computational Biology by [Dan Gusfield](https://www.cambrid
 ### Julia
 <details> 
 <summary> See full section on Julia </summary>
+
 #### Courses and Workshops 
 
 [Advanced Scientific Computing: Producing Better Code by Tim Holy](https://youtube.com/playlist?list=PL-G47MxHVTewUm5ywggLvmbUCNOD2RbKA&si=JyUkp6ItntQLnQXf)   
@@ -125,8 +126,8 @@ The roadmap that I eventually narrowed down
 Coming from Biology, a field closely wedded to the qualitative aspects of Scientific inference, where our formal training for the most part omits many of the approaches utilised by the 'harder sciences', the transition to the quantitative world has perhaps been the most challenging part of this. In some respects, you must undergo a great change in how you approach problems, how you approach data and measures, and your relationship to truth and validity. Much of this can be uncomfortable, as you must confront the fragility of your prior approaches to questions. Personally, this is an ongoing project which demands a lot of effort and grit. I have immensely appreciated this change in my thought processes, and am very grateful that it has taken place. The world is a bigger place now than it ever was. A world where precision, consistency, and repetition are emphasised. You will likely develop an obsession with priors, and with starting assumptions. Sometimes before we can even approach a problem, we must sketch out some vague axioms we believe to be important. Unfortunately, these topics are taught in notoriously bland ways across campuses alike - they are premature, are forced, and very often, the student barely has any confidence in their own logic and reasoning. Such courses may at times skip over the very basic reason for using tools such as probability theory in the first place; to make *better* decisions in the presence of uncertainty.
 
 ### Statistics
-### Books
-#### Intuitive Biostatistics: A Nonmathematical Guide to Statistical Thinking
+#### Books
+##### Intuitive Biostatistics: A Nonmathematical Guide to Statistical Thinking
 I believe this is the most comfortable introduction to conceptualising problems, and answers, in a more quantitative manner. As the title outlines, this book is almost purely built on intuitive explanations of key, widely used procedures in statistics. It explains what x is, when you would do x, why you would do it, why you wouldn't, and more appropriately, the assumptions and biases associated with x. If you're afraid of equations (overcome this fear as soon as possible, there is nothing to fear), you'll be given that first bit of confidence that should then give you the enthusiasm and energy to continue developing. The language here is very clear, very direct, very concise and to the point. The text is very honest, and works hard to provide bountiful examples of both good and bad uses of statistics in the literature. You will enjoy working through it, trust! The author Harvey Motulsky is the founder of [GraphPad](https://www.graphpad.com/company/) Statistical Analysis software, so you may have already come across his creations without knowing! There is also a smaller streamlined text from Harvey called "Essential Biostatistics", which is also worth reading if you just need a straight forward and reduced explanation. One last note, this book leans heavily towards biomedical research, and so most of the examples pull directly from this field. Strongly recommended. 
 
 * PERFECT for absolute beginners. Great reference to have on hand for those more familiar. 
