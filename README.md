@@ -35,10 +35,10 @@ Computer Science and Computational Biology by [Dan Gusfield](https://www.cambrid
 </details>
 
 ## Programming 
-<details> 
-<summary> See full section </summary>
 
 ### Julia
+<details> 
+<summary> See full section on Julia </summary>
 #### Courses and Workshops 
 
 [Advanced Scientific Computing: Producing Better Code by Tim Holy](https://youtube.com/playlist?list=PL-G47MxHVTewUm5ywggLvmbUCNOD2RbKA&si=JyUkp6ItntQLnQXf)   
@@ -82,9 +82,12 @@ with him.
 
 To be continued... 
 
-</details>
+</details> 
 
 ### R
+<details> 
+<summary> See full section on R </summary> 
+
 #### Courses
 [Data Science: Foundations using R on Coursera](https://www.coursera.org/specializations/data-science-foundations-r)   
 If you're in the genomics-bioinformatics space, the name Jeff Leek is likely
@@ -100,11 +103,11 @@ At the same time as I was learning R, I decided to primarily use Julia to work t
 [R for Data Science by Hadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund](https://r4ds.hadley.nz/)   
 A classic at this point - completely free online, need more be said? 
 
-<\details> 
+</details> 
 
 ### Nextflow and nf-core 
-
 <details> 
+<summary> See full section on nextflow </summary> 
 
 I must admit, the documentation for Nextflow and nf-core has always felt
 slightly scattered to me, with overlapping and counter-intuitive "Tutorials,
@@ -152,6 +155,5 @@ Mathematics for Nonmathematicians by Morris Kline
 The great Kline. 
 
 [Art of Problem Solving Vol 1. by Sandor Lehoczky and Richard Rusczyk](https://artofproblemsolving.com/store/book/aops-vol1)
-
 
 </details>
