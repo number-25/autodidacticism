@@ -29,21 +29,21 @@ USER root
 
 ### Download transigner source 
 
-RUN mkdir /meat 
-WORKDIR /meat 
+RUN mkdir /apps 
+WORKDIR /apps 
  
 # Actual repo archive 
 #https://github.com/haydenji0731/transigner/archive/refs/tags/v${TRANSIGNER_VERSION}.tar.gz 
 
-RUN wget -q https://github.com/number-25/transigner/archive/refs/heads/easy_sh_script_options.zip -O /meat/transigner-${TRANSIGNER_VERSION}.zip && \
-    unzip /meat/transigner-${TRANSIGNER_VERSION}.zip && \
-    rm /meat/transigner-${TRANSIGNER_VERSION}.zip 
+RUN wget -q https://github.com/number-25/transigner/archive/refs/heads/modifying_easy_sh_script.zip -O /apps/transigner-${TRANSIGNER_VERSION}.zip && \
+    unzip /apps/transigner-${TRANSIGNER_VERSION}.zip && \
+    rm /apps/transigner-${TRANSIGNER_VERSION}.zip 
 
-WORKDIR /meat/easy_sh_script_options 
+WORKDIR /apps/transigner-modifying_easy_sh_script 
 #WORKDIR /meat/transigner-1.1.3
 
 # Add transigner directory to PATH, this will allow the use of eash.sh script
-ENV PATH="${PATH}:/meat/easy_sh_script_options"
+ENV PATH="${PATH}:/apps/transigner-modifying_easy_sh_script"
 
 ### Apk installs with --no-cache option to save space 
 ### Packages for compiling transigner, and bash to allow easy.sh to run
@@ -58,7 +58,7 @@ RUN apk add --no-cache \
 ### Create micromamba(conda) environment and install a single package into it
 
 RUN micromamba \
-    create -n transigner bioconda::minimap2 
+    create -n transigner bioconda::minimap2  
 
 # Activate the environment
 
@@ -75,7 +75,7 @@ RUN micromamba install --yes \
     make CFLAGS="-fopenmp" && \
     pip install --no-cache-dir . && \
     micromamba clean --all --yes && \
-    chmod -R a+rX /meat 
+    chmod -R a+rX /apps 
 
 # Add mamba packages to path 
 
