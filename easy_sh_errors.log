@@ -1,0 +1,89 @@
+testing easy.sh
+
+./easy.sh -e 2 -a 2 -d ont_drna -m default ./test_data/test.fq.gz ./test_data/hg38_mrna+lncrna.fa.gz ./outdir
+
+stdout 
+
++ transigner align -q ./test_data/test.fq.gz -t ./test_data/hg38_mrna+lncrna.fa.gz -d ./outdir -o aligned.bam -p 2
+2025-02-19 10:54:08.350838 PROGRESS Alignment started
+minimap2 -ax map-ont -N 181 -t 2 ./test_data/hg38_mrna+lncrna.fa.gz ./test_data/test.fq.gz | samtools
+view -b -o ./outdir/aligned.bam -@ 2
+[M::mm_idx_gen::5.984*1.64] collected minimizers
+[M::mm_idx_gen::7.904*1.72] sorted minimizers
+[M::main::7.935*1.72] loaded/built the index for 158788 target sequence(s)
+[M::mm_mapopt_update::8.160*1.70] mid_occ = 179
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 158788
+[M::mm_idx_stat::8.299*1.69] distinct minimizers: 19530393 (35.66% are singletons); average occurrences: 6.102; average spacing: 5.360; total length: 638842394
+[M::worker_pipeline::8.489*1.65] mapped 100 sequences
+[M::main] Version: 2.28-r1209
+[M::main] CMD: minimap2 -ax map-ont -N 181 -t 2 ./test_data/hg38_mrna+lncrna.fa.gz ./test_data/test.fq.gz
+[M::main] Real time: 8.610 sec; CPU: 14.154 sec; Peak RSS: 3.398 GB
++ '[' default == default ']'
++ transigner pre -i ./outdir/aligned.bam -d ./outdir
+2025-02-19 10:54:17.357377 PROGRESS retrieving reference info
+2025-02-19 10:54:17.396544 PROGRESS loading bam records
+2025-02-19 10:54:17.443099 PROGRESS building compatibility matrix
++ transigner em -s ./outdir/scores.csv -d ./outdir -u ./outdir/unmapped.txt -m ./outdir/tmap.csv -dtype ont_drna -p 2
+2025-02-19 10:54:17.680263 PROGRESS Query size is too small for automatic convergence threshold setting
+em -s ./outdir/scores.csv -m ./outdir/tmap.csv -qs 93 -ts 158788 -p 2 --naive 0 -n 1000 -c 1 -o ./outdir --push 0 --dev 0 -r 0 -df 0.1
+N of EM iterations: 1
+Final delta: 0.000000
+
+
+All files produced. 
+
+.
+├── abundances.csv
+├── aligned.bam
+├── align_params.json
+├── assignments.csv
+├── em_params.json
+├── pre_params.json
+├── scores.csv
+├── tmap.csv
+├── unassigned.txt
+└── unmapped.txt
+
+
+Added a required argument for em module which was missing from the README 
+`-dtype input data type [ont_drna, ont_cdna, pacbio]`
+
+There are also several options and arguments which are listed in `transigner <align/pre/em> --help` which are not in the README. 
+
+Added missing em options from README 
+```
+-dtype 
+-r, --relax-thres 
+-n, --num-iter NUM_ITER 
+-utol, --unmapped-tol UNMAPPED_TOL UNMAPPED_TO
+-r, --relax-thres RELAX_THRES
+--naive
+--dev
+--relax
+```
+
+pre
+```
+--use-filter
+--filt-opts FILT_OPTS FILT_OPTS FILT_OPTS 
+            5' 3' tcov
+-e, --estimates ESTIMATES
+--dp-score-model {e,pl}
+--dsm-opts DSM_OPTS DSM_OPTS
+           amplitude, decay rate
+--dev
+--spiked
+
+```
+
+align
+```
+--preset PRESET
+  --dev
+  --index-opts INDEX_OPTS
+  --map-opts MAP_OPTS
+  --base-aln-opts BASE_ALN_OPTS
+```
+
+
+
