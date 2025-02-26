@@ -1,38 +1,59 @@
 # syntax=docker/dockerfile:1
+# cirdaidme software using python 3.9 alpine
 
-FROM ubuntu:22.04
+## PREAMBLE
 
-# Image metadata
-LABEL maintainer="deancompbio@pm.me"
+## == BASE IMAGE == ##
+FROM python:3.9.21-alpine3.21
 
-# Define version as build variable
-ARG CIRC_VER="0.1.0"
+## == ENV VARIABLES == ##
+ENV PYTHON_VERSION="3.9.21"
+ENV CIRDAIDME_VERSION="0.1.0"
 
-# Good practice variables
-ENV DEBIAN_FRONTEND="noninteractive"
+## == LABELS == ##
+LABEL dockerfile.maintainer="Dean Bašić"
+LABEL docker.repo="https://hub.docker.com/repository/docker/number25/circaidme/general"
+LABEL maintainer.email="deancompbio@pm.me"
+LABEL software.name="circaidme"
+#LABEL software.developers=""
+LABEL software.home="https://github.com/ms-gx/CircAidMe"
+LABEL software.version="0.1.0"
+#LABEL publication.doi=""
+LABEL base.image="python3.9.21-alpine3.21"
+
+# Good practice variables 
 ENV LANG="C.UTF-8" LC_ALL="C.UTF-8"
 
-#COPY . /app
+# Change to root user 
+USER root  
 
-RUN apt-get update && \
-    apt-get install -y python3 && \
-    apt-get install -y git && \
-    apt-get install -y python3-pip \
-    && apt-get clean all && \
-    apt-get purge && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+# cd into dockers /app directory designated for software
+WORKDIR /app
+
+## BODY 
+
+RUN apk add --no-cache \
+    git \
+    gcc \
+    make \
+    musl-dev 
 
 # Build CircAidMe from github address 
+RUN pip install --no-cache-dir pandas && \
+    pip install --no-cache-dir regex && \
+    pip install --no-cache-dir biopython && \
+    pip install --no-cache-dir git+https://github.com/ms-gx/CircAidMe.git && \
+    rm -rf /tmp/* /var/tmp/* && \
+    chmod -R a+rX /app 
 
-RUN pip3 install pandas && \
-    pip3 install regex && \
-    pip3 install biopython && \
-    pip3 install git+https://github.com/ms-gx/CircAidMe.git
-
-#CMD python /app/app.py
+RUN apk del \
+    #git \
+    #gcc 
+    #make \
+    musl-dev 
 
 # Define PATH variable
-ENV PATH=/apps/bin:$PATH
+ENV PATH=/app/:$PATH
 
 # Default shell to be bash
-CMD ["/bin/bash"] 
+#CMD ["/bin/bash"] 
