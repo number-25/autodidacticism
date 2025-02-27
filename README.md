@@ -1,7 +1,7 @@
 <img src="https://abfabrugcleaning.co.uk/wp-content/uploads/2015/06/Rug-Cleaning-Header-Default.jpg" height="" width="1200" align="center">
 
 > Education is our passport to the future, for tomorrow belongs to those who prepare for it today 
-  > Malcolm X
+>> Malcolm X
 
 
 # Computational Biology for Autodidacts
