@@ -1,6 +1,6 @@
 <img src="https://abfabrugcleaning.co.uk/wp-content/uploads/2015/06/Rug-Cleaning-Header-Default.jpg" height="" width="1200" align="center">
 
-> *Education is our passport to the future, for tomorrow belongs to those who prepare for it today.* 
+> *Education is our passport to the future, for tomorrow belongs to those who prepare for it today.*   
 > -- <cite> Malcolm X </cite>
 
 
