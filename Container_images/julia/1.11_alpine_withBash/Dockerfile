@@ -32,7 +32,8 @@ USER root
 RUN apk update && \
     apk add --no-cache \ 
     procps \
-    bash
+    bash \
+    coreutils
 
 # Set Julia Depot path as recommended by nextflow
 ENV JULIA_DEPOT_PATH=/usr/local/share/julia
