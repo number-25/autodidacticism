@@ -91,6 +91,46 @@ variance(simulation_counter) # which is std^2
 #
 
 
+""" 
+Page 80 Example 1 - Socks in a drawer
+If there are 2 pairs of socks in a drawer, if you randomly draw two socks, what is the probability that you draw a pair?
+"""
+
+# Do repeated trials of two draws from 4 elements
+
+pair_one = [1, 2]
+pair_two = [3, 4]
+
+# Anonymous function to pick two socks from a random permutation of four elements 
+pick_two_socks = randperm(4)[1:2]
+
+function pickingSocks(number_of_socks, trial_number)
+    sock_pair_tally = []
+    pair_one = [1, 2]
+    pair_two = [3, 4]
+    for f in 1:trial_number
+        pick_two_socks = randperm(number_of_socks)[1:2]
+        if issetequal(pick_two_socks, pair_one) || issetequal(pick_two_socks, pair_two)
+            push!(sock_pair_tally, 1)
+        else
+        push!(sock_pair_tally, 0)
+        end 
+    end 
+    return sock_pair_tally
+end 
+
+# Draw two socks from 4, one thousand times, and count whether they are pairs or not
+sock_pair_tally = pickingSocks(4, 1000)
+
+# In a dirty way, calculate what % of all drawers ended in a pair. 
+# This should give us the 'long run' probability of drawing a pair of socks
+length(filter(x -> x == 1, sock_pair_tally))/length(sock_pair_tally)
+
+# 0.348, pretty darn close to the expected probability of 0.33 
+
+
+
+
 
 
 
