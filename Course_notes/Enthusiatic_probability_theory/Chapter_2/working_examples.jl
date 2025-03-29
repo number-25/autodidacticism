@@ -126,7 +126,9 @@ sock_pair_tally = pickingSocks(4, 1000)
 # This should give us the 'long run' probability of drawing a pair of socks
 length(filter(x -> x == 1, sock_pair_tally))/length(sock_pair_tally)
 
-# 0.348, pretty darn close to the expected probability of 0.33 
+# 0.348, pretty darn close to the expected probability of 0.33
+# What if we do 100000 trials? 
+# The long run probability converges to 0.33376 - it will never reach it!!!! 
 
 
 
