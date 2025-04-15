@@ -1,7 +1,7 @@
 # Simulating the example problems for Chapter 2
 
 # Assuming these packages are installed on system
-using Random, Plots, StatsBase, Statistics
+using Random, Plots, StatsBase, Statistics, Distributions
 
 Random.seed!(12345)
 
@@ -89,6 +89,14 @@ variance(simulation_counter) # which is std^2
 # Does the distribution of repeated event probabilities follow a certain function? E.g normal? 
 # When varying the trial size e.g. 10, 50, 100, how often does an event not occur at all, occurs multiple times and so on?    
 #
+
+# Simulate a normal distribution using parameters from the simulation counter and create a qqplot
+mean(simulation_counter)
+std(simulation_counter)
+simulated_distribution = rand(Normal(0.0083, 0.00028), 1000) 
+
+qqplot(simulation_counter, simulated_distribution)
+# Looks like substantial correspondence between values, which deviate at both tails. 
 
 
 """ 
