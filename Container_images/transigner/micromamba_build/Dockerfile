@@ -22,7 +22,7 @@ LABEL publication.doi="https://doi.org/10.1101/2024.04.13.589356"
 LABEL base.image="micromamba:alpine3.20"
 LABEL python.version="3.9"
 
-## BODY - MEAT AND BONES 
+## BODY 
 
 ## Change USER
 USER root
@@ -31,19 +31,15 @@ USER root
 
 RUN mkdir /apps 
 WORKDIR /apps 
- 
-# Actual repo archive 
-#https://github.com/haydenji0731/transigner/archive/refs/tags/v${TRANSIGNER_VERSION}.tar.gz 
 
-RUN wget -q https://github.com/number-25/transigner/archive/refs/heads/modifying_easy_sh_script.zip -O /apps/transigner-${TRANSIGNER_VERSION}.zip && \
+RUN wget -q https://github.com/haydenji0731/transigner/archive/refs/tags/v${TRANSIGNER_VERSION}.zip -O /apps/transigner-${TRANSIGNER_VERSION}.zip && \
     unzip /apps/transigner-${TRANSIGNER_VERSION}.zip && \
     rm /apps/transigner-${TRANSIGNER_VERSION}.zip 
 
-WORKDIR /apps/transigner-modifying_easy_sh_script 
-#WORKDIR /meat/transigner-1.1.3
+WORKDIR /apps/transigner-1.1.3
 
 # Add transigner directory to PATH, this will allow the use of eash.sh script
-ENV PATH="${PATH}:/apps/transigner-modifying_easy_sh_script"
+ENV PATH="${PATH}:/apps/transigner-1.1.3"
 
 ### Apk installs with --no-cache option to save space 
 ### Packages for compiling transigner, and bash to allow easy.sh to run
@@ -88,14 +84,11 @@ RUN apk del \
     musl-dev \
     gcc 
 
-#CMD ["/bin/sh", "./easy.sh"]
-#CMD ["/bin/bash"]
 CMD ["transigner"]
 
 # Creating an user for non root executions inside the container...
 #RUN groupadd user && useradd -r -g user user && chown user:user .
 #RUN addgroup -S user && adduser -S user -G user
 
-# ... and efectively using that user
 #USER user
 # END 
