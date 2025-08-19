@@ -434,6 +434,8 @@ end
 ##### execute a function along with **eachcol** in a way similar to natural language - 'do this, for column in eachcol(x)': `[mean(col) for col in eachcol(x)]`      
 We enclose it in square brackets because we're actually storing the output sequentially in an array!
 
+##### Create a Dict with empty values with keys sampled from a collection: `Dict(map(x -> x => "", collect(25:25:100)))` 
+
 
 ## Blocks
 Blocks allow for the grouping and compartmentalization of sets of statements, there are several kinds of blocks; begin, let, do.
