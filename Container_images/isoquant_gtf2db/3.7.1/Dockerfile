@@ -31,6 +31,7 @@ WORKDIR /app/
 RUN apk update && \
     apk add --no-cache \
     python3 \
+    bash \
     wget
 
 ### Create python virtual env 
