@@ -16,35 +16,35 @@ Create a list of 'quick recipes' as per heng li's list https://lh3lh3.users.sour
 
 Basename recipe
 1) Get the basename from a set of files using a loop
-``   
+```bash   
 FILES=(/some/path/to/files/*)
 for f in ${FILES[@]} ; do
   basename ${f}   # we can output this into a file if we choose 
 done 
-``
+```
 
 
 2) Rename all files in a directory - nice as it incorporates use of a loop, a glob, and a wee bit more complex use of a variables
-``
+```bash
 for x in *.xml; do 
   t=$(echo $x | sed 's/\.xml$/.txt/'); 
   mv $x $t && echo "moved $x -> $t"
 done
-``
+```
 
 3) Generate a random FASTA sequence - what this really means is up for debate.
 If it mirrors any genomic sequences or not - anyways. 
-``   
+```bash   
 paste -d '\n' <(for i in {01..30}; do echo ">seq$i"; done) <( cat /dev/urandom
 | tr -dc 'ATCG' | fold -w 300 | head -n 30 ) > output.fasta 
-``  
+```  
 
 4) Extract FASTA headers    
-``
+```bash
 grep "^>" input.fasta | sed -e "s/>//" > headers.txt
 grep -oP "(?<=^>).*$" input.fasta > headers.txt  # This method uses the fancy
 RegEX terminology called "look ahead".  
-``
+```
 
 5) Find files in a directory 
 `find ${dir} -name "*.fastq"`     
@@ -58,10 +58,10 @@ RegEX terminology called "look ahead".
 8) Sed one liners https://edoras.sdsu.edu/doc/sed-oneliners.html   
 
 9) Copy files securly using *scp* or *rsync*
-``
+```bash
 scp samplefiles.txt username@serverdetails:/directory  
 rsync samplefiles.txt username@serverdetails:/directory   
-``      
+```      
 
 
 
@@ -102,7 +102,7 @@ Find broken links - `find /path/home -xtype l` and all `-delete` option to remov
 ### Prefix-Suffix Removal
 
 Pretty nicely demonstrated here
-``
+```bash
 prefix="hell"
 suffix="ld"
 string="hello-world"
@@ -110,7 +110,7 @@ foo=${string#"$prefix"}
 foo=${foo%"$suffix"}
 echo "${foo}"
 o-wor
-``
+```
 
 Examples: 
 Remove the suffix when outputting a file into a new format. Pay close attention
@@ -118,11 +118,11 @@ to the `%%.**` string, which essentially tells the program to %% remove
 everything after and including the *.* character. If the input files were
 formatted *something_fastq* then we would specify `%%_*` instead.   
 
-`` 
+```bash 
 for f in *.fastq ; do 
     minimap2 -options ${f} > ${f%%.*}.sam 
 done 
-``   
+```   
 
 Let's loop over a list of files and remove both the basename prefix and the
 suffix file extension.
@@ -143,10 +143,10 @@ commands which are called during a script. Below we'll see an example of a
 variable, which when called, finds fastq files within a given directory and
 composes them into a list.   
 
-``
+```bash
 BASE="DIRECT-RNA"
 FASTQS=$( find ./Raw/${BASE} -type f -name "*fastq.gz" -exec ls {} + )
-``   
+```   
 This variable can then also be called by another complex variable
 assignment, and so on until your imagination cannot keep up with the string of
 logic.   
@@ -160,14 +160,14 @@ Another example along very similar lines as those above --- we will call sample
 names using a combination of ls and grep chains/pipes. This is very handy when
 running multiple files through the pipelines.     
 
-``  
+```bash  
     R1=$( ls $FASTQS| grep ${SAMP} | grep "R1" )
     R2=$(  ls $FASTQS  | grep ${SAMP} | grep "R2" )
     echo "READ1####"
     ls -lh $R1
     echo "READ2####"
     ls -lh $R2
-``   
+```   
 
 ## Looping
 ### For Loops
@@ -177,7 +177,7 @@ Perform operations on files from file list. The trick here is to encapsulate a *
 
 Exclude samples that are already processed. Process input files *.fastq only if
 result-files Result/*.txt does not exist. Be sure to close the *if* conditional with a *fi*.     
-``
+```bash
 for f in Data/*.fastq; do 
   SAMPLE=`basename ${f%%.*}`;    # refactor sample names to remove basename 
   if [ ! -f Results/${SAMPLE}.txt ]; then # using the "if" conditional here  
@@ -185,19 +185,19 @@ for f in Data/*.fastq; do
     # do something 
   fi; 
 done
-``      
+```     
 
 Do something 10 times - can be useful for generating random numbers, testing scripts and so on. 
-``
+```bash
 for n in {1..10}; do \
    echo ${n}; \
 done
-``
+```
 
 Use a **while** loop to iterate through a set of files.     
-``
+```bash
 ls *.txt | while read f; do echo ${f}; done;
-``
+```
 
 
 ## Arrays
@@ -211,21 +211,21 @@ Put specific files into an array:
 `files = ("/file/path/genes.csv" "/file/path/diffexpgenes.csv" "/file/path/groundgenes.csv")` 
 
 Arrays get really great when we want to loop through values contained within them. We have to tell bash to evoke the values within the array using the *array[@]* symbology.   
-``
+```bash
 for f in "${files[@]}" ; do   
     deseq $A $B ${f}     
 done   
-``
+```
 
 Another basic example demonstrating the logic of arrays. 
-``
+```bash
 arr=("CP25" "FTX" "TSIX")
  
 for index in "${!arr[@]}";
 do
     echo "$index -> ${arr[$index]}"
 done
-``
+```bash
 This will print.... "1 -> CP25, 2 -> FTX......"     
 
 ## Wrangling 
@@ -241,10 +241,10 @@ The .fastq files in the directory will be called, passed to sed which will
 remove the end sequences, afterwhich the filename will be reversed, cut by 25
 characters, and revered back to its original position, and pruned one last time
 with sed. Quite clever! 
-``
+```bash
 NCUT=25
 ls *.fastqs | sed 's!.*/!!' | rev | cut -c ${NCUT}- | rev  | sed 's!.*/!!' 
-``
+```bash
 
 ### Handy piping with xargs
 
@@ -252,7 +252,7 @@ ls *.fastqs | sed 's!.*/!!' | rev | cut -c ${NCUT}- | rev  | sed 's!.*/!!'
 
 
 
-if [ ! -f  $INBAM ]; # if bam does not ! exist 
+`if [ ! -f  $INBAM ];` # if bam does not ! exist 
 
 
 
@@ -308,7 +308,13 @@ Transfer all files from a source directory but exclude those with specific file 
 
 
 
+## vim commands
 
+Use sed (replace) on a visual selection --- the key here is to use the `%V` specifier
+
+```bash
+:'<,'>s/\%Vs/k/g
+```
 
 
 
