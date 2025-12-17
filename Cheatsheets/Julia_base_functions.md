@@ -474,6 +474,17 @@ end
 ### Floating Point 
 ##### adding two floating point numbers together and asking if they equal said combinant will not work `3.0 + 2.0 == 5.0` due to the way that floating point numbers are handled in computing. Since floats are always approximations of intergers, there is precision error involved and thus logically the computer cannot say that it's estimate of precision is true - for it isn't. So instead, for pragmattic purposes we can use the **isapprox(x + y, z)** function to evaluate a conditional `isapprox(3.0 + 2.0, 5.0)` will return true    
 
+### ASCII values
+##### find the ascii value of a character `Int(Char)`
+As further example, we can use comprehension to get the ASCII values for a string --- in this content we're decoding the FASTQ quality scores in PHRED33 values
+
+```julia
+for row in tmp_tsv[1:3]
+    @show [Int(x) for x in collect(row.base_quality)]
+end
+```
+
+
 ## Control Flow
 ### Error Handling
 ##### try-catch-end block for dealing with specific errors and determining the course of action. **retry** with throw an actual error exception if we encounter something other than our StatusError:

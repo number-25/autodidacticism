@@ -20,10 +20,16 @@ docker container remove <container>
 ```
 
 ## Singularity
-Bind a file path which isn't typically mounted by singularity be default e.g. an external disk at `/mnt/hdd`. [More info](https://singularity-tutorial.github.io/05-bind-mounts/).
+Bind a file path which isn't typically mounted by singularity by default e.g. an external disk at `/mnt/hdd`. [More info](https://singularity-tutorial.github.io/05-bind-mounts/).
 ```bash
 singularity exec --bind /mnt/hdd lolcow.sif echo "cow"
 singularity run --bind /mnt/hdd lolcow.sif echo "cow"
 ```
+
+### Build a singularity image from a local docker image
+```bash
+singularity build bambu.img docker-daemon://number25/bambu:3.12.0
+```
+
 
 
