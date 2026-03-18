@@ -163,7 +163,6 @@ meaning we can remove multiple elements from our main array.
 
 ##### remove and output an element at a given index: `splice!(array, index)`
 
-
 ##### combine a collection of arrays (or other iterable objects) of equal size into one larger array, by arranging them along one or more new dimensions: stack(structure; dims) 
 I have used this to break and array of arrays down into a matrix which can be
 iterated through - for instance I had multiple values inside an array within
@@ -210,6 +209,11 @@ json_query.rates[1].mid
 only(json_query.rates).mid
 ```
 This works since the `rates` field only has a single index ([1]) which contains 3 fields, mid being one of them. Errors will be thrown if there is a violation of `0 < x < 2` 
+
+##### flatten a vector of ranges into the respective values: reduce(vcat, [12:20, 34:35])
+
+This will collect the individual values into a vector. 
+
 
 ## File IO, Directories, Navigation
 
