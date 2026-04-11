@@ -14,8 +14,6 @@ Many are often applicable to several types and data structures.
 [Control Flow](#Control-Flow)  
 [Missing and Nothing values](#Missing-and-Nothing-values)   
 
-
-
 ## Dicts
 
 ##### get a key-value pair: `get(collection, key, default)`   
@@ -265,6 +263,8 @@ csv_import = CSV.read(HTTP.get("url").body, DataFrame)
 ## General   
 
 ### Functions
+
+##### list define variables, open modules and so on: `varinfo()`
 
 ##### define a single line function: `divideten(x::Interger) = x / 10`    
 Another simple one. 
