@@ -4,6 +4,7 @@
 > -- <cite> Malcolm X </cite>
 
 
+<!--
 # Autodidacticism
 A collection of resources that I have used (and hereby endorse) for those looking to teach themselves Computational Biology, as well as the branching disciplines which greatly influence comp. bio., such as Probability, Information Theory, Mathematics and so on. 
 
@@ -160,3 +161,4 @@ The great Kline.
 [Art of Problem Solving Vol 1. by Sandor Lehoczky and Richard Rusczyk](https://artofproblemsolving.com/store/book/aops-vol1)
 
 </details>
+-->
