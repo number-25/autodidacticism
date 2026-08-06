@@ -244,17 +244,13 @@ with sed. Quite clever!
 ```bash
 NCUT=25
 ls *.fastqs | sed 's!.*/!!' | rev | cut -c ${NCUT}- | rev  | sed 's!.*/!!' 
-```bash
+```
 
 ### Handy piping with xargs
 
 `cat sraname.txt | xargs -I{} fastqc -i {} -o report-format.csv`       
 
-
-
 `if [ ! -f  $INBAM ];` # if bam does not ! exist 
-
-
 
 ## Scheduling
 
@@ -314,6 +310,20 @@ Use sed (replace) on a visual selection --- the key here is to use the `%V` spec
 
 ```bash
 :'<,'>s/\%Vs/k/g
+```
+
+## Linting and checking
+
+### YAML Linting 
+[Docs](https://github.com/adrienverge/yamllint)
+```bash
+uv/pipx [tool] install yamllint
+```
+
+### SH/BASH checking 
+[shellcheck docs](https://priv.au/search?q=shellcheck)
+```bash
+shellcheck script.sh
 ```
 
 
